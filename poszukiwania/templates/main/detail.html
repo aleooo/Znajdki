@@ -1,0 +1,24 @@
+ {% extends "base.html" %}
+ {% load mapa.models}
+{% load bootstrap %}
+{% load static %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+
+ {% block content %}
+  {% leaflet_js %}
+            {% leaflet_css %}
+ <h1>{{ rzecz.title }}</h1>
+<h3 class="text-light ">{{ rzecz.title }} </h3>
+  <h3 class="text-light ">  {{ rzecz.year }}</h3>
+  <h3>  <img style='width: 400px; height: 200px' src="{{ rzecz.image.url }}"></h3>
+<div style="width: 400px">
+             <script type="text/javascript">
+   var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
+   function map_init(map, options) {
+        L.geoJson(collection).addTo(map);
+    }
+ </script>
+ {% leaflet_map 'Mapa' callback="window.map_init" %}
+    </div>
+ {% endblock %}

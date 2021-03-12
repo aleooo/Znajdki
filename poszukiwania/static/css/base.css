@@ -1,0 +1,47 @@
+body {
+    background-image: url('12.jpg');
+    color: rgb(255, 255, 255);
+}
+a{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+}
+#mapid { height: 180px;
+}
+
+div.kategory {
+    font-size: 50px;
+    text-align: center;
+  font-family: Jazz LET, Cursive;
+  word-spacing: 50px;
+    background-color: aliceblue;
+    opacity: 0.7;
+}
+a.kategory{
+    font-size: 50px;
+    color: black;
+}
+.ciemny{
+    background-color: lightgray;
+    height: 240px;
+}
+.jasny{
+    height: 240px;
+    background-color: white;
+
+}
+p {
+    color: black;
+}
+div.col_img{
+    float: left;
+  width: 50%;
+line-height: 230px;
+}
+div.col{
+
+    line-height: 200px;
+
+     float: left;
+   width: 25%;
+}

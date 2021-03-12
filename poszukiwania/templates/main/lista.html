@@ -1,0 +1,55 @@
+ {% extends "base.html" %}
+ {% load mapa.models}
+{% load bootstrap %}
+{% load static %}
+            {% load leaflet_tags %}
+{% load geojson_tags %}
+
+
+    
+
+{% block content %}
+<div class="container">
+
+
+        <div class="kategory" >
+
+             <a class="kategory" href="{% url 'poszukiwania:rzeczy_list' %}">Wszystkie </a>
+            {% for category in categories %}
+               <a class="kategory" href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+            {% endfor %}
+        </div>
+        {% if  kat %}
+         {% leaflet_js %}
+            {% leaflet_css %}
+        {% endif %}
+        <div  class="container">
+         
+            {% for rzecz in rzeczy %}
+            <div  {% if rzecz.pk == 5 %} class="ciemny"{% else %} class="jasny"{% endif %}>
+                <a href="{{ rzecz.get_absolute_url }}">
+                    <div class="col_img"><img style='width: 400px; height: 200px' src="{{ rzecz.image.url }}"></div>
+
+                    <div class="col">{{ rzecz.title }}</div>
+                    <div class="col">{{ rzecz.year }}</div>
+                </a>
+                </div>
+            {% endfor %}
+
+            <div id="mapid">
+                <script type="text/javascript">
+
+                   var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
+                   function map_init(map, options) {
+                        L.geoJson(collection).addTo(map);
+                   L.marker([50.5, 30.5]).addTo(map);}
+
+                </script>
+                {% leaflet_map 'Mapa' callback="window.map_init" %}
+            </div>
+    </div>
+
+
+</div>
+{% endblock %}
+  
