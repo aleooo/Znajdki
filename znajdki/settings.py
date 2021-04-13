@@ -13,8 +13,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1']
 
 
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,13 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'poszukiwania.apps.PoszukiwaniaConfig',
     'django_extensions',
-    'mapa.apps.MapaConfig',
+    'poszukiwania.apps.PoszukiwaniaConfig',
+    # 'mapa.apps.MapaConfig',
     'bootstrapform',
     'djgeojson',
     'leaflet',
-
+    'autoslug',
 ]
 
 MIDDLEWARE = [
@@ -113,10 +111,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
-#STATIC_URL = "/static/%s/" % get_git_changeset(PROJECT_PATH)
-#STATICFILES = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = "/static/%s/" % get_git_changeset(PROJECT_PATH)
+STATICFILES = os.path.join(PROJECT_PATH, 'static/')
 MEDIA_URL = '/image/'
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image/')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'image/')
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
@@ -127,4 +125,11 @@ LEAFLET_CONFIG = {
     'MIN_ZOOM': 3,
     'MAX_ZOOM': 18,
     'DEFAULT_PRECISION': 6,
+#    'TILES': 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 }
+
+
+LOGIN_REDIRECT_URL = 'poszukiwania:rzeczy_list'
+LOGOUT_REDIRECT_URL = 'poszukiwania:login'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'

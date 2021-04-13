@@ -1,7 +1,11 @@
 from django.db import models
 from django.urls import reverse
-from mapa.models import Mapa
+from django.contrib.auth.models import User
 from djgeojson.fields import PointField
+
+
+class Mapa(models.Model):
+    geolokalizacja = PointField()
 
 
 class Kategoria(models.Model):
@@ -16,11 +20,12 @@ class Kategoria(models.Model):
 
 
 class Rzeczy(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default='test')
     location = models.OneToOneField(Mapa, on_delete=models.CASCADE, primary_key=True)
-    kategoria = models.ForeignKey(Kategoria, related_name='rzeczy', on_delete=models.CASCADE)
+    kategoria = models.ForeignKey(Kategoria, related_name='rzeczy', on_delete=models.CASCADE, blank=True)
     title = models.CharField(max_length=250)
-    slug = models.SlugField(unique_for_date='publish')
-    year = models.PositiveIntegerField(blank=True, default=1900)
+    slug = models.SlugField(unique_for_date='publish', blank=True)
+    year = models.PositiveIntegerField(blank=True)
     text = models.TextField(blank=True)
     image = models.ImageField(upload_to='rzeczy/%Y/%m/%d', blank=True)
     publish = models.DateTimeField(auto_now_add=True)
@@ -38,6 +43,5 @@ class Rzeczy(models.Model):
                                                           self.publish.day,
                                                           self.slug,
                                                           self.pk])
-
 
 

@@ -1,8 +1,11 @@
 from django.contrib import admin
-from .models import Kategoria, Rzeczy
+from .models import Kategoria, Rzeczy, Mapa
+from leaflet.admin import LeafletGeoAdmin
 
 
-
+@admin.register(Mapa)
+class MapaAdmin(LeafletGeoAdmin):
+    list_display = ('geolokalizacja',)
 
 @admin.register(Kategoria)
 class KategoriaAdmin(admin.ModelAdmin):
