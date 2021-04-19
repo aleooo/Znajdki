@@ -3,17 +3,22 @@
 {% block title %}Dodawanie rzeczy{% endblock %}
 
 {% block content %}
+    <div class="container" style="background-color: whitesmoke">
+        <h1 style="text-align: center">Dodaj pozycję do katalogu</h1>
+        <div class="row align-items-start">
 
-<div class="login">
-<h1>Dodaj pozycję do katalogu</h1>
-<form action='.' method='post' enctype='multipart/form-data'>
-    {{ create_form.as_p }}
-    {{ point }}
-    {% csrf_token %}
-    <p><input type="submit" value="Dodaj obiekt"></p>
-</form>
-    <button><a href="{% url 'poszukiwania:rzeczy_list' %}">Cofnij do menu</a> </button>
-</div>
+        <div class="col">
+        <form action='.' method='post' enctype='multipart/form-data'>
+            {{ create_form.as_p }}
+            {{ point }}
+            {% csrf_token %}
+            <p><input style="font-size: 27px" type="submit" value="Dodaj obiekt">
+            <button><a href="{% url 'poszukiwania:rzeczy_list' %}">Cofnij do menu</a> </button>
+            </p>
+        </form>
+        </div>
+        <div class="col" id="map" style="height: 580px; width: 512px;"></div>
 
-
+            </div>
+    </div>
 {% endblock %}

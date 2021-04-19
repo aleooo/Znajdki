@@ -5,7 +5,8 @@ from djgeojson.fields import PointField
 
 class Mapa(models.Model):
     geolokalizacja = PointField()
-
+    text = models.TextField(blank=True)
+    image = models.ImageField(upload_to='rzeczy/%Y/%m/%d', blank=True)
 
 '''
 class Mapa(models.Model):

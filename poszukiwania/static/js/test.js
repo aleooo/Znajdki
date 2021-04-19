@@ -5,14 +5,17 @@ $(document).ready(function (){
     }).addTo(map);
     var popup = L.popup();
     function onMapClick(e) {
-    popup.setLatLng(e.latlng).setContent( e.latlng.toString()).openOn(map);
-    var json = {'type': 'Point', 'coordinates': [e.latlng.lng, e.latlng.lat]};
-    console.log(json)
-        var txt = document.getElementById('id_geolokalizacja');
-    txt.innerHTML = JSON.stringify(json)
-    // $('#id_geolokalizacja').innerHTML = JSON.stringify(json)
-
+        popup.setLatLng(e.latlng).setContent( e.latlng.toString()).openOn(map);
+        var json = {'type': 'Point', 'coordinates': [e.latlng.lng, e.latlng.lat]};
+        $("#id_geolokalizacja").val(JSON.stringify(json))
 }
-
 map.on('click', onMapClick);
+
+var abe = $("#category_selected option:selected").val()
+// $(".mapid").run(function (){
+//     var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
+//     function map_init(map, options) {
+//     L.geoJson(collection).addTo(map)}
+// })
 })
+

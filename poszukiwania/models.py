@@ -34,8 +34,10 @@ class Rzeczy(models.Model):
         return self.title
 
     @property
-    def Content(self):
-        return '<img src="{}">'.format(self.image.url)
+    def popupContent(self):
+        return '<img src="{}" /><p><{}</p>'.format(
+            self.image.url,
+            self.text)
 
     def get_absolute_url(self):
         return reverse('poszukiwania:rzecz_detail', args=[self.publish.year,
@@ -43,5 +45,3 @@ class Rzeczy(models.Model):
                                                           self.publish.day,
                                                           self.slug,
                                                           self.pk])
-
-

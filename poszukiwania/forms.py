@@ -1,21 +1,23 @@
 from django import forms
-from .models import Rzeczy, Mapa
-from djgeojson.fields import PointField
-
 from django.contrib.auth.models import User
+
+from .models import Rzeczy, Mapa
 
 
 class RzeczyForm(forms.ModelForm):
     class Meta:
         model = Rzeczy
-        fields = ('location','kategoria', 'title', 'slug', 'year', 'text', 'image',)
-
+        fields = ('kategoria', 'title', 'slug', 'year', 'text', 'image',)
 
 
 class MapaForm(forms.ModelForm):
     class Meta:
         model = Mapa
+
         fields = ('geolokalizacja',)
+        widgets = {'geolokalizacja': forms.HiddenInput(attrs={
+            'required': False
+        })}
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -31,5 +33,3 @@ class UserRegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Hasła nie są identyczne')
         return cd['password2']
-
-

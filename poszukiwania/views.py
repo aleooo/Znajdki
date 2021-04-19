@@ -1,12 +1,11 @@
 from django.shortcuts import render
-from .models import Kategoria, Rzeczy, Mapa
+from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm, RzeczyForm, MapaForm
-from django.shortcuts import redirect
-from django.contrib.auth.models import User
 from django.utils.text import slugify
 
+from .forms import UserRegistrationForm, RzeczyForm, MapaForm
+from .models import Kategoria, Rzeczy, Mapa
 
 
 def start(request):
@@ -38,11 +37,10 @@ def rzecz_detail(request, year, month, day, rzecz_slug, id):
     rzecz = get_object_or_404(Rzeczy, pk=id)
     maps = rzecz.location
     return render(request, 'main/detail.html', {'rzecz': rzecz,
-                                                'maps': maps,})
+                                                'maps': maps})
 
 
 def register(request):
-
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
@@ -57,29 +55,22 @@ def register(request):
 
 
 @login_required
-def add_map(request):
-    if request.method == 'POST':
-        mapa_form = MapaForm(request.POST)
-        if mapa_form.is_valid():
-            new_map = mapa_form
-            new_map.save()
-            return redirect('poszukiwania:create')
-    else:
-        mapa_form = MapaForm
-    return render(request, 'main/map.html', {'point': mapa_form})
-
-
-@login_required
 def create(request):
     if request.method == 'POST':
         create_form = RzeczyForm(request.POST, request.FILES)
-        if create_form.is_valid():
+        mapa_form = MapaForm(request.POST)
+        if create_form.is_valid() and mapa_form.is_valid():
             new_item = create_form.save(commit=False)
+            mapa = mapa_form.save()
             new_item.slug = slugify(new_item.title)
             new_item.user = request.user
+            new_item.location = mapa
             new_item.save()
     else:
         create_form = RzeczyForm()
+        mapa_form = MapaForm()
+
     return render(request, 'main/create.html', {'create_form': create_form,
+                                                'point': mapa_form
                                                 })
 

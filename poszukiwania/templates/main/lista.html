@@ -12,36 +12,51 @@
 <div class="container">
     <div class="panel">
         {% if request.user.is_authenticated %}
-            <a  href="{% url 'poszukiwania:logout' %}">Wyloguj się</a>
-            <a href="{% url 'poszukiwania:map_create' %}">Dodaj pozycję</a>
+            <button><a  href="{% url 'poszukiwania:logout' %}">Wyloguj się</a></button>
+            <button><a href="{% url 'poszukiwania:create' %} " style="color: black">Dodaj pozycję</a></button>
         {% else %}
-            <a  href="{% url 'poszukiwania:login' %}">Zaloguj się</a>
+            <button><a href="{% url 'poszukiwania:login' %}" style="background: black">Zaloguj się</a></button>
         {% endif %}
+        {% if request.user.is_authenticated %}
+            <select id="category_selected" onchange="location = this.value;">
+                    <option>Kategoria</option>
+                   <option value="{% url 'poszukiwania:rzeczy_list' %}">Wszystkie</option>
+                {% for category in categories %}
+                   <option value="{{ category.get_absolute_url }}">{{ category.title }}</option>
+                {% endfor %}
+            </select>
     </div>
-    {% if request.user.is_authenticated %}
-        <div class="kategory" >
-               <a class="kategory" href="{% url 'poszukiwania:rzeczy_list' %}">Wszystkie </a>
-            {% for category in categories %}
-               <a class="kategory" href="{{ category.get_absolute_url }}">{{ category.title }}</a>
-            {% endfor %}
-        </div>
         {% if  kat %}
         {% leaflet_js %}
         {% leaflet_css %}
         {% endif %}
-        <div  class="container">
+        <div  class="lista">
+            <table>
+              <tr>
+                <th>Obraz</th>
+                <th>Nazwa</th>
+                <th>Rok</th>
+              </tr>
+            </table>
             {% for rzecz in rzeczy %}
-            <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
                 <a href="{{ rzecz.get_absolute_url }}">
-                    <div class="col_img"><img style='width: 200px; height: 100px' src="{{ rzecz.image.url }}"></div>
-                    <div class="col-0.5">{{ rzecz.title }}</div>
-                    <div class="col">{{ rzecz.year }}</div>
+                    <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
+                        <table style="width:100%">
+                          <tr>
+                            <td><img style='width: 200px; height: 100px' src="{{ rzecz.image.url }}"></td>
+                            <td>{{ rzecz.title }}</td>
+                            <td>{{ rzecz.year }}</td>
+                          </tr>
+                        </table>
+<!--                        <div class="row align-items-start">-->
+<!--                            <div class="col" id="center"><img style='width: 200px; height: 100px' src="{{ rzecz.image.url }}"></div>-->
+<!--                            <div class="col" id="center"><p>{{ rzecz.title }}</div>-->
+<!--                            <div class="col" id="center"><p>{{ rzecz.year }}</div>-->
+<!--                        </div>-->
+                    </div>
                 </a>
-            </div>
             {% endfor %}
-            <div class="mapid">
-                <script type="text/javascript">dwdwdddalek jesrt najelpszymdfsdfgsd
-
+            <div class="mapid">           <script type="text/javascript">
                    var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
                    function map_init(map, options) {
                         L.geoJson(collection).addTo(map)}
