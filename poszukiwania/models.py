@@ -28,7 +28,7 @@ class Rzeczy(models.Model):
     year = models.PositiveIntegerField(blank=True)
     text = models.TextField(blank=True)
     image = models.ImageField(upload_to='rzeczy/%Y/%m/%d', blank=True)
-    publish = models.DateTimeField(auto_now_add=True)
+    publish = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.title

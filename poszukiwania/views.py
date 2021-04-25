@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
+from django.http import JsonResponse
 
 from .forms import UserRegistrationForm, RzeczyForm, MapaForm
 from .models import Kategoria, Rzeczy, Mapa
@@ -73,4 +74,27 @@ def create(request):
     return render(request, 'main/create.html', {'create_form': create_form,
                                                 'point': mapa_form
                                                 })
+
+def search(request):
+    print('Działa')
+    if request.is_ajax():
+        znajdka = request.POST.get('znajdka')
+        lista = Rzeczy.objects.filter(title__icontains=znajdka)
+        if len(lista) > 0 and len(znajdka) > 0:
+            data = []
+            for rzecz in lista:
+                item = {
+                    'pk': rzecz.pk,
+                    'title': rzecz.title,
+                    'image': str(rzecz.image.url),
+                    'publish': rzecz.publish
+                }
+                data.append(item)
+            list = data
+        else:
+            list = 'Brak obiektów'
+        return JsonResponse({'data': list})
+    return JsonResponse({})
+
+
 

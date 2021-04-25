@@ -20,8 +20,11 @@
               {{form.as_p }}
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}" />
-            <p><input type="submit" value="Zaloguj się"></p>
+            <p style="text-align: center">
+                <button type="submit" style="width: 150px; height: 35px;">Zaloguj się</button>
+                <button style="width: 150px; height: 35px;"> <a href="{% url 'poszukiwania:register' %}" style="font-size: 20px"> Zarejestruj się</a></button>
+            </p>
         </form>
-      <p style="text-align: center;"><button > <a href="{% url 'poszukiwania:register' %}"> Zarejestruj się</a></button></p>
+
     </div>
 {% endblock %}
