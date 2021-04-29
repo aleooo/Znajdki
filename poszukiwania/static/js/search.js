@@ -16,17 +16,22 @@ function sendSearchData(znajdka){
             console.log(items)
             if(Array.isArray(items)) {
                 jQuery.each(items, function (i, item){
+                    var color = ''
+                    if(i % 2 === 0){
+                        color = 'light'
+                    }else{
+                        color = 'dark'
+                    }
+
                     listSearch.append(`<a href='' class='item'>
-                                            <div class="row mt-2 mb-2">
-                                                <div class="col-3">
-                                                    <img src="`+ item.image +`" class="item-image">
-                                                </div>
-                                                <div class="col-2">
-                                                    <h5>`+ item.title +`</h5>
-                                                </div>
-                                                <div class="col-5">
-                                                    <h5>`+ item.publish +`</h5>
-                                                </div>
+                                            <div class="row mt-2 mb-2" id="`+ color +`">
+                                                 <table style="width:100%">
+                          <tr>
+                            <td id="td_image" class="td"><img src="`+ item.image +`" class="item-image"></td>
+                                              <td id="td_title" class="td">  `+ item.title +`</td>
+                                               <td class="td">`+ item.publish +`</td>
+                                                 </tr>
+                        </table>
                                             </div>
                                         </a>`)})
 
@@ -37,8 +42,7 @@ function sendSearchData(znajdka){
         }
     })
 }
-
-inputSearch.keyup(w => {
+    inputSearch.keyup(w => {
     const words = w.target.value
     if(words.length > 0){
         listSearch.removeClass('not-visible')
@@ -46,4 +50,8 @@ inputSearch.keyup(w => {
      listSearch.html('')
     sendSearchData(words)
 
+})
+
+$(window).click(function (){
+    listSearch.addClass('not-visible')
 })

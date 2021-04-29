@@ -7,6 +7,8 @@ a{
     font-size: 30px;
 }
 .mapid { height: 180px;
+    width: 1110px;
+    margin: auto;
 }
 div.panel {
     font-size: 30px;
@@ -23,21 +25,9 @@ div.lista {
     font-size: 20px;
     color: black;
     background-color: white;
+    height: 880px;
 }
-.ciemny{
-    background-color: lightgray;
-    height: 100px;
-    width: 80%;
-    margin: 0 auto;
-     border-radius: 10px;
-}
-.jasny{
-    height: 100px;
-    background-color: aliceblue;
-    width: 80%;
-    margin: 0 auto;
-    border-radius: 10px;
-}
+
 p {
     color: black;
     font-size: 20px;
@@ -63,10 +53,11 @@ p {
     text-align: center;
 }
 .list_search_objects{
-    position: static;
+    position: absolute;
     margin-left: 540px;
     border-radius: 10px;
-    background: whitesmoke;
+    background: gray;
+    border: 5px black;
 }
 .not-visible{
     display: none;
@@ -80,4 +71,68 @@ p {
 .item-image{
     width: 100px;
     height: 80px;
+}
+#light{
+     margin-left: auto;
+    margin-right: auto;
+    width: 570px;
+    background-color: azure;
+}
+#dark{
+    width: 570px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: antiquewhite;
+}
+.item{
+    height: 80px;
+}
+.h5_search{
+    position: static;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+#td_image{
+    width: 150px;
+}
+.td{
+    font-size: 20px;
+}
+#td_title{
+    width: 250px;
+}
+.pagination{
+    font-size: 15px;
+}
+.nazwa{
+    background-color: white;
+    opacity: 0.7;
+    width: 100%;
+}
+#nazwa{
+    position: relative;
+    width: 570px;
+    /*margin-right: 100px;*/
+     margin-left: 180px;
+
+}
+#lista{
+    width: 940px;
+    float:right;
+}
+.ciemny{
+    background-color: lightgray;
+    height: 200px;
+    width: 300px;
+     border-radius: 10px;
+    float: left;
+    margin: 5px;
+}
+.jasny{
+    width: 300px;
+    height: 200px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    float: left;
+    margin: 5px;
 }

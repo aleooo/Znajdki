@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import UserRegistrationForm, RzeczyForm, MapaForm
 from .models import Kategoria, Rzeczy, Mapa
@@ -13,23 +14,38 @@ def start(request):
     return render(request, 'main/lista.html')
 
 
-def rzeczy_list(request, kategoria_slug=None):
+def rzeczy_list(request, kategoria_slug=None, sort=None):
     categories = Kategoria.objects.all()
     rzeczy = Rzeczy.objects.filter(user=request.user)
+
     maps = []
     kat = False
     monety = False
+
     if kategoria_slug:
         category = get_object_or_404(Kategoria, slug=kategoria_slug)
         rzeczy = Rzeczy.objects.filter(kategoria=category, user=request.user)
         kat = True
         maps = [r.location for r in rzeczy]
-        
-    return render(request, 'main/lista.html', {'rzeczy': rzeczy,
+
+    sort = request.GET.get('sort')
+    if sort:
+        rzeczy = rzeczy.order_by(sort)
+
+    paginator = Paginator(rzeczy, 12)
+    page = request.GET.get('page')
+    try:
+        obiekty = paginator.page(page)
+    except PageNotAnInteger:
+        obiekty = paginator.page(1)
+    except EmptyPage:
+        obiekty = paginator.page(paginator.num_pages)
+    return render(request, 'main/lista.html', {'rzeczy': obiekty,
                                                'categories': categories,
                                                'monety': monety,
                                                'kat': kat,
                                                'maps': maps,
+                                               'page': page,
                                                })
 
 
@@ -95,6 +111,8 @@ def search(request):
             list = 'Brak obiektów'
         return JsonResponse({'data': list})
     return JsonResponse({})
+
+
 
 
 

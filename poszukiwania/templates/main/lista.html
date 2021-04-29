@@ -18,63 +18,76 @@
             <button><a href="{% url 'poszukiwania:login' %}" >Zaloguj się</a></button>
         {% endif %}
         {% if request.user.is_authenticated %}
-            <select id="category_selected" onchange="location = this.value;">
-                    <option>Kategoria</option>
-                   <option value="{% url 'poszukiwania:rzeczy_list' %}">Wszystkie</option>
-                {% for category in categories %}
-                   <option value="{{ category.get_absolute_url }}">{{ category.title }}</option>
-                {% endfor %}
-            </select>
-            <form id="form_search">
-                {% csrf_token %}
-                <input placeholder="wyszukaj obiekt" id="input_search">
-            </form>
+        <select id="category_selected" onchange="location = this.value;">
+                <option>Kategoria</option>
+               <option value="{% url 'poszukiwania:rzeczy_list' %}">Wszystkie</option>
+            {% for category in categories %}
+               <option value="{{ category.get_absolute_url }}">{{ category.title }}</option>
+            {% endfor %}
+        </select>
+        <form id="form_search">
+            {% csrf_token %}
+            <input placeholder="wyszukaj obiekt" id="input_search">
+        </form>
     </div>
-    <div class="list_search_objects not-visible"><p>ss</p><p>ss</p></div>
+    <div class="nazwa">
+       <select onchange="location = this.value">
+            <option value=""><strong>Sortowanie wg.</strong></option>
+            <option value="?sort={{ 'title' }}">title</option>
+            <option value="?sort={{ 'year' }}">year</option>
+            <option value="?sort={{ 'publish' }}">publikacja</option>
+        </select>
+    </div>
+    <div class="list_search_objects not-visible"></div>
         {% if  kat %}
         {% leaflet_js %}
         {% leaflet_css %}
         {% endif %}
-        <div  class="lista" style="background-color: white">
+    <div  class="lista" style="background-color: white">
 
-            <div class="nazwa">
-                <table>
-              <tr>
-                <th style="width: 300px;">Obraz</th>
-                <th style="width: 300px">Nazwa</th>
-                <th >Rok</th>
-              </tr>
-                </table>
-            </div>
 
+        <div id="lista">
             {% for rzecz in rzeczy %}
                 <a href="{{ rzecz.get_absolute_url }}">
                     <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
-                        <table style="width:100%">
-                          <tr>
-                            <td style="width: 300px"><img style='width: 200px; height: 100px' src="{{ rzecz.image.url }}"></td>
-                            <td style="width: 300px">{{ rzecz.title }}</td>
-                            <td >{{ rzecz.year }}</td>
-                          </tr>
+                        <table>
+                           <tr>
+                               <td>
+                                   <img style='width: 300px; height: 150px' src="{{ rzecz.image.url }}">
+                               </td>
+                           </tr>
+                            <tr>
+                                <td>
+                                    <div style="float: left; font-size: 25px;">{{ rzecz.title }}</div>
+                                    <div style="float: right; font-size: 20px;">{{ rzecz.year }}</div>
+                                </td>
+                            </tr>
                         </table>
-<!--                        <div class="row align-items-start">-->
-<!--                            <div class="col" id="center"><img style='width: 200px; height: 100px' src="{{ rzecz.image.url }}"></div>-->
-<!--                            <div class="col" id="center"><p>{{ rzecz.title }}</div>-->
-<!--                            <div class="col" id="center"><p>{{ rzecz.year }}</div>-->
-<!--                        </div>-->
                     </div>
                 </a>
             {% endfor %}
-            <div class="mapid">           <script type="text/javascript">
-                   var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
-                   function map_init(map, options) {
-                        L.geoJson(collection).addTo(map)}
-                </script>
-                {% leaflet_map 'Mapa' callback="window.map_init" %}
-            </div>
         </div>
+        <div class="pagination">
+            {% if rzeczy.has_previous %}
+                <a class="pagination" href="?page={{ rzeczy.previous_page_number }}"><strong>Poprzednia </strong></a>
+            {% endif %}
+            Strona {{ rzeczy.number }} z {{ rzeczy.paginator.num_pages }}.
+            {% if rzeczy.has_next %}
+                <a class="pagination" href="?page={{ rzeczy.next_page_number }}"><strong> Następna</strong></a>
+            {% endif %}
+        </div>
+
+    </div>
     {% endif %}
 </div>
+ <div class="mapid">
+        <script type="text/javascript">
+           var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
+           function map_init(map, options) {
+           L.geoJson(collection).addTo(map)}
+        </script>
+        {% leaflet_map 'Mapa' callback="window.map_init" %}
+ </div>
 <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
 {% endblock %}
 
