@@ -2,6 +2,7 @@ const inputSearch = $('#input_search')
 const listSearch = $('.list_search_objects')
 const formSearch = $('#form_search')
 const csrfToken = $('[name = csrfmiddlewaretoken]')[0].value
+// var mymap = L.map('Mapa')
 
 function sendSearchData(znajdka){
     $.ajax({

@@ -6,6 +6,12 @@ from djgeojson.fields import PointField
 
 class Mapa(models.Model):
     geolokalizacja = PointField()
+    description = models.TextField(blank=True, default='Znajdka')
+
+    @property
+    def popupContent(self):
+        return '<p>{}</p>'.format(
+            self.description)
 
 
 class Kategoria(models.Model):
@@ -33,11 +39,7 @@ class Rzeczy(models.Model):
     def __str__(self):
         return self.title
 
-    @property
-    def popupContent(self):
-        return '<img src="{}" /><p><{}</p>'.format(
-            self.image.url,
-            self.text)
+
 
     def get_absolute_url(self):
         return reverse('poszukiwania:rzecz_detail', args=[self.publish.year,

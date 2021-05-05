@@ -6,6 +6,7 @@ from django.utils.text import slugify
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
 from .forms import UserRegistrationForm, RzeczyForm, MapaForm
 from .models import Kategoria, Rzeczy, Mapa
 
@@ -27,6 +28,7 @@ def rzeczy_list(request, kategoria_slug=None, sort=None):
         rzeczy = Rzeczy.objects.filter(kategoria=category, user=request.user)
         kat = True
         maps = [r.location for r in rzeczy]
+
 
     sort = request.GET.get('sort')
     if sort:

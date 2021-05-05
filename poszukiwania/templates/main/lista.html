@@ -78,16 +78,44 @@
         </div>
 
     </div>
-    {% endif %}
+
 </div>
- <div class="mapid">
+ <div id="mapid" class="mapid">
         <script type="text/javascript">
-           var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
-           function map_init(map, options) {
-           L.geoJson(collection).addTo(map)}
+
+            var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
+            function map_init(map, options) {
+            L.geoJson(collection).addTo(map)}
+            function onMapClick(e){
+                console.log(e.latlng.lat)
+            }
+            map.on('click', onMapClick)
         </script>
         {% leaflet_map 'Mapa' callback="window.map_init" %}
- </div>
-<script type="text/javascript" src="{% static 'js/search.js' %}"></script>
+
+
+
+<!-- <script>-->
+
+
+<!--    $(document).ready(function () {-->
+<!--         var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};-->
+<!--        var map = L.map('mapid', {-->
+<!--            minZoom: 14,-->
+<!--            }).setView([52.011217, 21.921226], 0);-->
+<!--        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {}).addTo(map);-->
+<!--        function onEachFeature(feature, layer) {-->
+<!--            {-->
+<!--              layer.bindPopup(feature.properties);-->
+<!--    }-->
+<!--  }-->
+<!--        L.geoJson(collection, {onEachFeature: onEachFeature}).addTo(map)-->
+<!--    })-->
+
+
+<!-- </script>-->
+      </div>
+ {% endif %}
+ <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
 {% endblock %}
 
