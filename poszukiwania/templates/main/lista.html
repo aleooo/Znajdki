@@ -6,81 +6,104 @@
 {% load geojson_tags %}
 
 
-    
-
 {% block content %}
-<div class="container">
-    <div class="panel">
-        {% if request.user.is_authenticated %}
-            <button><a  href="{% url 'poszukiwania:logout' %}">Wyloguj się</a></button>
-            <button><a href="{% url 'poszukiwania:create' %} " >Dodaj pozycję</a></button>
-        {% else %}
-            <button><a href="{% url 'poszukiwania:login' %}" >Zaloguj się</a></button>
-        {% endif %}
-        {% if request.user.is_authenticated %}
-        <select id="category_selected" onchange="location = this.value;">
-                <option>Kategoria</option>
-               <option value="{% url 'poszukiwania:rzeczy_list' %}">Wszystkie</option>
-            {% for category in categories %}
-               <option value="{{ category.get_absolute_url }}">{{ category.title }}</option>
-            {% endfor %}
-        </select>
-        <form id="form_search">
-            {% csrf_token %}
-            <input placeholder="wyszukaj obiekt" id="input_search">
-        </form>
-    </div>
-    <div class="nazwa">
-       <select onchange="location = this.value">
-            <option value=""><strong>Sortowanie wg.</strong></option>
-            <option value="?sort={{ 'title' }}">title</option>
-            <option value="?sort={{ 'year' }}">year</option>
-            <option value="?sort={{ 'publish' }}">publikacja</option>
-        </select>
-    </div>
-    <div class="list_search_objects not-visible"></div>
-        {% if  kat %}
-        {% leaflet_js %}
-        {% leaflet_css %}
-        {% endif %}
-    <div  class="lista" style="background-color: white">
-
-
-        <div id="lista">
-            {% for rzecz in rzeczy %}
-                <a href="{{ rzecz.get_absolute_url }}">
-                    <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
-                        <table>
-                           <tr>
-                               <td>
-                                   <img style='width: 300px; height: 150px' src="{{ rzecz.image.url }}">
-                               </td>
-                           </tr>
-                            <tr>
-                                <td>
-                                    <div style="float: left; font-size: 25px;">{{ rzecz.title }}</div>
-                                    <div style="float: right; font-size: 20px;">{{ rzecz.year }}</div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-        <div class="pagination">
-            {% if rzeczy.has_previous %}
-                <a class="pagination" href="?page={{ rzeczy.previous_page_number }}"><strong>Poprzednia </strong></a>
+    <div class="container">
+        <div class="panel">
+            {% if request.user.is_authenticated %}
+                <p style="width: 10px; float: right"></p>
+                <a style="float: right; " href="{% url 'poszukiwania:logout' %}">Wyloguj się</a>
+                <a href="{% url 'poszukiwania:create' %} " >Dodaj pozycję</a>
+            {% else %}
+                <a href="{% url 'poszukiwania:login' %}" >Zaloguj się</a>
             {% endif %}
-            Strona {{ rzeczy.number }} z {{ rzeczy.paginator.num_pages }}.
-            {% if rzeczy.has_next %}
-                <a class="pagination" href="?page={{ rzeczy.next_page_number }}"><strong> Następna</strong></a>
-            {% endif %}
+            {% if request.user.is_authenticated %}
         </div>
+        <div class="nazwa">
 
+
+                <div class="pagination">
+                      <div class="pagination_detail">
+                          {% if rzeczy.has_previous %}
+                            <a class="pagination_text" href="?page={{ rzeczy.previous_page_number }}"><strong>Poprzednia </strong></a>
+                          {% endif %}
+                      </div>
+                      <div class="pagination_detail">
+                          Strona {{ rzeczy.number }} z {{ rzeczy.paginator.num_pages }}.
+                      </div>
+                      <div class="pagination_detail">
+                          {% if rzeczy.has_next %}
+                            <a class="pagination_text" href="?page={{ rzeczy.next_page_number }}"><strong> Następna</strong></a>
+                          {% endif %}
+                      </div>
+                </div>
+                <div class="blank">
+
+                </div>
+                <form id="form_search">
+                    {% csrf_token %}
+                    <input placeholder="wyszukaj obiekt" id="input_search">
+                </form>
+
+        </div>
+        <div class="list_search_objects not-visible"></div>
+            {% if  kat %}
+            {% leaflet_js %}
+            {% leaflet_css %}
+            {% endif %}
+        <div  class="lista" style="background-color: ghostwhite">
+            <div id="lista">
+                {% for rzecz in rzeczy %}
+                    <a href="{{ rzecz.get_absolute_url }}">
+                        <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
+                            <table>
+                               <tr>
+                                   <td>
+                                       <img style='width: 300px; height: 150px; border-radius: 20px;' src="{{ rzecz.image.url }}">
+                                   </td>
+                               </tr>
+                                <tr>
+                                    <td>
+                                        <div style="float: left; font-size: 25px;">{{ rzecz.title }}</div>
+                                        <div style="float: right; font-size: 20px;">{{ rzecz.year }}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                {% endfor %}
+
+            </div>
+            <div class="column">
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="selected" id="category_selected" onchange="location = this.value;"  >
+                                    <option>Kategorie</option>
+                                    <option value="{% url 'poszukiwania:rzeczy_list' %}" >Wszystkie</option>
+                                    {% for category in categories %}
+                                    <option  id='{{ category.slug }}' value="{{ category.get_absolute_url }}"{% if category == current_category %}selected="selected"{% endif %} >{{ category.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                 <select class="selected" onchange="location = this.value">
+                                    <option value=""><strong>Sortowanie wg.</strong></option>
+                                    <option value="?sort={{ 'title' }}">nazwa</option>
+                                    <option value="?sort={{ 'year' }}">rok</option>
+                                    <option value="?sort={{ 'publish' }}">publikacja</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-</div>
- <div id="mapid" class="mapid">
+    <div id="mapid" class="mapid">
         <script type="text/javascript">
 
             var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
@@ -114,8 +137,8 @@
 
 
 <!-- </script>-->
-      </div>
- {% endif %}
+        {% endif %}
+    </div>
  <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
 {% endblock %}
 

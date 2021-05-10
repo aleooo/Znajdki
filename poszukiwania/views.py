@@ -24,7 +24,8 @@ def rzeczy_list(request, kategoria_slug=None, sort=None):
     monety = False
 
     if kategoria_slug:
-        category = get_object_or_404(Kategoria, slug=kategoria_slug)
+        # category = get_object_or_404(Kategoria, slug=kategoria_slug)
+        category = Kategoria.objects.get(slug=kategoria_slug)
         rzeczy = Rzeczy.objects.filter(kategoria=category, user=request.user)
         kat = True
         maps = [r.location for r in rzeczy]
@@ -53,7 +54,7 @@ def rzeczy_list(request, kategoria_slug=None, sort=None):
 
 @login_required
 def rzecz_detail(request, year, month, day, rzecz_slug, id):
-    rzecz = get_object_or_404(Rzeczy, pk=id)
+    rzecz = Rzeczy.objects.get(pk=id)
     maps = rzecz.location
     return render(request, 'main/detail.html', {'rzecz': rzecz,
                                                 'maps': maps})

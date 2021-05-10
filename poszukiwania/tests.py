@@ -13,10 +13,12 @@ class PoszukiwaniaTests(TestCase):
 
     def setUp(self):
         self.geolokalizacja = {'type': 'Point', 'coordinates': [21.919698715209964, 52.00461918344298]}
+        self.geolokalizacja1 = {'type': 'Point', 'coordinates': [21.913498715209964, 52.01231918344298]}
         self.password = 'aletojuzbylo'
         kategoria = Kategoria.objects.create(title='monety', slug='monety')
+        kategoria1 = Kategoria.objects.create(title='guziki', slug='guziki')
         mapa = Mapa.objects.create(geolokalizacja=self.geolokalizacja)
-
+        mapa1 = Mapa.objects.create(geolokalizacja=self.geolokalizacja1)
         self.user = User.objects.create_user('aleo', 'medda@test.com', self.password)
         Rzeczy.objects.create(user=self.user,
                               location=mapa,
@@ -26,6 +28,16 @@ class PoszukiwaniaTests(TestCase):
                               year=1666,
                               text='często spotykana moneta',
                               image=SimpleUploadedFile(name='12.jpg', content=open('/home/aleo/projects/znajdki/znajdki/poszukiwania/static/css/12.jpg', 'rb').read(), content_type='image/jpeg'))
+        Rzeczy.objects.create(user=self.user,
+                              location=mapa1,
+                              kategoria=kategoria1,
+                              title='wz19',
+                              slug='wz19',
+                              year=1919,
+                              text='rzadko spotykany guzik',
+                              image=SimpleUploadedFile(name='12.jpg', content=open(
+                                  '/home/aleo/projects/znajdki/znajdki/poszukiwania/static/css/wz19.jpg', 'rb').read(),
+                                                       content_type='image/jpeg'))
 
     def test_login_adminsite(self):
         self.c = Client()
@@ -66,24 +78,24 @@ class PoszukiwaniaTests(TestCase):
         request = HttpRequest()
         request.user = self.user
         response = views.rzeczy_list(request)
+        self.assertIn('Boratynka', response.content.decode())
 
-        print(response.content.decode())
-
-
-
-
-
-
-
-
+    def test_view_rzeczy_list_with_category(self):
+        kategoria = Kategoria.objects.first()
+        request = HttpRequest()
+        request.user = self.user
+        response = views.rzeczy_list(request, kategoria.slug)
+        self.assertIn('Boratynka', response.content.decode())
 
 
 
-# def test_rzeczy_list(self):
-#     client = Client()
-#
-#     request = HttpRequest
-#     response = views.rzeczy_list(client.request)
-#     print(response)
+
+
+
+
+
+
+
+
 
 

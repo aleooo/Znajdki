@@ -14,7 +14,6 @@ function sendSearchData(znajdka){
         },
         success: (list) => {
             items = list.data
-            console.log(items)
             if(Array.isArray(items)) {
                 jQuery.each(items, function (i, item){
                     var color = ''
@@ -52,7 +51,13 @@ function sendSearchData(znajdka){
     sendSearchData(words)
 
 })
-
+$('#category_selected').click(function (){
+    category = window.location.href.split('/')[3]
+    if(category != 'katalog'){
+        // $('#'+category).attr('selected','selected')
+    }
+    console.log()
+})
 $(window).click(function (){
     listSearch.addClass('not-visible')
 })
