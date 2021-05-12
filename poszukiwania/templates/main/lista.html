@@ -104,17 +104,18 @@
         </div>
     </div>
     <div id="mapid" class="mapid">
-        <script type="text/javascript">
 
-            var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};
-            function map_init(map, options) {
-            L.geoJson(collection).addTo(map)}
-            function onMapClick(e){
-                console.log(e.latlng.lat)
-            }
-            map.on('click', onMapClick)
+        <script type="text/javascript">
+              var m = L.map('mapid').setView([52.012, 21.922], 15);
+                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                    'World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(m);
+                {% for e in maps %}
+                    console.log({{ e.lat_lng }})
+                    L.marker({{ e.lat_lng }}).addTo(m).bindPopup('ssss');
+                {% endfor %}
+
         </script>
-        {% leaflet_map 'Mapa' callback="window.map_init" %}
+
 
 
 

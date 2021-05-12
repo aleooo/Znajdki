@@ -1,18 +1,23 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from djgeojson.fields import PointField
+from django.contrib.gis.db.models import PointField
 
 
 class Mapa(models.Model):
-    geolokalizacja = PointField()
+    geolokalizacja = PointField(null=True, srid=4326)
     description = models.TextField(blank=True, default='Znajdka')
 
     @property
-    def popupContent(self):
-        return '<p>{}</p>'.format(
-            self.description)
+    def lat_lng(self):
+        return list(getattr(self.geolokalizacja, 'coords', [])[::-1])
 
+    @property
+    def opis(self):
+        return '<p>{}</p>'.format(
+          self.description)
+        # <img src = "{}" / >
+        # self.picture.url,
 
 class Kategoria(models.Model):
     title = models.CharField(max_length=50, unique=True)

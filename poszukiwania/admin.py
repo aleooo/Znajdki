@@ -1,11 +1,15 @@
 from django.contrib import admin
 from .models import Kategoria, Rzeczy, Mapa
 from leaflet.admin import LeafletGeoAdmin
+from django.contrib.gis import admin as geo
 
 
 @admin.register(Mapa)
-class MapaAdmin(LeafletGeoAdmin):
-    list_display = ('geolokalizacja',)
+class MapaAdmin(geo.GeoModelAdmin):
+    default_zoom = 19
+    default_lon = 21.922
+    default_lat = 52.012
+    list_display = ('geolokalizacja', 'description')
 
 @admin.register(Kategoria)
 class KategoriaAdmin(admin.ModelAdmin):
