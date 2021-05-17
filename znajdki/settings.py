@@ -21,12 +21,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+
     'poszukiwania.apps.PoszukiwaniaConfig',
     # 'mapa.apps.MapaConfig',
     'bootstrapform',
     'djgeojson',
     'leaflet',
     'autoslug',
+    'django.contrib.gis',
+
 ]
 
 MIDDLEWARE = [
@@ -65,7 +68,7 @@ WSGI_APPLICATION = 'znajdki.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'znajdki',
         'USER': 'aleo',
         'PASSWORD': 'aleo',
@@ -119,14 +122,14 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
 
-LEAFLET_CONFIG = {
-    'DEFAULT_CENTER': (52.013, 21.93),
-    'DEFAULT_ZOOM': 13,
-    'MIN_ZOOM': 3,
-    'MAX_ZOOM': 18,
-    'DEFAULT_PRECISION': 6,
+# LEAFLET_CONFIG = {
+#     'DEFAULT_CENTER': (52.013, 21.93),
+#     'DEFAULT_ZOOM': 19,
+#     'MIN_ZOOM': 3,
+#     'MAX_ZOOM': 18,
+#     'DEFAULT_PRECISION': 6,
 #    'TILES': 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-}
+# }
 
 
 LOGIN_REDIRECT_URL = 'poszukiwania:rzeczy_list'

@@ -6,7 +6,6 @@ from django.utils.text import slugify
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
 from .forms import UserRegistrationForm, RzeczyForm, MapaForm
 from .models import Kategoria, Rzeczy, Mapa
 
@@ -28,7 +27,8 @@ def rzeczy_list(request, kategoria_slug=None, sort=None):
         category = Kategoria.objects.get(slug=kategoria_slug)
         rzeczy = Rzeczy.objects.filter(kategoria=category, user=request.user)
         kat = True
-        maps = [r.location for r in rzeczy]
+        # maps = [r.location for r in rzeczy]
+        maps = Mapa.objects.all()
 
 
     sort = request.GET.get('sort')
@@ -80,6 +80,9 @@ def create(request):
         create_form = RzeczyForm(request.POST, request.FILES)
         mapa_form = MapaForm(request.POST)
         if create_form.is_valid() and mapa_form.is_valid():
+            opis = create_form.cleaned_data
+            new_map = mapa_form.save(commit=False)
+            new_map.description = opis['title']
             new_item = create_form.save(commit=False)
             mapa = mapa_form.save()
             new_item.slug = slugify(new_item.title)

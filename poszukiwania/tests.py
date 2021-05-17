@@ -12,13 +12,11 @@ from .models import Rzeczy, Mapa, Kategoria
 class PoszukiwaniaTests(TestCase):
 
     def setUp(self):
-        self.geolokalizacja = {'type': 'Point', 'coordinates': [21.919698715209964, 52.00461918344298]}
-        self.geolokalizacja1 = {'type': 'Point', 'coordinates': [21.913498715209964, 52.01231918344298]}
         self.password = 'aletojuzbylo'
         kategoria = Kategoria.objects.create(title='monety', slug='monety')
         kategoria1 = Kategoria.objects.create(title='guziki', slug='guziki')
-        mapa = Mapa.objects.create(geolokalizacja=self.geolokalizacja)
-        mapa1 = Mapa.objects.create(geolokalizacja=self.geolokalizacja1)
+        mapa = Mapa.objects.create(description='punkt')
+        mapa1 = Mapa.objects.create(description='punkt1')
         self.user = User.objects.create_user('aleo', 'medda@test.com', self.password)
         Rzeczy.objects.create(user=self.user,
                               location=mapa,
@@ -67,8 +65,8 @@ class PoszukiwaniaTests(TestCase):
         # self.assertEqual(response.content.decode(), expected_html)
 
     def test_model_orm(self):
-        mapa = Mapa.objects.first()
-        self.assertEqual(mapa.geolokalizacja, self.geolokalizacja)
+        mapa = Mapa.objects.count()
+        self.assertEqual(mapa, 2)
         kategoria = Kategoria.objects.first()
         self.assertEqual(kategoria.title, 'monety')
         rzecz = Rzeczy.objects.first()

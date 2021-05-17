@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-
+from django.contrib.gis import forms as gis
 from .models import Rzeczy, Mapa
 
 
@@ -10,14 +10,17 @@ class RzeczyForm(forms.ModelForm):
         fields = ('kategoria', 'title', 'slug', 'year', 'text', 'image',)
 
 
-class MapaForm(forms.ModelForm):
+class MapaForm(gis.ModelForm):
     class Meta:
         model = Mapa
 
         fields = ('geolokalizacja',)
-        widgets = {'geolokalizacja': forms.HiddenInput(attrs={
-            'required': False
-        })}
+        widgets = {'geolokalizacja': gis.OSMWidget(
+        attrs={'map_width': 500, 'map_height': 512,'template_name': 'gis/openlayers-osm.html',
+                   'default_lat': 52.012,
+                   'default_lon':21.922,
+                    'default_zoom': 13,
+                   })}
 
 
 class UserRegistrationForm(forms.ModelForm):
