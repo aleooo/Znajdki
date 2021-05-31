@@ -7,15 +7,15 @@ from .models import Rzeczy, Mapa
 class RzeczyForm(forms.ModelForm):
     class Meta:
         model = Rzeczy
-        fields = ('kategoria', 'title', 'slug', 'year', 'text', 'image',)
+        fields = ('category', 'title', 'slug', 'year', 'text', 'image',)
 
 
 class MapaForm(gis.ModelForm):
     class Meta:
         model = Mapa
 
-        fields = ('geolokalizacja',)
-        widgets = {'geolokalizacja': gis.OSMWidget(
+        fields = ('geolocation',)
+        widgets = {'geolocation': gis.OSMWidget(
         attrs={'map_width': 500, 'map_height': 512,'template_name': 'gis/openlayers-osm.html',
                    'default_lat': 52.012,
                    'default_lon':21.922,

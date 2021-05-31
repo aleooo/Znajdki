@@ -6,33 +6,33 @@ from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from . import views
-from .models import Rzeczy, Mapa, Kategoria
+from .models import Rzeczy, Mapa, Category
 
 
 class PoszukiwaniaTests(TestCase):
 
     def setUp(self):
         self.password = 'aletojuzbylo'
-        kategoria = Kategoria.objects.create(title='monety', slug='monety')
-        kategoria1 = Kategoria.objects.create(title='guziki', slug='guziki')
-        mapa = Mapa.objects.create(description='punkt')
-        mapa1 = Mapa.objects.create(description='punkt1')
+        category = Category.objects.create(title='coins', slug='coins')
+        category1 = Category.objects.create(title='buttons', slug='buttons')
+        map = Mapa.objects.create(description='point')
+        map1 = Mapa.objects.create(description='point1')
         self.user = User.objects.create_user('aleo', 'medda@test.com', self.password)
         Rzeczy.objects.create(user=self.user,
-                              location=mapa,
-                              kategoria=kategoria,
+                              location=map,
+                              category=category,
                               title='Boratynka',
                               slug='boratynka',
                               year=1666,
-                              text='często spotykana moneta',
+                              text='a frequently found coin',
                               image=SimpleUploadedFile(name='12.jpg', content=open('/home/aleo/projects/znajdki/znajdki/poszukiwania/static/css/12.jpg', 'rb').read(), content_type='image/jpeg'))
         Rzeczy.objects.create(user=self.user,
-                              location=mapa1,
-                              kategoria=kategoria1,
+                              location=map1,
+                              category=category1,
                               title='wz19',
                               slug='wz19',
                               year=1919,
-                              text='rzadko spotykany guzik',
+                              text='a rarely found button',
                               image=SimpleUploadedFile(name='12.jpg', content=open(
                                   '/home/aleo/projects/znajdki/znajdki/poszukiwania/static/css/wz19.jpg', 'rb').read(),
                                                        content_type='image/jpeg'))
@@ -65,24 +65,24 @@ class PoszukiwaniaTests(TestCase):
         # self.assertEqual(response.content.decode(), expected_html)
 
     def test_model_orm(self):
-        mapa = Mapa.objects.count()
-        self.assertEqual(mapa, 2)
-        kategoria = Kategoria.objects.first()
-        self.assertEqual(kategoria.title, 'monety')
-        rzecz = Rzeczy.objects.first()
-        self.assertEqual(rzecz.title, 'Boratynka')
+        map = Mapa.objects.count()
+        self.assertEqual(map, 2)
+        category = Category.objects.first()
+        self.assertEqual(category.title, 'coins')
+        object = Rzeczy.objects.first()
+        self.assertEqual(object.title, 'Boratynka')
 
     def test_view_rzeczy_list(self):
         request = HttpRequest()
         request.user = self.user
-        response = views.rzeczy_list(request)
+        response = views.objects_list(request)
         self.assertIn('Boratynka', response.content.decode())
 
     def test_view_rzeczy_list_with_category(self):
-        kategoria = Kategoria.objects.first()
+        category = Category.objects.first()
         request = HttpRequest()
         request.user = self.user
-        response = views.rzeczy_list(request, kategoria.slug)
+        response = views.objects_list(request, category.slug)
         self.assertIn('Boratynka', response.content.decode())
 
 

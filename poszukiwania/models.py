@@ -5,21 +5,21 @@ from django.contrib.gis.db.models import PointField
 
 
 class Mapa(models.Model):
-    geolokalizacja = PointField(null=True, srid=4326)
+    geolocation = PointField(null=True, srid=4326)
     description = models.TextField(blank=True, default='Znajdka')
 
     @property
     def lat_lng(self):
-        return list(getattr(self.geolokalizacja, 'coords', [])[::-1])
+        return list(getattr(self.geolocation, 'coords', [])[::-1])
 
     @property
-    def opis(self):
-        return '<p>{}</p>'.format(
+    def description_f(self):
+        return '{}'.format(
           self.description)
         # <img src = "{}" / >
-        # self.picture.url,
+        #
 
-class Kategoria(models.Model):
+class Category(models.Model):
     title = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(unique=True)
 
@@ -27,13 +27,13 @@ class Kategoria(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('poszukiwania:rzeczy_list_by_category', args=[self.slug])
+        return reverse('poszukiwania:objects_list_by_category', args=[self.slug])
 
 
 class Rzeczy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default='test')
     location = models.OneToOneField(Mapa, on_delete=models.CASCADE, primary_key=True)
-    kategoria = models.ForeignKey(Kategoria, related_name='rzeczy', on_delete=models.CASCADE, blank=True)
+    category = models.ForeignKey(Category, related_name='rzeczy', on_delete=models.CASCADE, blank=True)
     title = models.CharField(max_length=250)
     slug = models.SlugField(unique_for_date='publish', blank=True)
     year = models.PositiveIntegerField(blank=True)
@@ -48,7 +48,7 @@ class Rzeczy(models.Model):
         ordering = ['publish']
 
     def get_absolute_url(self):
-        return reverse('poszukiwania:rzecz_detail', args=[self.publish.year,
+        return reverse('poszukiwania:object_detail', args=[self.publish.year,
                                                           self.publish.month,
                                                           self.publish.day,
                                                           self.slug,

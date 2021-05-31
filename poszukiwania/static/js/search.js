@@ -53,7 +53,7 @@ function sendSearchData(znajdka){
 })
 $('#category_selected').click(function (){
     category = window.location.href.split('/')[3]
-    if(category != 'katalog'){
+    if(category != 'catalog'){
         // $('#'+category).attr('selected','selected')
     }
     console.log()

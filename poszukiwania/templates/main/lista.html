@@ -11,28 +11,26 @@
         <div class="panel">
             {% if request.user.is_authenticated %}
                 <p style="width: 10px; float: right"></p>
-                <a style="float: right; " href="{% url 'poszukiwania:logout' %}">Wyloguj się</a>
-                <a href="{% url 'poszukiwania:create' %} " >Dodaj pozycję</a>
+                <a style="float: right; " href="{% url 'poszukiwania:logout' %}">Log out</a>
+                <a href="{% url 'poszukiwania:create' %} " >Add an object</a>
             {% else %}
-                <a href="{% url 'poszukiwania:login' %}" >Zaloguj się</a>
+                <a href="{% url 'poszukiwania:login' %}" >Log in</a>
             {% endif %}
             {% if request.user.is_authenticated %}
         </div>
         <div class="nazwa">
-
-
                 <div class="pagination">
                       <div class="pagination_detail">
-                          {% if rzeczy.has_previous %}
-                            <a class="pagination_text" href="?page={{ rzeczy.previous_page_number }}"><strong>Poprzednia </strong></a>
+                          {% if objects.has_previous %}
+                            <a class="pagination_text" href="?page={{ objects.previous_page_number }}"><strong>Previous </strong></a>
                           {% endif %}
                       </div>
                       <div class="pagination_detail">
-                          Strona {{ rzeczy.number }} z {{ rzeczy.paginator.num_pages }}.
+                          Strona {{ objects.number }} z {{ objects.paginator.num_pages }}.
                       </div>
                       <div class="pagination_detail">
-                          {% if rzeczy.has_next %}
-                            <a class="pagination_text" href="?page={{ rzeczy.next_page_number }}"><strong> Następna</strong></a>
+                          {% if objects.has_next %}
+                            <a class="pagination_text" href="?page={{ objects.next_page_number }}"><strong> Next</strong></a>
                           {% endif %}
                       </div>
                 </div>
@@ -41,7 +39,7 @@
                 </div>
                 <form id="form_search">
                     {% csrf_token %}
-                    <input placeholder="wyszukaj obiekt" id="input_search">
+                    <input placeholder="search for an object" id="input_search">
                 </form>
 
         </div>
@@ -52,19 +50,19 @@
             {% endif %}
         <div  class="lista" style="background-color: ghostwhite">
             <div id="lista">
-                {% for rzecz in rzeczy %}
-                    <a href="{{ rzecz.get_absolute_url }}">
+                {% for object in objects %}
+                    <a href="{{ object.get_absolute_url }}">
                         <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
                             <table>
                                <tr>
                                    <td>
-                                       <img style='width: 300px; height: 150px; border-radius: 20px;' src="{{ rzecz.image.url }}">
+                                       <img style='width: 300px; height: 150px; border-radius: 20px;' src="{{ object.image.url }}">
                                    </td>
                                </tr>
                                 <tr>
                                     <td>
-                                        <div style="float: left; font-size: 25px;">{{ rzecz.title }}</div>
-                                        <div style="float: right; font-size: 20px;">{{ rzecz.year }}</div>
+                                        <div style="float: left; font-size: 25px;">{{ object.title }}</div>
+                                        <div style="float: right; font-size: 20px;">{{ object.year }}</div>
                                     </td>
                                 </tr>
                             </table>
@@ -80,8 +78,8 @@
                         <tr>
                             <td>
                                 <select class="selected" id="category_selected" onchange="location = this.value;"  >
-                                    <option>Kategorie</option>
-                                    <option value="{% url 'poszukiwania:rzeczy_list' %}" >Wszystkie</option>
+                                    <option>Categories</option>
+                                    <option value="{% url 'poszukiwania:objects_list' %}" >All categories</option>
                                     {% for category in categories %}
                                     <option  id='{{ category.slug }}' value="{{ category.get_absolute_url }}"{% if category == current_category %}selected="selected"{% endif %} >{{ category.title }}</option>
                                     {% endfor %}
@@ -91,10 +89,10 @@
                         <tr>
                             <td>
                                  <select class="selected" onchange="location = this.value">
-                                    <option value=""><strong>Sortowanie wg.</strong></option>
-                                    <option value="?sort={{ 'title' }}">nazwa</option>
-                                    <option value="?sort={{ 'year' }}">rok</option>
-                                    <option value="?sort={{ 'publish' }}">publikacja</option>
+                                    <option value=""><strong>Sort by</strong></option>
+                                    <option value="?sort={{ 'title' }}">Name</option>
+                                    <option value="?sort={{ 'year' }}">Year</option>
+                                    <option value="?sort={{ 'publish' }}">Publication</option>
                                 </select>
                             </td>
                         </tr>
@@ -111,33 +109,13 @@
                     'World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(m);
                 {% for e in maps %}
                     console.log({{ e.lat_lng }})
-                    L.marker({{ e.lat_lng }}).addTo(m).bindPopup('ssss');
+              L.marker({{ e.lat_lng }}).addTo(m).bindPopup('{{ e.description_f }}');
                 {% endfor %}
 
         </script>
 
 
 
-
-<!-- <script>-->
-
-
-<!--    $(document).ready(function () {-->
-<!--         var collection = {{ maps|geojsonfeature:":geolokalizacja"|safe }};-->
-<!--        var map = L.map('mapid', {-->
-<!--            minZoom: 14,-->
-<!--            }).setView([52.011217, 21.921226], 0);-->
-<!--        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {}).addTo(map);-->
-<!--        function onEachFeature(feature, layer) {-->
-<!--            {-->
-<!--              layer.bindPopup(feature.properties);-->
-<!--    }-->
-<!--  }-->
-<!--        L.geoJson(collection, {onEachFeature: onEachFeature}).addTo(map)-->
-<!--    })-->
-
-
-<!-- </script>-->
         {% endif %}
     </div>
  <script type="text/javascript" src="{% static 'js/search.js' %}"></script>

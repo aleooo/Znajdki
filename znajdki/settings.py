@@ -21,9 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-
     'poszukiwania.apps.PoszukiwaniaConfig',
-    # 'mapa.apps.MapaConfig',
     'bootstrapform',
     'djgeojson',
     'leaflet',
@@ -132,7 +130,7 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
 # }
 
 
-LOGIN_REDIRECT_URL = 'poszukiwania:rzeczy_list'
+LOGIN_REDIRECT_URL = 'poszukiwania:objects_list'
 LOGOUT_REDIRECT_URL = 'poszukiwania:login'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'

@@ -7,43 +7,43 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import UserRegistrationForm, RzeczyForm, MapaForm
-from .models import Kategoria, Rzeczy, Mapa
+from .models import Category, Rzeczy, Mapa
 
 
 def start(request):
     return render(request, 'main/lista.html')
 
 
-def rzeczy_list(request, kategoria_slug=None, sort=None):
-    categories = Kategoria.objects.all()
-    rzeczy = Rzeczy.objects.filter(user=request.user)
+def objects_list(request, category_slug=None, sort=None):
+    categories = Category.objects.all()
+    objects = Rzeczy.objects.filter(user=request.user)
 
     maps = []
     kat = False
     monety = False
 
-    if kategoria_slug:
-        # category = get_object_or_404(Kategoria, slug=kategoria_slug)
-        category = Kategoria.objects.get(slug=kategoria_slug)
-        rzeczy = Rzeczy.objects.filter(kategoria=category, user=request.user)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        #category = Category.objects.get(slug=category_slug)
+        objects = Rzeczy.objects.filter(category=category, user=request.user)
         kat = True
-        # maps = [r.location for r in rzeczy]
-        maps = Mapa.objects.all()
+        maps = [r.location for r in objects]
+        # maps = Mapa.objects.all()
 
 
     sort = request.GET.get('sort')
     if sort:
-        rzeczy = rzeczy.order_by(sort)
+        objects = objects.order_by(sort)
 
-    paginator = Paginator(rzeczy, 12)
+    paginator = Paginator(objects, 12)
     page = request.GET.get('page')
     try:
-        obiekty = paginator.page(page)
+        objects_pagination = paginator.page(page)
     except PageNotAnInteger:
-        obiekty = paginator.page(1)
+        objects_pagination = paginator.page(1)
     except EmptyPage:
-        obiekty = paginator.page(paginator.num_pages)
-    return render(request, 'main/lista.html', {'rzeczy': obiekty,
+        objects_pagination = paginator.page(paginator.num_pages)
+    return render(request, 'main/lista.html', {'objects': objects_pagination,
                                                'categories': categories,
                                                'monety': monety,
                                                'kat': kat,
@@ -53,10 +53,10 @@ def rzeczy_list(request, kategoria_slug=None, sort=None):
 
 
 @login_required
-def rzecz_detail(request, year, month, day, rzecz_slug, id):
-    rzecz = Rzeczy.objects.get(pk=id)
-    maps = rzecz.location
-    return render(request, 'main/detail.html', {'rzecz': rzecz,
+def object_detail(request, year, month, day, object_slug, id):
+    object = Rzeczy.objects.get(pk=id)
+    maps = object.location
+    return render(request, 'main/detail.html', {'object': object,
                                                 'maps': maps})
 
 
@@ -98,23 +98,23 @@ def create(request):
                                                 })
 
 def search(request):
-    print('Działa')
+    print('Works')
     if request.is_ajax():
         znajdka = request.POST.get('znajdka')
-        lista = Rzeczy.objects.filter(title__icontains=znajdka)
-        if len(lista) > 0 and len(znajdka) > 0:
+        objects = Rzeczy.objects.filter(title__icontains=znajdka)
+        if len(objects) > 0 and len(znajdka) > 0:
             data = []
-            for rzecz in lista:
+            for object in objects:
                 item = {
-                    'pk': rzecz.pk,
-                    'title': rzecz.title,
-                    'image': str(rzecz.image.url),
-                    'publish': rzecz.publish
+                    'pk': object.pk,
+                    'title': object.title,
+                    'image': str(object.image.url),
+                    'publish': object.publish
                 }
                 data.append(item)
             list = data
         else:
-            list = 'Brak obiektów'
+            list = 'no objects'
         return JsonResponse({'data': list})
     return JsonResponse({})
 
