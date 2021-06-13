@@ -16,8 +16,7 @@ class Mapa(models.Model):
     def description_f(self):
         return '{}'.format(
           self.description)
-        # <img src = "{}" / >
-        #
+
 
 class Category(models.Model):
     title = models.CharField(max_length=50, unique=True)
@@ -38,7 +37,8 @@ class Rzeczy(models.Model):
     slug = models.SlugField(unique_for_date='publish', blank=True)
     year = models.PositiveIntegerField(blank=True)
     text = models.TextField(blank=True)
-    image = models.ImageField(upload_to='rzeczy/%Y/%m/%d', blank=True)
+    image_obverse = models.ImageField('image_obverse', upload_to='rzeczy/%Y/%m/%d', blank=True)
+    image_reverse = models.ImageField('image_revers', upload_to='rzeczy/%Y/%m/%d', blank=True)
     publish = models.DateField(auto_now_add=True)
 
     def __str__(self):

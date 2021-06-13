@@ -33,11 +33,13 @@ p {
     font-size: 20px;
 }
 .login {
-    background: aliceblue;
+    background: powderblue;
     width: 30rem;
+    margin-top: 150px;
     margin-left: auto;
     margin-right: auto;
     border: aliceblue 10px;
+    border-radius: 10px;
 
 }
 
@@ -62,16 +64,7 @@ p {
 .not-visible{
     display: none;
 }
-#input_search{
-    width: 300px;
-    height: 60px;
-    border-radius: 20px;
-    box-shadow: gray;
-     float: right;
-}
-#form_search{
-    display: inline;
-}
+
 .item-image{
     width: 100px;
     height: 80px;
@@ -111,10 +104,9 @@ p {
     width: 150px;
 }
 .nazwa{
-    background-color: aliceblue;
-    opacity: 0.9;
-    width: 100%;
-    height: 60px;
+    height: 105px;
+    width: 300px;
+    margin-right: 330px;
 }
 #nazwa{
     position: relative;
@@ -150,12 +142,22 @@ p {
 }
 .pagination{
     position: relative;
-    margin-top: auto;
+    margin-bottom: auto;
 
     width: 300px;
     height: 45px;
     float: right;
 
+}
+#input_search{
+    width: 300px;
+    height: 60px;
+    border-radius: 20px;
+    box-shadow: gray;
+    text-align: center;
+}
+#form_search{
+    height: 60px;
 }
 .blank{
     width: 25px;
@@ -173,6 +175,24 @@ p {
     width: 110px;
     height: 30px;
     float: right;
-
+}
+.col{
+    float: left;
+    width: 550px;
+    height: 650px;
+}
+.line{
+    float: left;
+}
+.center_register{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+.register_input, #id_username, #id_password{
+    height: 32px;
+    border-radius: 5px;
+    border-width: 0px;
+    border: none;
 
 }

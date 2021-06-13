@@ -7,7 +7,7 @@ from .models import Rzeczy, Mapa
 class RzeczyForm(forms.ModelForm):
     class Meta:
         model = Rzeczy
-        fields = ('category', 'title', 'slug', 'year', 'text', 'image',)
+        fields = ('category', 'title', 'slug', 'year', 'text', 'image_obverse', 'image_reverse')
 
 
 class MapaForm(gis.ModelForm):
@@ -24,12 +24,13 @@ class MapaForm(gis.ModelForm):
 
 
 class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(label='Hasło', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Powtórz hasło', widget=forms.PasswordInput)
+    password = forms.CharField(label='Hasło', widget=forms.PasswordInput(attrs={'class': 'register_input'}))
+    password2 = forms.CharField(label='Powtórz hasło', widget=forms.PasswordInput(attrs={'class': 'register_input'}))
 
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username', 'password', 'password2')
+        widgets = {'username': forms.TextInput(attrs={'class': 'register_input'})}
 
     def clean_password2(self):
         cd = self.cleaned_data

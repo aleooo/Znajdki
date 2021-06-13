@@ -108,7 +108,7 @@ def search(request):
                 item = {
                     'pk': object.pk,
                     'title': object.title,
-                    'image': str(object.image.url),
+                    'image_obverse': str(object.image.url),
                     'publish': object.publish
                 }
                 data.append(item)

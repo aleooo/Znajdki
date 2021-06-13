@@ -1,9 +1,9 @@
  {% extends "base.html" %}
- {% load mapa.models}
-{% load bootstrap %}
+
 {% load static %}
-            {% load leaflet_tags %}
-{% load geojson_tags %}
+{% load leaflet_tags %}
+
+{% load custom_template_tags %}
 
 
 {% block content %}
@@ -12,42 +12,39 @@
             {% if request.user.is_authenticated %}
                 <p style="width: 10px; float: right"></p>
                 <a style="float: right; " href="{% url 'poszukiwania:logout' %}">Log out</a>
-                <a href="{% url 'poszukiwania:create' %} " >Add an object</a>
+                <button><a href="{% url 'poszukiwania:create' %} " >Add an object</a></button>
             {% else %}
                 <a href="{% url 'poszukiwania:login' %}" >Log in</a>
             {% endif %}
             {% if request.user.is_authenticated %}
-        </div>
-        <div class="nazwa">
-                <div class="pagination">
-                      <div class="pagination_detail">
-                          {% if objects.has_previous %}
-                            <a class="pagination_text" href="?page={{ objects.previous_page_number }}"><strong>Previous </strong></a>
-                          {% endif %}
-                      </div>
-                      <div class="pagination_detail">
-                          Strona {{ objects.number }} z {{ objects.paginator.num_pages }}.
-                      </div>
-                      <div class="pagination_detail">
-                          {% if objects.has_next %}
-                            <a class="pagination_text" href="?page={{ objects.next_page_number }}"><strong> Next</strong></a>
-                          {% endif %}
-                      </div>
-                </div>
-                <div class="blank">
 
+                <div class="nazwa">
+                    <div>
+                        <form id="form_search">
+                            {% csrf_token %}
+                            <input placeholder="search" id="input_search">
+                        </form>
+                    </div>
+                    <div class="pagination">
+                          <div class="pagination_detail">
+                              {% if objects.has_previous %}
+                                <a class="pagination_text" href="?page={{ objects.previous_page_number }}"><strong>Previous </strong></a>
+                              {% endif %}
+                          </div>
+                          <div class="pagination_detail">
+                              Strona {{ objects.number }} z {{ objects.paginator.num_pages }}.
+                          </div>
+                          <div class="pagination_detail">
+                              {% if objects.has_next %}
+                                <a class="pagination_text" href="?page={{ objects.next_page_number }}"><strong> Next</strong></a>
+                              {% endif %}
+                          </div>
+                    </div>
                 </div>
-                <form id="form_search">
-                    {% csrf_token %}
-                    <input placeholder="search for an object" id="input_search">
-                </form>
-
-        </div>
+         </div>
         <div class="list_search_objects not-visible"></div>
-            {% if  kat %}
-            {% leaflet_js %}
-            {% leaflet_css %}
-            {% endif %}
+
+
         <div  class="lista" style="background-color: ghostwhite">
             <div id="lista">
                 {% for object in objects %}
@@ -56,7 +53,22 @@
                             <table>
                                <tr>
                                    <td>
-                                       <img style='width: 300px; height: 150px; border-radius: 20px;' src="{{ object.image.url }}">
+                                       {% if object.image_obverse %}
+                                            {% define object.image_obverse.url as obverse %}
+                                       {% else %}
+                                            {% define 'empty.png' as obverse %}
+                                       {% endif %}
+                                       {% if object.image_reverse %}
+                                            {% define object.image_reverse.url as reverse %}
+                                       {% else %}
+                                            {% define 'empty.png' as reverse %}
+                                       {% endif %}
+                                           <div style="display: flex">
+                                               <img style='width: 150px; height: 150px; border-radius: 20px;' src="{{ obverse }}">
+                                               <img style='width: 150px; height: 150px; border-radius: 20px;' src="{{ reverse }}">
+                                           </div>
+
+
                                    </td>
                                </tr>
                                 <tr>
@@ -113,9 +125,6 @@
                 {% endfor %}
 
         </script>
-
-
-
         {% endif %}
     </div>
  <script type="text/javascript" src="{% static 'js/search.js' %}"></script>

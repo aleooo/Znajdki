@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'poszukiwania.apps.PoszukiwaniaConfig',
-    'bootstrapform',
+    "bootstrap5",
     'djgeojson',
     'leaflet',
     'autoslug',
