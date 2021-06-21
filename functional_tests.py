@@ -35,6 +35,8 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.find_element_by_tag_name('button').click()
         print(self.browser.find_element_by_class_name('errorlist').text)
 
+        print('test')
+
 
 
 if __name__ == '__main__':
