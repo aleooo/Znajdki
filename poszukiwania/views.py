@@ -16,27 +16,24 @@ def start(request):
 
 def objects_list(request, category_slug=None, sort=None):
     categories = Category.objects.all()
-    objects = Rzeczy.objects.filter(user=request.user)
-
-    maps = []
     kat = False
     monety = False
+    objects = Rzeczy.objects.filter(user=request.user)
 
+    page = request.GET.get('page')
+    sort = request.GET.get('sort')
+
+    maps = [r.location for r in objects]
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        #category = Category.objects.get(slug=category_slug)
         objects = Rzeczy.objects.filter(category=category, user=request.user)
-        kat = True
         maps = [r.location for r in objects]
-        # maps = Mapa.objects.all()
+        kat = True
 
-
-    sort = request.GET.get('sort')
     if sort:
         objects = objects.order_by(sort)
 
     paginator = Paginator(objects, 12)
-    page = request.GET.get('page')
     try:
         objects_pagination = paginator.page(page)
     except PageNotAnInteger:
@@ -53,11 +50,14 @@ def objects_list(request, category_slug=None, sort=None):
 
 
 @login_required
-def object_detail(request, year, month, day, object_slug, id):
-    object = Rzeczy.objects.get(pk=id)
+def object_detail(request, *args, **kwargs):
+    object = Rzeczy.objects.get(pk=kwargs['id'])
     maps = object.location
-    return render(request, 'main/detail.html', {'object': object,
-                                                'maps': maps})
+    form = RzeczyForm(instance=object)
+    return render(request, 'main/detail.html', {'form': form,
+                                                'maps': maps,
+                                                'object': object,
+                                                })
 
 
 def register(request):
@@ -76,39 +76,38 @@ def register(request):
 
 @login_required
 def create(request):
-    if request.method == 'POST':
-        create_form = RzeczyForm(request.POST, request.FILES)
-        mapa_form = MapaForm(request.POST)
-        if create_form.is_valid() and mapa_form.is_valid():
-            opis = create_form.cleaned_data
-            new_map = mapa_form.save(commit=False)
-            new_map.description = opis['title']
-            new_item = create_form.save(commit=False)
-            mapa = mapa_form.save()
-            new_item.slug = slugify(new_item.title)
-            new_item.user = request.user
-            new_item.location = mapa
-            new_item.save()
-    else:
-        create_form = RzeczyForm()
-        mapa_form = MapaForm()
+    type_side = 'create'
 
-    return render(request, 'main/create.html', {'create_form': create_form,
-                                                'point': mapa_form
+    create_form = RzeczyForm(request.POST or None, request.FILES or None)
+    mapa_form = MapaForm(request.POST or None)
+    if create_form.is_valid() and mapa_form.is_valid():
+        opis = create_form.cleaned_data
+        new_map = mapa_form.save(commit=False)
+        new_map.description = opis['name']
+        new_item = create_form.save(commit=False)
+        mapa = mapa_form.save()
+        new_item.slug = slugify(new_item.name)
+        new_item.user = request.user
+        new_item.location = mapa
+        new_item.save()
+    return render(request, 'main/create.html', {'form': create_form,
+                                                'mapa_form': mapa_form,
+                                                'type': type_side
                                                 })
 
 def search(request):
     print('Works')
     if request.is_ajax():
         znajdka = request.POST.get('znajdka')
-        objects = Rzeczy.objects.filter(title__icontains=znajdka)
+        objects = Rzeczy.objects.filter(name__icontains=znajdka)
         if len(objects) > 0 and len(znajdka) > 0:
             data = []
             for object in objects:
                 item = {
                     'pk': object.pk,
-                    'title': object.title,
-                    'image_obverse': str(object.image.url),
+                    'name': object.name,
+                    'image_obverse': str(object.image_obverse.url),
+                    'image_reverse': str(object.image_reverse.url),
                     'publish': object.publish
                 }
                 data.append(item)
@@ -119,6 +118,27 @@ def search(request):
     return JsonResponse({})
 
 
+def update(request, *args, **kwargs):
+    object = Rzeczy.objects.get(pk=kwargs['id'])
+    type_side = 'update'
+
+    form = RzeczyForm(request.POST or None, request.FILES or None, instance=object)
+    mapa_form = MapaForm(request.POST or None, instance=object.location)
+    if form.is_valid() and mapa_form.is_valid():
+        data = form.cleaned_data
+        update_map = mapa_form.save(commit=False)
+        update_map.description = data['name']
+        update_map.save()
+        main = form.save(commit=False)
+        main.slug = slugify(data['name'])
+        main.user = request.user
+        main.location = update_map
+        main.save()
+        return redirect('poszukiwania:objects_list')
+    return render(request, 'main/create.html', {'form': form,
+                                                'mapa_form': mapa_form,
+                                                'type': type_side
+                                                })
 
 
 

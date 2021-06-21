@@ -33,16 +33,17 @@ class Rzeczy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default='test')
     location = models.OneToOneField(Mapa, on_delete=models.CASCADE, primary_key=True)
     category = models.ForeignKey(Category, related_name='rzeczy', on_delete=models.CASCADE, blank=True)
-    title = models.CharField(max_length=250)
+    name = models.CharField(max_length=250)
     slug = models.SlugField(unique_for_date='publish', blank=True)
     year = models.PositiveIntegerField(blank=True)
     text = models.TextField(blank=True)
-    image_obverse = models.ImageField('image_obverse', upload_to='rzeczy/%Y/%m/%d', blank=True)
-    image_reverse = models.ImageField('image_revers', upload_to='rzeczy/%Y/%m/%d', blank=True)
+    image_obverse = models.ImageField('image_obverse', upload_to='rzeczy/%Y/%m/%d', default='empty.png')
+    image_reverse = models.ImageField('image_revers', upload_to='rzeczy/%Y/%m/%d', default='empty.png')
+    update = models.DateField(auto_now=True)
     publish = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         ordering = ['publish']
@@ -53,3 +54,4 @@ class Rzeczy(models.Model):
                                                           self.publish.day,
                                                           self.slug,
                                                           self.pk])
+

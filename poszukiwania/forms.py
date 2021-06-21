@@ -5,21 +5,41 @@ from .models import Rzeczy, Mapa
 
 
 class RzeczyForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(RzeczyForm, self).__init__( *args, **kwargs)
+        self.fields['name'].label = ''
+        self.fields['year'].label = ''
+        self.fields['text'].label = ''
+
     class Meta:
         model = Rzeczy
-        fields = ('category', 'title', 'slug', 'year', 'text', 'image_obverse', 'image_reverse')
+        fields = ('category', 'name', 'slug', 'year', 'text', 'image_obverse', 'image_reverse')
+        widgets = {
+            'category': forms.Select(attrs={'class': "form-control"}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'name'}),
+            'slug': forms.HiddenInput(attrs={'class': 'form-control'}),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'text'}),
+            'year': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'year'}),
+            'image_obverse': forms.FileInput(attrs={'class': 'form-control'}),
+            'image_reverse': forms.FileInput(attrs={'class': 'form-control'}),
+        }
 
 
 class MapaForm(gis.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(MapaForm, self).__init__(*args, **kwargs)
+        self.fields['geolocation'].label = ''
+
     class Meta:
         model = Mapa
 
         fields = ('geolocation',)
-        widgets = {'geolocation': gis.OSMWidget(
-        attrs={'map_width': 500, 'map_height': 512,'template_name': 'gis/openlayers-osm.html',
+        widgets = {'geolocation': gis.OSMWidget(attrs={'map_height': 580,'template_name': 'gis/openlayers-osm.html',
                    'default_lat': 52.012,
                    'default_lon':21.922,
-                    'default_zoom': 13,
+                   'default_zoom': 13,
                    })}
 
 

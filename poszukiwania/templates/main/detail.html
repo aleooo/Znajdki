@@ -1,24 +1,88 @@
  {% extends "base.html" %}
- {% load mapa.models}
-{% load bootstrap %}
+
 {% load static %}
 {% load leaflet_tags %}
 {% load geojson_tags %}
 
- {% block content %}
-  {% leaflet_js %}
-            {% leaflet_css %}
- <h1>{{ object.title }}</h1>
-<h3 class="text-light ">{{ object.title }} </h3>
-  <h3 class="text-light ">  {{ object.year }}</h3>
-  <h3>  <img style='width: 400px; height: 200px' src="{{ object.image.url }}"></h3>
-<div style="width: 400px">
-             <script type="text/javascript">
-   var collection = {{ maps|geojsonfeature:":geolocation"|safe }};
-   function map_init(map, options) {
-        L.geoJson(collection).addTo(map);
-    }
- </script>
- {% leaflet_map 'Mapa' callback="window.map_init" %}
+{% block content %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 250px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+#id_text{
+    height: 250px;
+}
+</style>
+
+    <div class="detail">
+        <div>
+            <div style="text-align: center;">
+
+                <img class="image_detail"  src="{{ object.image_obverse.url }}">
+                <img class="image_detail"  src="{{ object.image_reverse.url }}">
+            </div>
+        </div>
+        <div style="height: 250px;  width: 600px; margin: auto; margin-top: 30px; margin-bottom: 30px;">
+            <div style="width: 300px; height: 250px; float: left">
+                <div style="width: 100px; float: left";>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>User</th>
+                            <td>{{ object.user }}</td>
+                        </tr>
+                        <tr>
+                            <th>Category</th>
+                            <td>{{ object.category }}</td>
+                        </tr>
+                        <tr>
+                            <th>Year</th>
+                            <td>{{ object.year }}</td>
+                        </tr>
+                            <th>Update</th>
+                            <td>{{ object.update }}</td>
+                        </tr>
+                        </tr>
+                            <th>Publish</th>
+                            <td>{{ object.publish }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div style="width: 250px; height: 250px; float: right">
+                {{ form.text }}
+            </div>
+        </div>
+
+        <div id='mapid'  class="mapid" style="margin: auto; margin-top: 50px; width: 600px">
+            <script type="text/javascript">
+               var m = L.map('mapid').setView([{{maps.lat_lng}}[0], {{maps.lat_lng}}[1]], 13);
+                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                    'World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(m);
+                L.marker({{ maps.lat_lng }}).addTo(m);
+            </script>
+        </div>
+        <div>
+            Hello {{ object.pk }}
+            <div style="width: auto; float: right">
+                <a href="{% url 'poszukiwania:update' object.pk %}">update</a>
+            </div>
+        </div>
     </div>
  {% endblock %}

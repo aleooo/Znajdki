@@ -17,18 +17,15 @@ function sendSearchData(znajdka){
             if(Array.isArray(items)) {
                 jQuery.each(items, function (i, item){
                     var color = ''
-                    if(i % 2 === 0){
-                        color = 'light'
-                    }else{
-                        color = 'dark'
-                    }
-
+                    if(i % 2 === 0) color = 'light';
+                    else color = 'dark'
                     listSearch.append(`<a href='' class='item'>
                                             <div class="row mt-2 mb-2" id="`+ color +`">
                                                  <table style="width:100%">
                           <tr>
-                            <td id="td_image" class="td"><img src="`+ item.image +`" class="item-image"></td>
-                                              <td id="td_title" class="td">  `+ item.title +`</td>
+                            <td id="td_image" class="td"><img src="`+ item.image_obverse +`" class="item-image"></td>
+                            <td id="td_image" class="td"><img src="`+ item.image_reverse +`" class="item-image"></td>
+                                              <td id="td_title" class="td">  `+ item.name +`</td>
                                                <td class="td">`+ item.publish +`</td>
                                                  </tr>
                         </table>

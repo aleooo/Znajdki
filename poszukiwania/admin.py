@@ -18,7 +18,7 @@ class KategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Rzeczy)
 class RzeczyAdmin(admin.ModelAdmin):
-    list_display = ('title', 'publish')
-    list_filter = ('title', 'publish')
-    prepopulated_fields = {'slug': ('title',)}
-    search_fields = ('title',)
+    list_display = ('name', 'publish')
+    list_filter = ('name', 'publish')
+    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ('name',)

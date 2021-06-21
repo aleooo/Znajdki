@@ -9,7 +9,7 @@ from . import views
 from .models import Rzeczy, Mapa, Category
 
 
-class PoszukiwaniaTests(TestCase):
+class PoszukiwaniaTestCase(TestCase):
 
     def setUp(self):
         self.password = 'aletojuzbylo'
@@ -24,22 +24,17 @@ class PoszukiwaniaTests(TestCase):
                               title='Boratynka',
                               slug='boratynka',
                               year=1666,
-                              text='a frequently found coin',
-                              image=SimpleUploadedFile(name='12.jpg', content=open('/home/aleo/projects/znajdki/znajdki/poszukiwania/static/css/12.jpg', 'rb').read(), content_type='image/jpeg'))
+                              text='a frequently found coin',)
+
         Rzeczy.objects.create(user=self.user,
                               location=map1,
                               category=category1,
                               title='wz19',
                               slug='wz19',
                               year=1919,
-                              text='a rarely found button',
-                              image=SimpleUploadedFile(name='12.jpg', content=open(
-                                  '/home/aleo/projects/znajdki/znajdki/poszukiwania/static/css/wz19.jpg', 'rb').read(),
-                                                       content_type='image/jpeg'))
+                              text='a rarely found button',)
 
-    def test_login_adminsite(self):
-        self.c = Client()
-        self.c.login(username=self.user.username, password=self.password)
+
 
     def test_url(self):
         url = reverse('poszukiwania:start')
@@ -68,9 +63,9 @@ class PoszukiwaniaTests(TestCase):
         map = Mapa.objects.count()
         self.assertEqual(map, 2)
         category = Category.objects.first()
-        self.assertEqual(category.title, 'coins')
+        self.assertEqual(category.name, 'coins')
         object = Rzeczy.objects.first()
-        self.assertEqual(object.title, 'Boratynka')
+        self.assertEqual(object.name, 'Boratynka')
 
     def test_view_rzeczy_list(self):
         request = HttpRequest()
