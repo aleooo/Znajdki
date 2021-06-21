@@ -3,7 +3,7 @@ from django.urls import reverse, resolve
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
-from django.core.files.uploadedfile import SimpleUploadedFile
+
 
 from . import views
 from .models import Rzeczy, Mapa, Category
@@ -21,7 +21,7 @@ class PoszukiwaniaTestCase(TestCase):
         Rzeczy.objects.create(user=self.user,
                               location=map,
                               category=category,
-                              title='Boratynka',
+                              name='Boratynka',
                               slug='boratynka',
                               year=1666,
                               text='a frequently found coin',)
@@ -29,7 +29,7 @@ class PoszukiwaniaTestCase(TestCase):
         Rzeczy.objects.create(user=self.user,
                               location=map1,
                               category=category1,
-                              title='wz19',
+                              name='wz19',
                               slug='wz19',
                               year=1919,
                               text='a rarely found button',)
@@ -52,18 +52,12 @@ class PoszukiwaniaTestCase(TestCase):
         expected_html = render_to_string('main/lista.html')
         self.assertEqual(response.content.decode(), expected_html)
 
-    def test_register(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        response = views.register(request)
-        expected_html = render_to_string('main/register.html')
-        # self.assertEqual(response.content.decode(), expected_html)
 
     def test_model_orm(self):
         map = Mapa.objects.count()
         self.assertEqual(map, 2)
         category = Category.objects.first()
-        self.assertEqual(category.name, 'coins')
+        self.assertEqual(category.title, 'coins')
         object = Rzeczy.objects.first()
         self.assertEqual(object.name, 'Boratynka')
 

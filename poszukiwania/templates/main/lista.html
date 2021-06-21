@@ -18,15 +18,15 @@
                     <div class="pagination">
                           <div class="pagination_detail">
                               {% if objects.has_previous %}
-                                <a class="pagination_text" href="?page={{ objects.previous_page_number }}"><strong>Previous </strong></a>
+                                <a class="pagination_text"  href="?page={{ objects.previous_page_number }}"><strong>Previous</strong></a>
                               {% endif %}
                           </div>
                           <div class="pagination_detail">
-                              Strona {{ objects.number }} z {{ objects.paginator.num_pages }}.
+                              Page {{ objects.number }} of {{ objects.paginator.num_pages }}.
                           </div>
                           <div class="pagination_detail">
                               {% if objects.has_next %}
-                                <a class="pagination_text" href="?page={{ objects.next_page_number }}"><strong> Next</strong></a>
+                                <a class="pagination_text" href="?page={{ objects.next_page_number }}"><strong>   Next</strong></a>
                               {% endif %}
                           </div>
                     </div>
@@ -82,8 +82,15 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div id="latest_objects">
+                            <h3 style="text-align: center">Recently added</h3>
+                                <ul>
+                                    {% for object in recently %}
+                                        <li><a href="{{ object.get_absolute_url }}" style="font-size: 1.5rem; color: grey">{{ object.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                        </div>
                     </div>
-
                     <div class="col-9">
                         <div class="objects">
                             {% for object in objects %}

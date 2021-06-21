@@ -19,6 +19,7 @@ def objects_list(request, category_slug=None, sort=None):
     kat = False
     monety = False
     objects = Rzeczy.objects.filter(user=request.user)
+    recently = Rzeczy.objects.order_by('-publish')[:5]
 
     page = request.GET.get('page')
     sort = request.GET.get('sort')
@@ -46,6 +47,7 @@ def objects_list(request, category_slug=None, sort=None):
                                                'kat': kat,
                                                'maps': maps,
                                                'page': page,
+                                               'recently': recently
                                                })
 
 
@@ -108,8 +110,10 @@ def search(request):
                     'name': object.name,
                     'image_obverse': str(object.image_obverse.url),
                     'image_reverse': str(object.image_reverse.url),
-                    'publish': object.publish
+                    'publish': object.publish,
+                    'url': object.get_absolute_url()
                 }
+
                 data.append(item)
             list = data
         else:

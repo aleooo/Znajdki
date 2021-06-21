@@ -24,9 +24,21 @@ tr:nth-child(even) {
 #id_text{
     height: 250px;
 }
+.button_detail{
+
+    height: 2.5rem;
+}
 </style>
 
     <div class="detail">
+        <div style="width: 100%; height: 3rem">
+            <div style="height: auto;width: auto; float: right">
+                <a class="btn btn-secondary button_detail" href="{% url 'poszukiwania:objects_list' %}">back</a>
+                <a class="btn btn-secondary button_detail" href="">delete</a>
+                <a class="btn btn-secondary button_detail" href="{% url 'poszukiwania:update' object.pk %}">update</a>
+
+            </div>
+        </div>
         <div>
             <div style="text-align: center;">
 
@@ -77,12 +89,6 @@ tr:nth-child(even) {
                     'World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(m);
                 L.marker({{ maps.lat_lng }}).addTo(m);
             </script>
-        </div>
-        <div>
-            Hello {{ object.pk }}
-            <div style="width: auto; float: right">
-                <a href="{% url 'poszukiwania:update' object.pk %}">update</a>
-            </div>
         </div>
     </div>
  {% endblock %}
