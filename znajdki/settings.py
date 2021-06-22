@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'leaflet',
     'autoslug',
     'django.contrib.gis',
+    'rest_framework'
 
 ]
 
@@ -129,6 +130,11 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
 #    'TILES': 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 # }
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 LOGIN_REDIRECT_URL = 'poszukiwania:objects_list'
 LOGOUT_REDIRECT_URL = 'poszukiwania:login'
