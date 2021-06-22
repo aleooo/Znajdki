@@ -21,7 +21,6 @@ def objects_list(request, category_slug=None, sort=None):
     objects = Rzeczy.objects.filter(user=request.user)
     recently = Rzeczy.objects.order_by('-publish')[:5]
 
-    page = request.GET.get('page')
     sort = request.GET.get('sort')
 
     maps = [r.location for r in objects]
@@ -33,8 +32,12 @@ def objects_list(request, category_slug=None, sort=None):
 
     if sort:
         objects = objects.order_by(sort)
+        if sort == 'catalog_number':
+            objects = Rzeczy.objects.filter(catalog_number__gt=0)
 
+    page = request.GET.get('page')
     paginator = Paginator(objects, 12)
+
     try:
         objects_pagination = paginator.page(page)
     except PageNotAnInteger:
@@ -47,7 +50,7 @@ def objects_list(request, category_slug=None, sort=None):
                                                'kat': kat,
                                                'maps': maps,
                                                'page': page,
-                                               'recently': recently
+                                               'recently': recently,
                                                })
 
 
@@ -145,4 +148,7 @@ def update(request, *args, **kwargs):
                                                 })
 
 
+def delete_objects(request, **kwargs):
+    Rzeczy.objects.get(pk=kwargs['id']).delete()
+    return redirect('poszukiwania:objects_list')
 

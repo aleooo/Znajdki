@@ -36,9 +36,11 @@ class Rzeczy(models.Model):
     name = models.CharField(max_length=250)
     slug = models.SlugField(unique_for_date='publish', blank=True)
     year = models.PositiveIntegerField(blank=True)
-    text = models.TextField(blank=True)
+    text = models.TextField(blank=True, null=True)
     image_obverse = models.ImageField('image_obverse', upload_to='rzeczy/%Y/%m/%d', default='empty.png')
     image_reverse = models.ImageField('image_revers', upload_to='rzeczy/%Y/%m/%d', default='empty.png')
+    comments = models.TextField(blank=True, null=True)
+    catalog_number = models.PositiveSmallIntegerField(default=0)
     update = models.DateField(auto_now=True)
     publish = models.DateField(auto_now_add=True)
 

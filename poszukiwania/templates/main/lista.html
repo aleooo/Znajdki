@@ -15,23 +15,8 @@
                             <input placeholder="search" id="input_search">
                         </form>
                     </div>
-                    <div class="pagination">
-                          <div class="pagination_detail">
-                              {% if objects.has_previous %}
-                                <a class="pagination_text"  href="?page={{ objects.previous_page_number }}"><strong>Previous</strong></a>
-                              {% endif %}
-                          </div>
-                          <div class="pagination_detail">
-                              Page {{ objects.number }} of {{ objects.paginator.num_pages }}.
-                          </div>
-                          <div class="pagination_detail">
-                              {% if objects.has_next %}
-                                <a class="pagination_text" href="?page={{ objects.next_page_number }}"><strong>   Next</strong></a>
-                              {% endif %}
-                          </div>
-                    </div>
-                </div>
 
+                </div>
                 <div class="col-2 ms-auto"><a  href="{% url 'poszukiwania:logout' %}">Log out</a></div>
             {% else %}
                 <div style="text-align: center">
@@ -44,7 +29,7 @@
                 {% load leaflet_tags %}
                 <div class="list_search_objects not-visible"></div>
                 <div  class="row lista" style="background-color: ghostwhite">
-                    <div class="col-3">
+                    <div class="col-3" style="margin-top: 1rem;">
                         <div>
                             <table style="width: 100%">
                                 <tbody>
@@ -62,7 +47,7 @@
                                         <td>
                                             <select class="btn btn-light row_table" id="category_selected" onchange="location = this.value;">
                                                 <option>Categories</option>
-                                                <option value="{% url 'poszukiwania:objects_list' %}" >All categories</option>
+                                                <option value="{% url 'poszukiwania:objects_list' %}" >All</option>
                                                 {% for category in categories %}
                                                     <option  id='{{ category.slug }}' value="{{ category.get_absolute_url }}"{% if category == current_category %}selected="selected"{% endif %} >{{ category.title }}</option>
                                                 {% endfor %}
@@ -76,6 +61,7 @@
                                                 <option value="?sort={{ 'name' }}">Name</option>
                                                 <option value="?sort={{ 'year' }}">Year</option>
                                                 <option value="?sort={{ 'publish' }}">Publication</option>
+                                                <option value="?sort={{ 'catalog_number' }}">Catalog_numbers</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -86,9 +72,45 @@
                             <h3 style="text-align: center">Recently added</h3>
                                 <ul>
                                     {% for object in recently %}
-                                        <li><a href="{{ object.get_absolute_url }}" style="font-size: 1.5rem; color: grey">{{ object.name }}</a></li>
+                                        <li><a href="{{ object.get_absolute_url }}" style="font-size: 1rem; color: grey">{{ object.name }}</a></li>
                                     {% endfor %}
                                 </ul>
+                        </div>
+                        <div class="pagination">
+                            <div class="pagination_detail">
+                                {% if objects.has_previous %}
+                                    <a class="pagination_text"  href="?page=1"><strong><<</strong></a>
+                                {% endif %}
+                            </div>
+                            <div class="pagination_detail">
+                                {% if objects.has_previous %}
+                                    <a class="pagination_text"  href="?page={{ objects.previous_page_number }}"><strong><</strong></a>
+                                {% endif %}
+                            </div>
+                            <div class="pagination_detail">
+                                 {% for number_page in objects.paginator.page_range %}
+                                    {% if number_page == objects.number %}
+                                        <a class="pagination_number" style="background-color: #3875d7;" href=""><strong>{{ number_page }}</strong></a>
+                                    {% else %}
+                                        {% if number_page > objects.number|add:'-3' and  number_page < objects.number|add:'3' %}
+                                            <a class="pagination_number" href="?page={{ number_page }}"><strong>{{ number_page }}</strong></a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                           <div class="pagination_detail">
+                                {% if objects.has_next %}
+                                    <a class="pagination_text" href="?page={{ objects.next_page_number }}"><strong>></strong></a>
+                                {% endif %}
+                           </div>
+                            <div class="pagination_detail">
+                                {% if objects.has_next %}
+                                    <a class="pagination_text" href="?page={{ objects.paginator.num_pages }}"><strong>>></strong></a>
+                                {% endif %}
+                           </div>
+                            <div>
+                                <a<input type="text">
+                            </div>
                         </div>
                     </div>
                     <div class="col-9">
@@ -108,7 +130,13 @@
                                             <tr>
                                                 <td>
                                                     <div style="float: left; font-size: 1.5rem;">{{ object.name }}</div>
-                                                    <div style="float: right; font-size: 1rem;">{{ object.year }}</div>
+                                                    <div style="float: right">
+                                                        <div style=" font-size: 0.8rem;">{{ object.year }}</div>
+                                                        {% if object.catalog_number != 0 %}
+                                                            <div style="font-size: 0.7rem;">{{ object.catalog_number}}</div>
+                                                        {% endif %}
+                                                    </div>
+
                                                 </td>
                                             </tr>
                                         </table>
