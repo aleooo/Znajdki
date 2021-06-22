@@ -9,31 +9,63 @@
 {% block content %}
     {{  mapa_form.media }}
 
-    <div class='container' style="background-color: whitesmoke; width: 60%; height: 800px; margin: auto">
+    <div class='container' style="background-color: whitesmoke; width: 60%; height: auto; margin: auto">
             <form action='.' method='post' enctype='multipart/form-data'>
                 {% csrf_token %}
 
-                <div class="row" style="height: 650px;">
+                <div class="row" style="height: auto;">
                     <div class="col-1"></div>
                     <div class="col-3" >
-                        {{ form.as_p }}
+                        <div class="form_create" style="margin-top: 0">
+                            <label>Category</label>
+                            {{ form.category }}
+                        </div>
+                        <div class="form_create">
+                            {{ form.name }}
+                        </div>
+                        <div class="form_create">
+                            {{ form.year }}
+                        </div>
+                        <div class="form_create">
+                            {{ form.text }}
+                        </div>
+                        <div class="form_create">
+                            <label>image_obverse</label>
+                            {{ form.image_obverse }}
+                        </div>
+                        <div class="form_create">
+                            <label>image_reverse</label>
+                            {{ form.image_reverse }}
+                        </div>
+                        <div class="form_create">
+                            {{ form.catalog_number }}
+                        </div>
+                        <div class="form_create">
+                        </div>
                     </div>
                     <div class="col-1"></div>
-                    <div class="col-6" style="margin-top: 1.5rem;">
-                        {{ mapa_form.as_ul }}
-                    </div>
-                </div>
+                    <div class="col-6 map" id="map" style="margin-top: 1.5rem;">
+                        <div style="height: 28rem;">
+                            {{ mapa_form.as_ul }}
+                        </div>
 
-                <div style=" width: auto; float: right; position: relative; right: 6rem;">
-                    {% if type == 'create' %}
-                        <button class="btn btn-secondary" type="submit" value="create">create</button>
-                    {% else %}
-                        <button class="btn btn-secondary" type="submit" value="create">update</button>
-                    {% endif %}
-                    <a class='btn btn-secondary' href="{% url 'poszukiwania:objects_list' %}">back</a>
+                        <div class="form_create" style="height: 14rem;">
+                            {{ form.comments }}
+                        </div>
+                            <div style=" width: auto; float: right; height: 2rem;">
+                                {% if type == 'create' %}
+                                    <button class="btn btn-secondary" type="submit" value="create">create</button>
+                                {% else %}
+                                    <button class="btn btn-secondary" type="submit" value="create">update</button>
+                                {% endif %}
+                                <a class='btn btn-secondary' href="{% url 'poszukiwania:objects_list' %}">back</a>
+                            </div>
+                    </div>
+
                 </div>
 
             </form>
+
         </div>
  <style type="text/css">
         #id_geolocation_map{

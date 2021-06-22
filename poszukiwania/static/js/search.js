@@ -19,8 +19,8 @@ function sendSearchData(znajdka){
                     var color = ''
                     if(i % 2 === 0) color = 'light';
                     else color = 'dark'
-                    listSearch.append(`<a href='' class='item'>
-                                            <div class="row mt-2 mb-2" id="`+ color +`">
+                    listSearch.append(`<a href="`+ item.url +`"  class='item'>
+                                            <div class="row " id="`+ color +`">
                                                  <table style="width:100%">
                           <tr>
                             <td id="td_image" class="td"><img src="`+ item.image_obverse +`" class="item-image"></td>

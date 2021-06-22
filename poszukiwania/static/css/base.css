@@ -11,6 +11,7 @@ div.panel {
     background-color: aliceblue;
     opacity: 0.9;
     font-family: Jazz LET, Cursive;
+    padding: 0.6rem;
 }
 .panel_elements_search{
     float: left;
@@ -31,7 +32,7 @@ search{
     position: absolute;
     float: left;
     border-radius: 5px;
-    background: 1px black;
+
 
 }
 .h5_search{
@@ -47,20 +48,29 @@ search{
 }
 
 .pagination_text{
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 .pagination_detail{
-    position: relative;
-    margin-top: auto;
-    font-size: 1rem;
-    width: 7rem;
+    text-align: center;
+    margin-right: 5%;
+    font-size: 1.5rem;
+    width: auto;
     height: 2rem;
-    float: right;
+}
+.pagination_number{
+    color: white;
+    font-size: 0.8rem;
+    background-color: #79aec8;
+    padding: 0.3rem 0.4rem;
+}
+.pagination_number:hover{
+    color: white;
+    background-color: #3875d7;
 }
 #input_search{
     width: 20rem;
-    height: 4rem;
-    border-radius: 1rem;
+    height: 2.5rem;
+    border-radius: 0.6rem;
     box-shadow: gray;
     text-align: center;
 }
@@ -109,16 +119,20 @@ p {
     height: 5rem;
 }
 #light{
-    width: 38rem;
+    width: 30rem;
      margin-left: auto;
     margin-right: auto;
     background-color: azure;
+    border-style: outset;
+    border-color: black;
 }
 #dark{
-    width: 38rem;
+    width: 30rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: antiquewhite;
+    background-color: lightgray;
+    border-style: outset;
+    border-color: black;
 }
 .item{
     height: 5rem;
@@ -177,7 +191,7 @@ p {
 .mapid {
     margin-top: 2rem;
     height: 27rem;
-    width: 100%;
+    width: 95%;
 }
 
 .selected{
@@ -229,4 +243,12 @@ p {
 .row_table{
     background-color: lightgrey;
     width: 100%;
+}
+#latest_objects{
+    margin-top: 2rem;
+    background-color: powderblue;
+    border-radius: 1rem;
+}
+.form_create{
+    margin-top: 2rem;
 }

@@ -6,23 +6,27 @@ from .models import Rzeczy, Mapa
 
 class RzeczyForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super(RzeczyForm, self).__init__( *args, **kwargs)
-        self.fields['name'].label = ''
-        self.fields['year'].label = ''
-        self.fields['text'].label = ''
+    # def __init__(self, *args, **kwargs):
+    #     super(RzeczyForm, self).__init__( *args, **kwargs)
+    #     self.fields['name'].label = ''
+    #     self.fields['year'].label = ''
+    #     self.fields['text'].label = ''
+    #     self.fields['comments'].label = ''
+    #     self.fields['catalog_number'].label = ''
 
     class Meta:
         model = Rzeczy
-        fields = ('category', 'name', 'slug', 'year', 'text', 'image_obverse', 'image_reverse')
+        fields = ('category', 'name', 'slug', 'year', 'text', 'image_obverse', 'image_reverse', 'comments', 'catalog_number')
         widgets = {
             'category': forms.Select(attrs={'class': "form-control"}),
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'name'}),
             'slug': forms.HiddenInput(attrs={'class': 'form-control'}),
-            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'text'}),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'description'}),
             'year': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'year'}),
             'image_obverse': forms.FileInput(attrs={'class': 'form-control'}),
             'image_reverse': forms.FileInput(attrs={'class': 'form-control'}),
+            'comments': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'comments', 'rows': '6'}),
+            'catalog_number': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'catalog_number'})
         }
 
 
@@ -36,7 +40,7 @@ class MapaForm(gis.ModelForm):
         model = Mapa
 
         fields = ('geolocation',)
-        widgets = {'geolocation': gis.OSMWidget(attrs={'map_height': 580,'template_name': 'gis/openlayers-osm.html',
+        widgets = {'geolocation': gis.OSMWidget(attrs={'template_name': 'gis/openlayers-osm.html',
                    'default_lat': 52.012,
                    'default_lon':21.922,
                    'default_zoom': 13,
