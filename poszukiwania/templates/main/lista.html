@@ -7,8 +7,10 @@
     <div class="container">
         <div class="row panel">
             {% if request.user.is_authenticated %}
-
-                <div class=" col-4">
+                <div class="col-2">
+                    <a href="" class="panel_link"><h4>Help</h4></a>
+                </div>
+                <div class="col-3 ms-auto" style>
                     <div>
                         <form id="form_search">
                             {% csrf_token %}
@@ -17,11 +19,13 @@
                     </div>
 
                 </div>
-                <div class="col-2 ms-auto"><a  href="{% url 'poszukiwania:logout' %}">Log out</a></div>
+                <div class="col-3 ms-3">
+                    <a class="panel_link" href="{% url 'poszukiwania:logout' %}" style="float: right;"><h5>Logout</h5></a>
+                </div>
             {% else %}
-                <div style="text-align: center">
+                <div class="text_center">
                     <p><h3>Welcome to Detectorist Catalog.</h3></p>
-                    <h3><a href="{% url 'poszukiwania:login' %}" >Login</a></h3>
+                    <h3><a href="{% url 'poszukiwania:login' %}" >Login</a>|<a href="{% url 'poszukiwania:register' %}">Logout</a></h3>
                 </div>
             {% endif %}
         </div>
@@ -29,121 +33,9 @@
                 {% load leaflet_tags %}
                 <div class="list_search_objects not-visible"></div>
                 <div  class="row lista" style="background-color: ghostwhite">
-                    <div class="col-3" style="margin-top: 1rem;">
-                        <div>
-                            <table style="width: 100%">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <a class="btn btn-light row_table"  href="{% url 'poszukiwania:create' %} " >Add an object</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select class="btn btn-light row_table" id="category_selected" onchange="location = this.value;">
-                                                <option>Categories</option>
-                                                <option value="{% url 'poszukiwania:objects_list' %}" >All</option>
-                                                {% for category in categories %}
-                                                    <option  id='{{ category.slug }}' value="{{ category.get_absolute_url }}"{% if category == current_category %}selected="selected"{% endif %} >{{ category.title }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                             <select class="btn btn-light row_table" onchange="location = this.value">
-                                                <option value=""><strong>Sort by</strong></option>
-                                                <option value="?sort={{ 'name' }}">Name</option>
-                                                <option value="?sort={{ 'year' }}">Year</option>
-                                                <option value="?sort={{ 'publish' }}">Publication</option>
-                                                <option value="?sort={{ 'catalog_number' }}">Catalog_numbers</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="latest_objects">
-                            <h3 style="text-align: center">Recently added</h3>
-                                <ul>
-                                    {% for object in recently %}
-                                        <li><a href="{{ object.get_absolute_url }}" style="font-size: 1rem; color: grey">{{ object.name }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                        </div>
-                        <div class="pagination">
-                            <div class="pagination_detail">
-                                {% if objects.has_previous %}
-                                    <a class="pagination_text"  href="?page=1"><strong><<</strong></a>
-                                {% endif %}
-                            </div>
-                            <div class="pagination_detail">
-                                {% if objects.has_previous %}
-                                    <a class="pagination_text"  href="?page={{ objects.previous_page_number }}"><strong><</strong></a>
-                                {% endif %}
-                            </div>
-                            <div class="pagination_detail">
-                                 {% for number_page in objects.paginator.page_range %}
-                                    {% if number_page == objects.number %}
-                                        <a class="pagination_number" style="background-color: #3875d7;" href=""><strong>{{ number_page }}</strong></a>
-                                    {% else %}
-                                        {% if number_page > objects.number|add:'-3' and  number_page < objects.number|add:'3' %}
-                                            <a class="pagination_number" href="?page={{ number_page }}"><strong>{{ number_page }}</strong></a>
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                           <div class="pagination_detail">
-                                {% if objects.has_next %}
-                                    <a class="pagination_text" href="?page={{ objects.next_page_number }}"><strong>></strong></a>
-                                {% endif %}
-                           </div>
-                            <div class="pagination_detail">
-                                {% if objects.has_next %}
-                                    <a class="pagination_text" href="?page={{ objects.paginator.num_pages }}"><strong>>></strong></a>
-                                {% endif %}
-                           </div>
-                            <div>
-                                <a<input type="text">
-                            </div>
-                        </div>
-                    </div>
+                    {% include 'main/list/function.html' %}
                     <div class="col-9">
-                        <div class="objects">
-                            {% for object in objects %}
-                                <a href="{{ object.get_absolute_url }}">
-                                    <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
-                                        <table>
-                                           <tr>
-                                               <td>
-                                                   <div style="display: flex">
-                                                       <img class="image"  src="{{ object.image_obverse.url }}">
-                                                       <img class="image"  src="{{ object.image_reverse.url }}">
-                                                   </div>
-                                               </td>
-                                           </tr>
-                                            <tr>
-                                                <td>
-                                                    <div style="float: left; font-size: 1.5rem;">{{ object.name }}</div>
-                                                    <div style="float: right">
-                                                        <div style=" font-size: 0.8rem;">{{ object.year }}</div>
-                                                        {% if object.catalog_number != 0 %}
-                                                            <div style="font-size: 0.7rem;">{{ object.catalog_number}}</div>
-                                                        {% endif %}
-                                                    </div>
-
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </a>
-                            {% endfor %}
-                        </div>
+                        {%  include 'main/list/array_of_objects.html' %}
                         <div id="mapid" class="mapid">
                             <script type="text/javascript">
                                   var m = L.map('mapid').setView([52.012, 21.922], 15);
@@ -158,6 +50,6 @@
                 </div>
             {% endif %}
     </div>
- <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/list.js' %}"></script>
 {% endblock %}
 

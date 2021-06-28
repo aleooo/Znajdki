@@ -13,6 +13,14 @@ function sendSearchData(znajdka){
             'znajdka': znajdka,
         },
         success: (list) => {
+            listSearch.append(`<div id="light">
+                                    <table style="width:100%">
+                                         <tr>
+                                            <td  class="td">Obverse</td>
+                                            <td  class="td">Reverse</td>
+                                            <td  class="td">Name</td>
+                                            <td class="td">Publish</td>
+                                         </tr></table></div> `)
             items = list.data
             if(Array.isArray(items)) {
                 jQuery.each(items, function (i, item){
@@ -23,9 +31,9 @@ function sendSearchData(znajdka){
                                             <div class="row " id="`+ color +`">
                                                  <table style="width:100%">
                           <tr>
-                            <td id="td_image" class="td"><img src="`+ item.image_obverse +`" class="item-image"></td>
-                            <td id="td_image" class="td"><img src="`+ item.image_reverse +`" class="item-image"></td>
-                                              <td id="td_title" class="td">  `+ item.name +`</td>
+                            <td class="td"><img src="`+ item.image_obverse +`" class="item-image"></td>
+                            <td class="td"><img src="`+ item.image_reverse +`" class="item-image"></td>
+                                              <td  class="td">  `+ item.name +`</td>
                                                <td class="td">`+ item.publish +`</td>
                                                  </tr>
                         </table>
@@ -58,3 +66,5 @@ $('#category_selected').click(function (){
 $(window).click(function (){
     listSearch.addClass('not-visible')
 })
+
+// $('#select_style').

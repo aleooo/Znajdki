@@ -1,0 +1,58 @@
+<div class="col-3" style="margin-top: 1rem;">
+    <div>
+        <table style="width: 100%">
+            <tbody>
+                <tr>
+                    <td>
+                        <a class="btn row_table function_button"  href="{% url 'poszukiwania:create' %} " >Add an object</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="btn  row_table function_button" id="category_selected" onchange="location = this.value;">
+                            <option>Categories</option>
+                            <option value="{% url 'poszukiwania:objects_list' %}" >All</option>
+                            {% for category in categories %}
+                                <option  id='{{ category.slug }}' value="{{ category.get_absolute_url }}"{% if category == current_category %}selected="selected"{% endif %} >{{ category.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                         <select class="btn  row_table function_button" onchange="location = this.value">
+                            <option value=""><strong>Sort by</strong></option>
+                            <option value="?sort={{ 'name' }}">Name</option>
+                            <option value="?sort={{ 'year' }}">Year</option>
+                            <option value="?sort={{ 'publish' }}">Publication</option>
+                            <option value="?sort={{ 'catalog_number' }}">Catalog_numbers</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                         <select class="btn row_table function_button" id="select_style">
+                            <option value="style"><strong>Style</strong></option>
+                            <option value="thumbnail">Thumbnail</option>
+                            <option value="table">Table</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="latest_objects">
+        <h3 class="text_center">Recently added</h3>
+            <ul>
+                {% for object in recently %}
+                <li><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+                {% endfor %}
+            </ul>
+    </div>
+
+</div>

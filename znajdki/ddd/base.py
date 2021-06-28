@@ -1,16 +1,15 @@
 from pathlib import Path
 import os
 from utils.misc import get_git_changeset
-from decouple import config
 
 
 #BASE_DIR = Path(__file__).resolve().parent.parent
-# PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__))))
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = '^7f$lqi((jk52j=#zkx$k7x^nlnvk5%tqjxd6s6q8$-0p0va^-'
 
-DEBUG = config('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -115,10 +114,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES = os.path.join(PROJECT_PATH, 'static/')
-STAATIC_ROOT = '/static/'
+STATIC_URL = "/static/%s/" % get_git_changeset(BASE_DIR)
+STATICFILES = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/image/'
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'image')
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'image/')
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
@@ -140,5 +139,5 @@ REST_FRAMEWORK = {
 
 LOGIN_REDIRECT_URL = 'poszukiwania:objects_list'
 LOGOUT_REDIRECT_URL = 'poszukiwania:login'
-LOGIN_URL = 'poszukiwania:login'
-LOGOUT_URL = 'poszukiwania:logout'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'

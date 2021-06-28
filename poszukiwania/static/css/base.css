@@ -1,24 +1,31 @@
 body {
     background-image: url('ziemai.jpg');
     color: rgb(0, 0, 0);
+    /*font-family: Chilanka;*/
+    font-family: Manjari;
 }
 
 div.panel {
     height: auto;
     width: 100%;
-    font-size: 2rem;
+    font-size: 1rem;
     color: black;
-    background-color: aliceblue;
-    opacity: 0.9;
-    font-family: Jazz LET, Cursive;
-    padding: 0.6rem;
+    background: linear-gradient(to bottom, aliceblue, silver);
 }
 .panel_elements_search{
     float: left;
 }
+.text_center{
+    text-align: center;
+}
+.float_right{
+    float: right;
+}
+.float_left{
+    float: left;
+}
 a{
     color: black;
-    font-size: 2rem;
     text-decoration: None;
 }
 .nazwa {
@@ -29,9 +36,14 @@ search{
     text-align: center;
 }
 .list_search_objects{
+    background-color: white;
     position: absolute;
-    float: left;
-    border-radius: 5px;
+    border-radius: 1rem;
+    height: 25rem;
+    width: 27%;
+    overflow:  auto;
+    border: 2px solid black
+
 
 
 }
@@ -43,8 +55,8 @@ search{
 
 .pagination{
     position: relative;
-    width: auto;
-    font-size: 1rem;
+    width: 20%;
+    margin: auto;
 }
 
 .pagination_text{
@@ -53,13 +65,11 @@ search{
 .pagination_detail{
     text-align: center;
     margin-right: 5%;
-    font-size: 1.5rem;
     width: auto;
     height: 2rem;
 }
 .pagination_number{
     color: white;
-    font-size: 0.8rem;
     background-color: #79aec8;
     padding: 0.3rem 0.4rem;
 }
@@ -68,24 +78,20 @@ search{
     background-color: #3875d7;
 }
 #input_search{
-    width: 20rem;
+    width: 100%;
     height: 2.5rem;
     border-radius: 0.6rem;
     box-shadow: gray;
     text-align: center;
 }
 #form_search{
-    height: 4rem;
+   margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
 }
-
-
-
 a.kategory{
-    font-size: 2rem;
     color: black;
 }
 div.lista {
-    font-size: 1rem;
     color: black;
     background-color: white;
     width: 100%;
@@ -105,7 +111,9 @@ p {
     border-radius: 1rem;
 
 }
-
+.panel_link{
+    margin-top: 1rem;
+}
 #center {
     margin-bottom: auto;
     margin-top: auto;
@@ -116,42 +124,33 @@ p {
 
 .item-image{
     width: 7rem;
-    height: 5rem;
+    height: 7rem;
+    border-radius: 0.5rem;
 }
-#light{
-    width: 30rem;
-     margin-left: auto;
-    margin-right: auto;
-    background-color: azure;
-    border-style: outset;
-    border-color: black;
-}
-#dark{
-    width: 30rem;
+#light, #dark{
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
-    background-color: lightgray;
     border-style: outset;
     border-color: black;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+#dark{
+    background: linear-gradient(to top, white, paleturquoise);
+}
+#light{
+    background: linear-gradient(to bottom, white, paleturquoise);
 }
 .item{
     height: 5rem;
     text-decoration: None;
 }
 
-#td_image{
-    width: 7rem;
-}
 .td{
-    font-size: 1rem;
-}
-#td_title{
-    width: 20rem;
+    width: 25%;
     text-align: center;
-
 }
 .column{
-    font-size: 1rem;
     height: 29rem;
     width: 20rem;
 }
@@ -165,24 +164,19 @@ p {
     width: 38rem;
     /*margin-right: 100px;*/
      margin-left: 12rem;
-
 }
-
-.ciemny{
+.ciemny, .jasny{
     height: 13rem;
     width: 18rem;
-    background-color: lightgray;
      border-radius: 1rem;
     float: left;
     margin: 0.5rem;
 }
 .jasny{
-    height: 13rem;
-    width: 18rem;
-    background-color: aliceblue;
-    border-radius: 1rem;
-    float: left;
-    margin: 0.5rem;
+    background-color: #deeaee;
+}
+.ciemny{
+    background-color: lightgray;
 }
 .objects{
     width: auto;
@@ -226,18 +220,22 @@ p {
     width: 67rem;
     background-color: whitesmoke;
     justify-content: center;
-
     margin: auto;
 }
 .image{
     width: 9rem;
     height: 10rem;
-    border-radius: 1rem;
+    border-radius: 0 0 1rem 1rem;
 }
 .image_detail{
     width: 20rem;
     height: 20rem;
     border-radius: 1rem;
+    transition: all 0.5s;
+}
+image_detail:hover{
+    width: 24rem;
+    height: 24rem;
 }
 
 .row_table{
@@ -245,10 +243,16 @@ p {
     width: 100%;
 }
 #latest_objects{
-    margin-top: 2rem;
-    background-color: powderblue;
+    margin-top: 6rem;
+    background-color: lightgray;
     border-radius: 1rem;
 }
 .form_create{
     margin-top: 2rem;
+}
+.function_button{
+    background-color: lightgrey;
+}
+.function_button:hover{
+    background-color: darkgray;
 }

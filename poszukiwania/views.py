@@ -14,7 +14,8 @@ def start(request):
     return render(request, 'main/lista.html')
 
 
-def objects_list(request, category_slug=None, sort=None):
+@login_required()
+def objects_list(request, category_slug=None, sort=None, style='thumbnail'):
     categories = Category.objects.all()
     kat = False
     monety = False
@@ -33,7 +34,7 @@ def objects_list(request, category_slug=None, sort=None):
     if sort:
         objects = objects.order_by(sort)
         if sort == 'catalog_number':
-            objects = Rzeczy.objects.filter(catalog_number__gt=0)
+            objects = Rzeczy.objects.filter(catalog_number__gt=0).order_by(sort)
 
     page = request.GET.get('page')
     paginator = Paginator(objects, 12)
@@ -51,6 +52,7 @@ def objects_list(request, category_slug=None, sort=None):
                                                'maps': maps,
                                                'page': page,
                                                'recently': recently,
+
                                                })
 
 
