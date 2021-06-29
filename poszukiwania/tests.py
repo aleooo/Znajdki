@@ -35,16 +35,6 @@ class PoszukiwaniaTestCase(TestCase):
                               text='a rarely found button',)
 
 
-
-    def test_url(self):
-        url = reverse('poszukiwania:start')
-        self.assertEqual(resolve(url).func, views.start)
-
-    def test_view(self):
-        client = Client()
-        response = client.get(reverse('poszukiwania:start'))
-        self.assertEqual(response.status_code, 200)
-
     def test_home_page(self):
         request = HttpRequest()
         response = views.start(request)
@@ -67,12 +57,27 @@ class PoszukiwaniaTestCase(TestCase):
         response = views.objects_list(request)
         self.assertIn('Boratynka', response.content.decode())
 
-    def test_view_rzeczy_list_with_category(self):
+    def test_view_objects_list_with_category(self):
         category = Category.objects.first()
         request = HttpRequest()
         request.user = self.user
         response = views.objects_list(request, category.slug)
         self.assertIn('Boratynka', response.content.decode())
+
+    def test_view_objects_list_pagination(self):
+        request = HttpRequest()
+        request.user = self.user
+        response = views.objects_list(request, sort='name')
+        self.assertIn('<strong>1</strong>', response.content.decode())
+
+    def test_view_object_detail(self):
+        request = HttpRequest()
+        request.user = self.user
+
+        response = views.object_detail(request, id=5)
+        self.assertIn('a frequently found coin', response.content.decode())
+
+
 
 
 

@@ -123,20 +123,11 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
 
-# LEAFLET_CONFIG = {
-#     'DEFAULT_CENTER': (52.013, 21.93),
-#     'DEFAULT_ZOOM': 19,
-#     'MIN_ZOOM': 3,
-#     'MAX_ZOOM': 18,
-#     'DEFAULT_PRECISION': 6,
-#    'TILES': 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
 # }
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
 
 LOGIN_REDIRECT_URL = 'poszukiwania:objects_list'
 LOGOUT_REDIRECT_URL = 'poszukiwania:login'

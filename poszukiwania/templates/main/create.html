@@ -54,9 +54,9 @@
                         </div>
                             <div style="width: auto; float: right; height: 2rem;">
                                 {% if type == 'create' %}
-                                    <button class="btn btn-secondary" type="submit" value="create">create</button>
+                                    <button class="btn btn-secondary" id="button_create" type="submit" value="create">create</button>
                                 {% else %}
-                                    <button class="btn btn-secondary" type="submit" value="create">update</button>
+                                    <button class="btn btn-secondary" id="button_update" type="submit" value="create">update</button>
                                 {% endif %}
                                 <a class='btn btn-secondary' href="{% url 'poszukiwania:objects_list' %}">back</a>
                             </div>

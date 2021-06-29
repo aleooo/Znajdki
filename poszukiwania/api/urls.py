@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
 
-app_name = 'api'
+app_name = 'rest_framework'
 
 urlpatterns = [
-    path('objects/', views.RzeczyListView.as_view(), name='objects_list'),
-    path('objects/<pk>/', views.RzeczyDetailView.as_view(), name='objects_detail'),
+    path('', views.api_overview, name='overview'),
+    path('finds/', views.finds_list_view, name='finds_list'),
+    path('finds/<int:pk>/', views.FindsUpdateView.as_view(), name='finds_detail'),
 ]
