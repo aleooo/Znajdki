@@ -16,7 +16,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'leaflet',
     'autoslug',
     'django.contrib.gis',
-    'rest_framework'
+    'rest_framework',
+    'django.contrib.admin',
 
 ]
 
@@ -123,13 +124,19 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-#     ]
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 LOGIN_REDIRECT_URL = 'poszukiwania:objects_list'
 LOGOUT_REDIRECT_URL = 'poszukiwania:login'
 LOGIN_URL = 'poszukiwania:login'
 LOGOUT_URL = 'poszukiwania:logout'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'katalog.poszukiwacza@gmail.com'
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

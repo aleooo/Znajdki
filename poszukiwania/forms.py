@@ -6,14 +6,6 @@ from .models import Rzeczy, Mapa
 
 class RzeczyForm(forms.ModelForm):
 
-    # def __init__(self, *args, **kwargs):
-    #     super(RzeczyForm, self).__init__( *args, **kwargs)
-    #     self.fields['name'].label = ''
-    #     self.fields['year'].label = ''
-    #     self.fields['text'].label = ''
-    #     self.fields['comments'].label = ''
-    #     self.fields['catalog_number'].label = ''
-
     class Meta:
         model = Rzeczy
         fields = ('category', 'name', 'slug', 'year', 'text', 'image_obverse', 'image_reverse', 'comments', 'catalog_number')
@@ -48,16 +40,17 @@ class MapaForm(gis.ModelForm):
 
 
 class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(label='Hasło', widget=forms.PasswordInput(attrs={'class': 'register_input'}))
-    password2 = forms.CharField(label='Powtórz hasło', widget=forms.PasswordInput(attrs={'class': 'register_input'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'register_input'}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'register_input'}))
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2')
-        widgets = {'username': forms.TextInput(attrs={'class': 'register_input'})}
+        fields = ('username', 'email', 'password', 'confirm_password')
+        widgets = {'username': forms.TextInput(attrs={'class': 'register_input'}),
+                   'email': forms.TextInput(attrs={'class': 'register_input'})}
 
     def clean_password2(self):
         cd = self.cleaned_data
-        if cd['password'] != cd['password2']:
+        if cd['password'] != cd['confirm_password']:
             raise forms.ValidationError('Hasła nie są identyczne')
-        return cd['password2']
+        return cd['confirm_password']

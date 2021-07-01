@@ -34,8 +34,10 @@
                 <input type="hidden" name="next" value="{{ next }}" />
                 <button type="submit" class="btn btn-info"  style="width: 100px">Login</button>
             </div>
-            <div class="center_register">
+            <div class="text_center">
                 <p>Don't have an account? <a style="font-size: 20px; color: green;text-decoration:none;" href="{% url 'poszukiwania:register' %}">Sign in</a></p>
+                <p><a style="font-size: 20px; color: green;text-decoration:none;" href="{% url 'poszukiwania:password_reset' %}">Forget your password?</a></p>
+
             </div>
         </div>
     </form>
