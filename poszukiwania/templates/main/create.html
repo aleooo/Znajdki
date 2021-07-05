@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
-{% load static %}
+
 {% load bootstrap5 %}
+{% load i18n %}
+{% load static %}
 
 {% block title %}Dodawanie rzeczy
 
@@ -17,7 +19,7 @@
                     <div class="col-1"></div>
                     <div class="col-3" >
                         <div class="form_create" style="margin-top: 0">
-                            <label>Category</label>
+                            <label>{% trans "Category" %}</label>
                             {{ form.category }}
                         </div>
                         <div class="form_create">
@@ -30,11 +32,11 @@
                             {{ form.text }}
                         </div>
                         <div class="form_create">
-                            <label>image_obverse</label>
+                            <label>{% trans "image_obverse" %}</label>
                             {{ form.image_obverse }}
                         </div>
                         <div class="form_create">
-                            <label>image_reverse</label>
+                            <label>{% trans "image_reverse" %}</label>
                             {{ form.image_reverse }}
                         </div>
                         <div class="form_create">
@@ -54,11 +56,11 @@
                         </div>
                             <div style="width: auto; float: right; height: 2rem;">
                                 {% if type == 'create' %}
-                                    <button class="btn btn-secondary" id="button_create" type="submit" value="create">create</button>
+                                    <button class="btn btn-secondary" id="button_create" type="submit" value="create">{% trans "create" %}</button>
                                 {% else %}
-                                    <button class="btn btn-secondary" id="button_update" type="submit" value="create">update</button>
+                                    <button class="btn btn-secondary" id="button_update" type="submit" value="create">{% trans "update" %}</button>
                                 {% endif %}
-                                <a class='btn btn-secondary' href="{% url 'poszukiwania:objects_list' %}">back</a>
+                                <a class='btn btn-secondary' href="{% url 'poszukiwania:objects_list' %}">{% trans "back" %}</a>
                             </div>
                     </div>
 

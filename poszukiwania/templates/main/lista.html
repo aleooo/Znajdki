@@ -1,14 +1,15 @@
  {% extends "base.html" %}
 
-{% load static %}
 {% load custom_template_tags %}
+{% load i18n %}
+{% load static %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" >
         <div class="row panel">
             {% if request.user.is_authenticated %}
                 <div class="col-2">
-                    <a href="" class="panel_link"><h4>Help</h4></a>
+                    <span class="cracked">ZNAJDKI</span>
                 </div>
                 <div class="col-3 ms-auto" style>
                     <div>
@@ -17,24 +18,25 @@
                             <input placeholder="search" id="input_search">
                         </form>
                     </div>
-
                 </div>
                 <div class="col-3 ms-3">
-                    <a class="panel_link" href="{% url 'poszukiwania:logout' %}" style="float: right;"><h5>Logout</h5></a>
+                    <a class="panel_link" href="{% url 'poszukiwania:logout' %}" style="float: right;"><h5>{% trans "Logout" %}</h5></a>
+
                 </div>
             {% else %}
                 <div class="text_center">
                     <p><h3>Welcome to Detectorist Catalog.</h3></p>
-                    <h3><a href="{% url 'poszukiwania:login' %}" >Login</a>|<a href="{% url 'poszukiwania:register' %}">Logout</a></h3>
+                    <h3><a href="{% url 'poszukiwania:login' %}" >{% trans "Login" %}</a>|<a href="{% url 'poszukiwania:register' %}">{% trans "Register" %}</a></h3>
                 </div>
             {% endif %}
         </div>
             {% if request.user.is_authenticated %}
                 {% load leaflet_tags %}
-                <div class="list_search_objects not-visible"></div>
+
                 <div  class="row lista" style="background-color: ghostwhite">
                     {% include 'main/list/function.html' %}
                     <div class="col-9">
+                        <div class="list_search_objects not-visible"></div>
                         {%  include 'main/list/array_of_objects.html' %}
                         <div id="mapid" class="mapid">
                             <script type="text/javascript">
@@ -46,6 +48,7 @@
                                     {% endfor %}
                             </script>
                         </div>
+                        {% include 'main/list/pagination.html' %}
                     </div>
                 </div>
             {% endif %}

@@ -1,0 +1,322 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-04 22:15+0200\n"
+"PO-Revision-Date: 2021-07-04 21:01+0000\n"
+"Last-Translator: b'  <awdawdad@gmail.com>'\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Translated-Using: django-rosetta 0.9.6\n"
+
+#: poszukiwania/forms.py:16
+msgid "name"
+msgstr "nazwa"
+
+#: poszukiwania/forms.py:18
+msgid "description"
+msgstr "opis"
+
+#: poszukiwania/forms.py:19
+msgid "year"
+msgstr "rok"
+
+#: poszukiwania/forms.py:22
+msgid "comments"
+msgstr "komentarz"
+
+#: poszukiwania/forms.py:23
+msgid "catalog_number"
+msgstr "numer_katalogowy"
+
+#: poszukiwania/forms.py:57
+msgid "Passwords do not match"
+msgstr "Hasła nie są identyczne"
+
+#: poszukiwania/templates/main/create.html:22
+#: poszukiwania/templates/main/detail.html:65
+msgid "Category"
+msgstr "Kategoria"
+
+#: poszukiwania/templates/main/create.html:35
+msgid "image_obverse"
+msgstr "Zdjęcie awersu"
+
+#: poszukiwania/templates/main/create.html:39
+msgid "image_reverse"
+msgstr "Zdjęcie rewersu"
+
+#: poszukiwania/templates/main/create.html:59
+msgid "create"
+msgstr "Stwórz"
+
+#: poszukiwania/templates/main/create.html:61
+#: poszukiwania/templates/main/detail.html:39
+msgid "update"
+msgstr "edytuj"
+
+#: poszukiwania/templates/main/create.html:63
+#: poszukiwania/templates/main/detail.html:38
+msgid "back"
+msgstr "wróć"
+
+#: poszukiwania/templates/main/detail.html:40
+msgid "delete"
+msgstr "usuń"
+
+#: poszukiwania/templates/main/detail.html:57
+#: poszukiwania/templates/main/list/function.html:31
+msgid "Name"
+msgstr "Nazwa"
+
+#: poszukiwania/templates/main/detail.html:61
+msgid "User"
+msgstr "Użytkownik"
+
+#: poszukiwania/templates/main/detail.html:69
+#: poszukiwania/templates/main/list/function.html:32
+msgid "Year"
+msgstr "Rok"
+
+#: poszukiwania/templates/main/detail.html:73
+msgid "Catalog_number"
+msgstr "Numer Katalogowy"
+
+#: poszukiwania/templates/main/detail.html:76
+msgid "Update"
+msgstr "Edytuj"
+
+#: poszukiwania/templates/main/detail.html:80
+msgid "Publish"
+msgstr "Opublikowanie"
+
+#: poszukiwania/templates/main/list/function.html:19
+msgid "Categories"
+msgstr "Kategorie"
+
+#: poszukiwania/templates/main/list/function.html:20
+msgid "All"
+msgstr "Wszystkie"
+
+#: poszukiwania/templates/main/list/function.html:30
+msgid "Sort by"
+msgstr "Sortuj"
+
+#: poszukiwania/templates/main/list/function.html:33
+msgid "Publication"
+msgstr "Publikacja"
+
+#: poszukiwania/templates/main/list/function.html:34
+msgid "Catalog_numbers"
+msgstr "Numer Katalogowy"
+
+#: poszukiwania/templates/main/list/function.html:41
+msgid "Style"
+msgstr "Style"
+
+#: poszukiwania/templates/main/list/function.html:42
+msgid "Thumbnail"
+msgstr "Miniatury"
+
+#: poszukiwania/templates/main/list/function.html:43
+msgid "Table"
+msgstr "Tabela"
+
+#: poszukiwania/templates/main/list/function.html:51
+msgid "Recently added"
+msgstr "Ostatnio dodane"
+
+#: poszukiwania/templates/main/lista.html:23
+msgid "Logout"
+msgstr "Wyloguj się"
+
+#: poszukiwania/templates/main/lista.html:29
+#: poszukiwania/templates/main/register.html:47
+#: poszukiwania/templates/registration/login.html:37
+msgid "Login"
+msgstr "Zaloguj się"
+
+#: poszukiwania/templates/main/lista.html:29
+#: poszukiwania/templates/main/register.html:44
+msgid "Register"
+msgstr "Zarejestruj się"
+
+#: poszukiwania/templates/main/register.html:7
+msgid "Register Account"
+msgstr "Rejestracja konta"
+
+#: poszukiwania/templates/main/register.html:47
+msgid "Already have an account?"
+msgstr "Masz już konto?"
+
+#: poszukiwania/templates/registration/logged_out.html:8
+msgid "Wylogowanie"
+msgstr ""
+
+#: poszukiwania/templates/registration/login.html:8
+msgid "LOGIN"
+msgstr "LOGOWANIE"
+
+#: poszukiwania/templates/registration/login.html:11
+msgid ""
+"\n"
+"            The username or password is incorrect.\n"
+"            try again\n"
+"        "
+msgstr ""
+"\n"
+"Nazwa użytkownika lub hasło są nie poprawne.\n"
+"Spróbuj ponownie"
+
+#: poszukiwania/templates/registration/login.html:40
+msgid "Don't have an account?"
+msgstr "Nie masz konta?"
+
+#: poszukiwania/templates/registration/login.html:40
+msgid "Sign in"
+msgstr "Zarejestruj się"
+
+#: poszukiwania/templates/registration/login.html:41
+msgid "Forget your password?"
+msgstr "Zapomniałeś hasła?"
+
+#: poszukiwania/templates/registration/password_change_done.html:3
+msgid "Password has been changed"
+msgstr "Hasło zostało zmienione"
+
+#: poszukiwania/templates/registration/password_change_done.html:8
+msgid "Done!"
+msgstr "Zrobione!"
+
+#: poszukiwania/templates/registration/password_change_done.html:15
+msgid "Catalog"
+msgstr "Katalog"
+
+#: poszukiwania/templates/registration/password_change_form.html:3
+#: poszukiwania/templates/registration/password_change_form.html:7
+msgid "Password change"
+msgstr "Zmiana hasła"
+
+#: poszukiwania/templates/registration/password_change_form.html:14
+msgid "Old password:"
+msgstr "Stare hasło:"
+
+#: poszukiwania/templates/registration/password_change_form.html:21
+#: poszukiwania/templates/registration/password_change_form.html:28
+msgid "Your password can’t be too similar to your other personal information."
+msgstr "Twoje hasło nie być podobne do danych osobowych."
+
+#: poszukiwania/templates/registration/password_change_form.html:22
+#: poszukiwania/templates/registration/password_change_form.html:29
+msgid "Your password must contain at least 8 characters."
+msgstr "Twoje hasło musi zawierać conajmniej 8 znaków."
+
+#: poszukiwania/templates/registration/password_change_form.html:23
+#: poszukiwania/templates/registration/password_change_form.html:30
+msgid "Your password can’t be a commonly used password."
+msgstr "Twoje hasło nie może być podobne do poprzedniego hasła."
+
+#: poszukiwania/templates/registration/password_change_form.html:24
+#: poszukiwania/templates/registration/password_change_form.html:31
+msgid "Your password can’t be entirely numeric."
+msgstr "Twoje hasło nie może zawierać cyfr."
+
+#: poszukiwania/templates/registration/password_change_form.html:37
+msgid "New password:"
+msgstr "Nowe hasło:"
+
+#: poszukiwania/templates/registration/password_change_form.html:43
+msgid "New password(again):"
+msgstr "Nowe hasło(ponownie):"
+
+#: poszukiwania/templates/registration/password_change_form.html:49
+#: poszukiwania/templates/registration/password_reset_confirm.html:36
+msgid "Change"
+msgstr "Zmiana"
+
+#: poszukiwania/templates/registration/password_change_form.html:50
+msgid "Back"
+msgstr "Wróć"
+
+#: poszukiwania/templates/registration/password_reset_complete.html:3
+#: poszukiwania/templates/registration/password_reset_complete.html:8
+#: poszukiwania/templates/registration/password_reset_confirm.html:4
+#: poszukiwania/templates/registration/password_reset_confirm.html:9
+msgid "Reset password"
+msgstr "Resetowanie hasła"
+
+#: poszukiwania/templates/registration/password_reset_complete.html:12
+msgid "The password has been defined. You can"
+msgstr "Hasło zostało zdefiniowane. Możesz się"
+
+#: poszukiwania/templates/registration/password_reset_complete.html:12
+msgid "login"
+msgstr "zalogować"
+
+#: poszukiwania/templates/registration/password_reset_complete.html:12
+msgid "in now"
+msgstr "w tym momencie"
+
+#: poszukiwania/templates/registration/password_reset_confirm.html:14
+msgid "Enter the new password twice"
+msgstr "Wprowadź nowe hasło podwójnie"
+
+#: poszukiwania/templates/registration/password_reset_confirm.html:41
+msgid ""
+"Link to reset password is incorrect because it has probably been used "
+"before. You must again to start the procedure password reset."
+msgstr ""
+"Link do zresetowania hasła jest nieprawidłowy ponieważ prawdopodobnie "
+"zostało użyte wcześniej. Musisz ponownie rozpocząć procedurę resetowania "
+"hasła."
+
+#: poszukiwania/templates/registration/password_reset_done.html:3
+#: poszukiwania/templates/registration/password_reset_form.html:4
+msgid "Password has been changed "
+msgstr "Hasło zostało zmienione"
+
+#: poszukiwania/templates/registration/password_reset_done.html:8
+#: poszukiwania/templates/registration/password_reset_form.html:9
+msgid "Reset Password"
+msgstr "Resetowanie hasła"
+
+#: poszukiwania/templates/registration/password_reset_done.html:12
+msgid "We send you email with instructions let you create a new password"
+msgstr ""
+"Wysłaliśmy na twój email instrukcję pozwalającą Tobie stworzyć nowe hasło. "
+
+#: poszukiwania/templates/registration/password_reset_done.html:15
+msgid ""
+"If you haven't the email message make sure on the form of password reset "
+"enter address e-mail provided when creating the user account"
+msgstr ""
+"Jeśli nie otrzymałeś wiadomości email, upewnij się, że w formularzu "
+"resetowania hasła wprowadziłeś poprawny email, podany kiedy tworzyłeś konto."
+
+#: poszukiwania/templates/registration/password_reset_email.html:1
+msgid "We received the a password reset request for users use the email"
+msgstr ""
+"Otrzymaliśmy żądanie zresetowania hasła dla użytkownika używającego adresu "
+"e-mail "
+
+#: poszukiwania/templates/registration/password_reset_email.html:1
+msgid "Click below link:"
+msgstr "Kliknij poniższy link:"
+
+#: poszukiwania/templates/registration/password_reset_email.html:3
+msgid "Your username:"
+msgstr "Twoja nazwa użytkownika:"
+
+#: poszukiwania/templates/registration/password_reset_form.html:18
+msgid "Send email"
+msgstr "Wyślij e-mail"

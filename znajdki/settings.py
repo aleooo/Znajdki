@@ -31,17 +31,20 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'rest_framework',
     'django.contrib.admin',
+    'rosetta'
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'znajdki.urls'
@@ -102,7 +105,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('en', 'english'),
+    ('pl', 'polski'),
+)
+LOCALE_PATHS = (
+    os.path.join(PROJECT_PATH, 'locale/'),
+)
 
 TIME_ZONE = 'UTC'
 

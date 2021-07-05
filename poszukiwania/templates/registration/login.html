@@ -1,15 +1,19 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
+
+{% load i18n %}
 {% load static %}
 
-{% block title %}Logowanie{% endblock %}
+{% block title %}{% trans "Logowanie" %}{% endblock %}
 
 {% block content %}
-<div class="login" >
-    <h1 style="text-align: center">LOGIN</h1>
+<div class="login">
+    <h1 style="text-align: center;">{% trans "LOGIN" %}</h1>
     {% if form.errors %}
         <p>
-            Nazwa użytkownika lub hasło są nieprawidłowe.
-            Spróbuj ponownie
+            {% blocktrans %}
+                The username or password is incorrect.
+                try again
+            {% endblocktrans %}
         </p>
     {% endif %}
     <form action="{% url 'poszukiwania:login' %}" method="post">
@@ -32,11 +36,11 @@
             </div>
             <div class="center_register">
                 <input type="hidden" name="next" value="{{ next }}" />
-                <button type="submit" class="btn btn-info"  style="width: 100px">Login</button>
+                <button type="submit" class="btn btn-info"  style="width: 100px">{% trans "Login" %}</button>
             </div>
             <div class="text_center">
-                <p>Don't have an account? <a style="font-size: 20px; color: green;text-decoration:none;" href="{% url 'poszukiwania:register' %}">Sign in</a></p>
-                <p><a style="font-size: 20px; color: green;text-decoration:none;" href="{% url 'poszukiwania:password_reset' %}">Forget your password?</a></p>
+                <p>{% trans "Don't have an account?" %} <a style="font-size: 20px; color: green;text-decoration:none;" href="{% url 'poszukiwania:register' %}">{% trans "Sign in" %}</a></p>
+                <p><a style="font-size: 20px; color: green;text-decoration:none;" href="{% url 'poszukiwania:password_reset' %}">{% trans "Forget your password?" %}</a></p>
 
             </div>
         </div>

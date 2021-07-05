@@ -1,0 +1,66 @@
+<div class="col-md-3 offset-md-4 paginator">
+  <ul class="pagination">
+        {% if objects.has_previous %}
+            <li class="page-item">
+                <a class="page-link"  href="?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link"  href="#">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if objects.has_previous %}
+            <li class="page-item">
+                <a class="page-link"  href="?page={{ objects.previous_page_number }}">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link"  href="#">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+        {% endif %}
+        {% for number_page in objects.paginator.page_range %}
+            {% if number_page == objects.number %}
+                <li class="page-item active"><a class="page-link" href="#">{{ number_page }}</a></li>
+            {% else %}
+                {% if number_page > objects.number|add:'-3' and  number_page < objects.number|add:'3' %}
+                     <li class="page-item"><a class="page-link" href="?page={{ number_page }}">{{ number_page }}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if objects.has_next %}
+             <li class="page-item">
+                <a class="page-link" href="?page={{ objects.next_page_number }}">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if objects.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ objects.paginator.num_pages }}">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+  </ul>
+</div>
+

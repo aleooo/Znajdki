@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% block title %}Register{% endblock %}
 
 {% block content %}
 <div class="login">
-    <h1 style="text-align: center">Register Account</h1>
+    <h1 style="text-align: center">{% trans "Register Account" %}</h1>
     <form action='.' method='post'>
          {% csrf_token %}
         <div class="center_register">
@@ -41,10 +43,10 @@
             </div>
         </div>
          <div class="center_register"style=" margin-bottom: 20px;">
-            <p><input type="submit" value="Register"></p>
+            <p><button type="submit" class="btn btn-light">{% trans "Register" %}</button></p>
          </div>
         <div class="center_register" style="margin-bottom: 20px;">
-            <p style="font-size: 20px;">Already have an account? <a style="font-size: 20px; color: green;" href="{% url 'poszukiwania:login' %}">Login</a></p>
+            <p style="font-size: 20px;">{% trans "Already have an account?" %} <a style="font-size: 20px; color: green;" href="{% url 'poszukiwania:login' %}">{% trans "Login" %}</a></p>
          </div>
     </form>
 </div>
