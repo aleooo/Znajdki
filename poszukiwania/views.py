@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.utils import translation
 from django.utils.text import slugify
-from django.http import JsonResponse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import UserRegistrationForm, RzeczyForm, MapaForm
 from .models import Category, Rzeczy, Mapa
@@ -15,7 +16,7 @@ def start(request):
 
 
 @login_required()
-def objects_list(request, category_slug=None, sort=None, style='thumbnail'):
+def objects_list(request, category_slug=None, *args, **kwargs):
     categories = Category.objects.all()
     kat = False
     monety = False
@@ -37,7 +38,8 @@ def objects_list(request, category_slug=None, sort=None, style='thumbnail'):
             objects = Rzeczy.objects.filter(catalog_number__gt=0).order_by(sort)
 
     page = request.GET.get('page')
-    paginator = Paginator(objects, 12)
+    paginator = Paginator(objects, 20)
+
 
     try:
         objects_pagination = paginator.page(page)
@@ -52,7 +54,6 @@ def objects_list(request, category_slug=None, sort=None, style='thumbnail'):
                                                'maps': maps,
                                                'page': page,
                                                'recently': recently,
-
                                                })
 
 
@@ -103,7 +104,6 @@ def create(request):
                                                 })
 
 def search(request):
-    print('Works')
     if request.is_ajax():
         znajdka = request.POST.get('znajdka')
         objects = Rzeczy.objects.filter(name__icontains=znajdka)
@@ -118,7 +118,7 @@ def search(request):
                     'publish': object.publish,
                     'url': object.get_absolute_url()
                 }
-
+                print('To jest item:', object.name)
                 data.append(item)
             list = data
         else:

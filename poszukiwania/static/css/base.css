@@ -8,9 +8,8 @@ body {
 
 div.panel {
 
-    height: auto;
+    height: 3.5rem;
     width: 100%;
-    color: black;
     background: linear-gradient(to bottom, aliceblue, silver);
 }
 div.panel::before{
@@ -100,9 +99,7 @@ search{
     height: 50vh;
     width: 27%;
     overflow:  auto;
-    border: 2px solid black
-
-
+    border: 2px solid black;
 
 }
 .h5_search{
@@ -265,7 +262,7 @@ p {
 .detail{
     height: auto;
     width: 67rem;
-    background-color: whitesmoke;
+    background-color: ghostwhite;
     justify-content: center;
     margin: auto;
 }
@@ -298,4 +295,70 @@ image_detail:hover{
 }
 .function_button:hover{
     background-color: darkgray;
+}
+
+.btn-toggle-nav {
+    width: 2rem;
+    height: 2rem;
+
+    background-image: url('to.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    cursor: pointer;
+}
+.sidebar {
+    width: 0;
+    background-color: ghostwhite;
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out; /* Firefox 4 */
+    -webkit-transition: all 0.3s ease-in-out; /* Safari and Chrome */
+    -o-transition: all 0.3s ease-in-out; /* Opera */
+
+}
+.activeSidebar{
+
+}
+.width{
+    text-align: left;
+    width: 100%;
+
+}
+#sidebar{
+    border: 2px solid  lightgrey;
+}
+.toggleFunctions{
+    border-radius: 0 0 0 0;
+
+}
+.toggleFunctions:hover{
+    background-color: cadetblue;
+}
+
+.button_detail{
+    margin-top: 0.5rem;
+
+}
+#logout{
+    width: 100%;
+    background-color: #edf4fa;
+}
+#table_table tr{
+    border: 1px solid darkgrey;
+}
+.tr_table:nth-child(odd){
+    background-color: #dddddd;
+}
+#table_detail{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 250px;
+}
+.tdth {
+    border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }

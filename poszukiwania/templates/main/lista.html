@@ -9,7 +9,9 @@
         <div class="row panel">
             {% if request.user.is_authenticated %}
                 <div class="col-2">
-                    <span class="cracked">ZNAJDKI</span>
+                    <div class="panel_link">
+                        <div id='toggle' class="btn-toggle-nav" onclick="sidebar()"></div>
+                    </div>
                 </div>
                 <div class="col-3 ms-auto" style>
                     <div>
@@ -20,8 +22,7 @@
                     </div>
                 </div>
                 <div class="col-3 ms-3">
-                    <a class="panel_link" href="{% url 'poszukiwania:logout' %}" style="float: right;"><h5>{% trans "Logout" %}</h5></a>
-
+                    <span class="cracked float_right">ZNAJDKI</span>
                 </div>
             {% else %}
                 <div class="text_center">
