@@ -8,7 +8,7 @@ const csrfToken = $('[name = csrfmiddlewaretoken]')[0].value
 function sendSearchData(znajdka){
     $.ajax({
         type: 'POST',
-        url: 'search/',
+        url: '/en/search/',
         data: {
             'csrfmiddlewaretoken': csrfToken,
             'znajdka': znajdka,
@@ -83,15 +83,27 @@ function sidebar(){
         sidebarStatus = false
     }
 }
-let thumbnail = $('#list_thumbnail')
-let table = $('#list_table')
-function styleFunction (s){
-        if(s === 'table'){
-        thumbnail.addClass('not-visible');
-        table.removeClass('not-visible');
-    }
-    else{
-        table.addClass('not-visible');
-        thumbnail.removeClass('not-visible');
-    }
+function styleFunction (style){
+    $.ajax({
+        type: 'POST',
+        url: '/en/style/',
+        data: {
+            'csrfmiddlewaretoken': csrfToken,
+            'type': style
+        },
+        success: (list) => {
+            window.location.reload()
+        },
+        error: (err) => {
+            console.log(err)
+            }
+    })
 }
+// function maps_type(type){
+//     if(type === 'satelite'){
+//         L.TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map)
+//     }
+//     else{
+//         L.TileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}').addTo(map)
+//     }
+// }

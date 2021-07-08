@@ -1,74 +1,76 @@
-<div class="objects" id="list_thumbnail">
-    {% for object in objects %}
-        <a href="{{ object.get_absolute_url }}">
-            <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
-                <table>
-                   <tr>
-                       <td>
-                           <div style="display: flex">
-                               <img class="image" src="{{ object.image_obverse.url }}">
-                               <img class="image " src="{{ object.image_reverse.url }}">
-                           </div>
-                       </td>
-                   </tr>
-                    <tr>
-                        <td>
-                            <div class="float_left text-justify"><h4>{{ object.name }}</h4></div>
-                            <div class="float_right">
-                                <div>
-                                    <h6 style="color: darkslategrey">
-                                        {% if object.year != None %}
-                                            {{ object.year }}
-                                        {% endif %}
-                                    </h6>
+<div class="objects">
+    {% if request.session.style == 'thumbnail' %}
+        {% for object in objects %}
+            <a href="{{ object.get_absolute_url }}">
+                <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
+                    <table>
+                       <tr>
+                           <td>
+                               <div style="display: flex">
+                                   <img class="image" src="{{ object.image_obverse.url }}">
+                                   <img class="image " src="{{ object.image_reverse.url }}">
+                               </div>
+                           </td>
+                       </tr>
+                        <tr>
+                            <td>
+                                <div class="float_left text-justify"><h4>{{ object.name }}</h4></div>
+                                <div class="float_right">
+                                    <div>
+                                        <h6 style="color: darkslategrey">
+                                            {% if object.year != None %}
+                                                {{ object.year }}
+                                            {% endif %}
+                                        </h6>
+                                    </div>
+                                    {% if object.catalog_number != 0 %}
+                                        <div><h6 style="color: darkred">{{ object.catalog_number}}</h6></div>
+                                    {% endif %}
                                 </div>
-                                {% if object.catalog_number != 0 %}
-                                    <div><h6 style="color: darkred">{{ object.catalog_number}}</h6></div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </a>
+        {% endfor %}
+
+    {% elif request.session.style == 'table' %}
+        <table class="width" id="table_table" >
+            <tbody>
+                <tr>
+                    <th class="tdth">Name</th>
+                    <th class="tdth">Category</th>
+                    <th class="tdth">Year</th>
+                    <th class="tdth">Catalog Number</th>
+                    <th class="tdth">Publish</th>
+                    <hr>
+                </tr>
+                {% for object in objects %}
+                        <tr class="tr_table">
+                            <td class="tdth">
+                                <a href="{{ object.get_absolute_url }}">
+                                    {{ object.name }}
+                                </a>
+                            </td>
+                            <td class="tdth">{{ object.category }}</td>
+                            <td class="tdth">
+                                {% if object.year != None %}
+                                        {{ object.year }}
                                 {% endif %}
-                            </div>
+                            </td>
+                            <td class="tdth">
+                                {% if object.catalog_number != 0 %}
+                                        {{ object.catalog_number}}
+                                {% endif %}
+                            </td>
+                            <td class="tdth">{{ object.publish }}</td>
 
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </a>
-    {% endfor %}
-</div>
-<div class="objects not-visible" id="list_table">
-    <table class="width" id="table_table" >
-        <tbody>
-            <tr>
-                <th class="tdth">Name</th>
-                <th class="tdth">Category</th>
-                <th class="tdth">Year</th>
-                <th class="tdth">Catalog Number</th>
-                <th class="tdth">Publish</th>
-                <hr>
-            </tr>
-            {% for object in objects %}
-                    <tr class="tr_table">
-                        <td class="tdth">
-                            <a href="{{ object.get_absolute_url }}">
-                                {{ object.name }}
-                            </a>
-                        </td>
-                        <td class="tdth">{{ object.category }}</td>
-                        <td class="tdth">
-                            {% if object.year != None %}
-                                    {{ object.year }}
-                            {% endif %}
-                        </td>
-                        <td class="tdth">
-                            {% if object.catalog_number != 0 %}
-                                    {{ object.catalog_number}}
-                            {% endif %}
-                        </td>
-                        <td class="tdth">{{ object.publish }}</td>
-
-                    </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 </div>
 
 

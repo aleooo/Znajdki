@@ -21,11 +21,11 @@ urlpatterns = [
     path(_('reset/done/'), auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path(_('register/'), views.register, name='register'),
     path('search/', views.search, name='search'),
+    path('style/', views.style, name='style'),
     path('', views.objects_list, name='objects_list'),
     path(_('delete/<int:id>/'), views.delete_objects, name='delete'),
     path(_('update/<int:id>/'), views.update, name='update'),
     path('<slug:category_slug>/', views.objects_list, name='objects_list_by_category'),
-    # path('<str:style>/', views.objects_list, name='object_list_by_style'),
     path('<int:year>/<int:month>/<int:day>/<slug:object_slug>/<int:id>/', views.object_detail, name='object_detail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

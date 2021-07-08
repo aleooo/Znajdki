@@ -15,8 +15,18 @@ def start(request):
     return render(request, 'main/lista.html')
 
 
+def style(request, *args, **kwargs):
+    if request.is_ajax():
+        type = request.POST.get('type')
+        print(type)
+        request.session['style'] = type
+        return JsonResponse({})
+
+
 @login_required()
 def objects_list(request, category_slug=None, *args, **kwargs):
+    request.session.setdefault('style', 'thumbnail')
+
     categories = Category.objects.all()
     kat = False
     monety = False
@@ -118,7 +128,6 @@ def search(request):
                     'publish': object.publish,
                     'url': object.get_absolute_url()
                 }
-                print('To jest item:', object.name)
                 data.append(item)
             list = data
         else:

@@ -35,6 +35,7 @@ tr:nth-child(even) {
     <div class="detail">
         <div class="panel">
             <div style="height: auto;width: auto; float: right">
+                {{ request.session.style }}
                 <a class="btn btn-secondary button_detail" href="{% url 'poszukiwania:objects_list' %}">{% trans "back" %}</a>
                 <a class="btn btn-secondary button_detail" href="{% url 'poszukiwania:update' object.pk %}">{% trans "update" %}</a>
                 <a class="btn btn-dark button_detail" href="{% url 'poszukiwania:delete' object.pk %}" onclick="return confirm('Are you sure')">{% trans "delete" %}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

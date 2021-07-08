@@ -40,10 +40,25 @@
                         <div class="list_search_objects not-visible"></div>
                         {%  include 'main/list/array_of_objects.html' %}
                         <div id="mapid" class="mapid">
+                        <script src="https://rawgithub.com/ismyrnow/Leaflet.groupedlayercontrol/master/src/leaflet.groupedlayercontrol.js"></script>
                             <script type="text/javascript">
-                                  var m = L.map('mapid').setView([52.012, 21.922], 15);
-                                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +
-                                        'World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(m);
+
+
+                                var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                                        'World_Imagery/MapServer/tile/{z}/{y}/{x}');
+                                var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'});
+                                   var m = L.map('mapid',   {center: [52.012, 21.922],
+                                                            zoom: 15,
+                                                            layers: [satellite]});
+                                var baseMaps = {
+                                    "Grayscale": satellite,
+                                    "Streets": street}
+
+                                L.control.groupedLayers(baseMaps).addTo(m);
+
+
+                                {#L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +#}
+                                {#        'World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(m)#}
                                     {% for e in maps %}
                                         L.marker({{ e.lat_lng }}).addTo(m).bindPopup('{{ e.description_f }}');
                                     {% endfor %}
