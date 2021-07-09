@@ -91,12 +91,18 @@ tr:nth-child(even) {
         </div>
 
         <div id='mapid'  class="mapid" style="margin: auto; margin-top: 50px; width: 600px">
-            <script type="text/javascript">
-               var m = L.map('mapid').setView([{{maps.lat_lng}}[0], {{maps.lat_lng}}[1]], 13);
-                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +
-                    'World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(m);
-                L.marker({{ maps.lat_lng }}).addTo(m);
-            </script>
+        <script type="text/javascript">
+            var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
+            var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'});
+               var m = L.map('mapid',   {center: [52.012, 21.922],
+                                        zoom: 15,
+                                        layers: [satellite]});
+            var baseMaps = {
+                "Grayscale": satellite,
+                "Streets": street}
+            L.control.groupedLayers(baseMaps).addTo(m);
+            L.marker({{ point.point|safe }}).addTo(m);
+        </script>
         </div>
         <div style="width: 40rem; margin: auto; margin-top: 2rem; ">
             {{ form.comments }}

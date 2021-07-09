@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
@@ -7,8 +9,8 @@ from django.shortcuts import redirect
 from django.utils import translation
 from django.utils.text import slugify
 
-from .forms import UserRegistrationForm, RzeczyForm, MapaForm
-from .models import Category, Rzeczy, Mapa
+from .forms import UserRegistrationForm, RzeczyForm, MapForm
+from .models import Category, Rzeczy
 
 
 def start(request):
@@ -61,19 +63,19 @@ def objects_list(request, category_slug=None, *args, **kwargs):
                                                'categories': categories,
                                                'monety': monety,
                                                'kat': kat,
-                                               'maps': maps,
                                                'page': page,
                                                'recently': recently,
+                                               'maps': maps
                                                })
 
 
 @login_required
 def object_detail(request, *args, **kwargs):
     object = Rzeczy.objects.get(pk=kwargs['id'])
-    maps = object.location
+    point = object.location
     form = RzeczyForm(instance=object)
     return render(request, 'main/detail.html', {'form': form,
-                                                'maps': maps,
+                                                'point': point,
                                                 'object': object,
                                                 })
 
@@ -95,21 +97,23 @@ def register(request):
 @login_required
 def create(request):
     type_side = 'create'
-
     create_form = RzeczyForm(request.POST or None, request.FILES or None)
-    mapa_form = MapaForm(request.POST or None)
-    if create_form.is_valid() and mapa_form.is_valid():
-        opis = create_form.cleaned_data
-        new_map = mapa_form.save(commit=False)
-        new_map.description = opis['name']
+    map_form = MapForm(request.POST or None)
+    print('main', create_form.is_valid(), 'map', map_form.is_valid())
+    if create_form.is_valid() and map_form.is_valid():
+        opis = create_form.cleaned_data['name']
+        new_map = map_form.save(commit=False)
+        new_map.description = opis
+        new_map.save()
         new_item = create_form.save(commit=False)
-        mapa = mapa_form.save()
+        new_item.location = new_map
         new_item.slug = slugify(new_item.name)
         new_item.user = request.user
-        new_item.location = mapa
         new_item.save()
+    else:
+        print('blad')
     return render(request, 'main/create.html', {'form': create_form,
-                                                'mapa_form': mapa_form,
+                                                'map': map_form,
                                                 'type': type_side
                                                 })
 
@@ -139,22 +143,23 @@ def search(request):
 def update(request, *args, **kwargs):
     object = Rzeczy.objects.get(pk=kwargs['id'])
     type_side = 'update'
-
+    point = object.location
     form = RzeczyForm(request.POST or None, request.FILES or None, instance=object)
-    mapa_form = MapaForm(request.POST or None, instance=object.location)
-    if form.is_valid() and mapa_form.is_valid():
+    map_form = MapForm(request.POST or None, instance=object.location)
+    if form.is_valid() and map_form.is_valid():
         data = form.cleaned_data
-        update_map = mapa_form.save(commit=False)
+        update_map = map_form.save(commit=False)
         update_map.description = data['name']
         update_map.save()
         main = form.save(commit=False)
+        main.location = update_map
         main.slug = slugify(data['name'])
         main.user = request.user
-        main.location = update_map
         main.save()
         return redirect('poszukiwania:objects_list')
     return render(request, 'main/create.html', {'form': form,
-                                                'mapa_form': mapa_form,
+                                                'map': map_form,
+                                                'point': point,
                                                 'type': type_side
                                                 })
 

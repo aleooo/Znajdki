@@ -1,9 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.gis import forms as gis
 from django.utils.translation import gettext_lazy as _
 
-from .models import Rzeczy, Mapa
+from .models import Rzeczy, Map
 
 
 class RzeczyForm(forms.ModelForm):
@@ -20,26 +19,15 @@ class RzeczyForm(forms.ModelForm):
             'image_obverse': forms.FileInput(attrs={'class': 'form-control'}),
             'image_reverse': forms.FileInput(attrs={'class': 'form-control'}),
             'comments': forms.Textarea(attrs={'class': 'form-control', 'placeholder': _('comments'), 'rows': '6'}),
-            'catalog_number': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': _('catalog_number')})
+            'catalog_number': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': _('catalog_number')}),
         }
 
 
-class MapaForm(gis.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(MapaForm, self).__init__(*args, **kwargs)
-        self.fields['geolocation'].label = ''
-
+class MapForm(forms.ModelForm):
     class Meta:
-        model = Mapa
-
-        fields = ('geolocation',)
-        widgets = {'geolocation': gis.OSMWidget(attrs={'template_name': 'gis/openlayers-osm.html',
-                   'default_lat': 52.012,
-                   'default_lon':21.922,
-                   'default_zoom': 13,
-                   })}
-
+        model = Map
+        fields = ('point',)
+        widgets = {'point': forms.TextInput(attrs={'class': 'json_form'})}
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'register_input'}))

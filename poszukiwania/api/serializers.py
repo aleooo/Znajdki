@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Rzeczy, Category, Mapa
+from ..models import Rzeczy, Category
 from django.contrib.auth.models import User
 from datetime import datetime
 
@@ -13,10 +13,6 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 
-class MapSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Mapa
-        fields = ('geolocation',)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -31,7 +27,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class FindsSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-    location = MapSerializer()
+
     user = UserSerializer()
     image_obverse = serializers.ImageField(required=False)
     image_reverse = serializers.ImageField(required=False)

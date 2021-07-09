@@ -60,7 +60,8 @@
                                 {#L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +#}
                                 {#        'World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(m)#}
                                     {% for e in maps %}
-                                        L.marker({{ e.lat_lng }}).addTo(m).bindPopup('{{ e.description_f }}');
+
+                                        L.marker({{ e.point|safe }}).addTo(m).bindPopup('{{ e.description_f }}');
                                     {% endfor %}
                             </script>
                         </div>

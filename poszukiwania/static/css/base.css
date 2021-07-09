@@ -362,3 +362,6 @@ image_detail:hover{
   text-align: left;
   padding: 8px;
 }
+.json_form{
+    height: 0;
+}

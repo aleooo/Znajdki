@@ -1,5 +1,5 @@
 from ..models import Rzeczy, Category
-from .serializers import FindsSerializer, MapSerializer, CategorySerializer, UserSerializer
+from .serializers import FindsSerializer, CategorySerializer, UserSerializer
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
