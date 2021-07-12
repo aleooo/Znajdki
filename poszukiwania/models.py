@@ -7,6 +7,8 @@ class Map(models.Model):
     point = models.JSONField(null=True)
     description = models.CharField(blank=True ,max_length=250, default='Znajdka')
 
+    class Meta:
+        app_label = 'poszukiwania'
     @property
     def description_f(self):
         return '{}'.format(
@@ -27,10 +29,10 @@ class Category(models.Model):
 class Rzeczy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default='test')
     location = models.OneToOneField(Map, on_delete=models.CASCADE, primary_key=True)
-    category = models.ForeignKey(Category, related_name='rzeczy', on_delete=models.CASCADE, blank=True)
+    category = models.ForeignKey(Category, related_name='rzeczy', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=250)
     slug = models.SlugField(unique_for_date='publish', blank=True)
-    year = models.PositiveIntegerField(blank=True)
+    year = models.PositiveIntegerField(blank=True, null=True)
     text = models.TextField(blank=True, null=True)
     image_obverse = models.ImageField('image_obverse', upload_to='rzeczy/%Y/%m/%d', default='empty.png')
     image_reverse = models.ImageField('image_revers', upload_to='rzeczy/%Y/%m/%d', default='empty.png')

@@ -39,6 +39,8 @@
                     <div class="col-9">
                         <div class="list_search_objects not-visible"></div>
                         {%  include 'main/list/array_of_objects.html' %}
+
+                        {% include 'main/list/pagination.html' %}
                         <div id="mapid" class="mapid">
                         <script src="https://rawgithub.com/ismyrnow/Leaflet.groupedlayercontrol/master/src/leaflet.groupedlayercontrol.js"></script>
                             <script type="text/javascript">
@@ -65,7 +67,7 @@
                                     {% endfor %}
                             </script>
                         </div>
-                        {% include 'main/list/pagination.html' %}
+
                     </div>
                 </div>
             {% endif %}

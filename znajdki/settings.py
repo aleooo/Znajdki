@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'djgeojson',
     'leaflet',
     'autoslug',
-    'django.contrib.gis',
     'rest_framework',
     'django.contrib.admin',
     'rosetta'

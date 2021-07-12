@@ -21,9 +21,15 @@ var myIcon = L.icon({
 });
 L.control.groupedLayers(baseMaps).addTo(m);
 var popup = L.popup();
-function onMapClick(e) {
-L.marker(e.latlng, {icon: myIcon}).addTo(m);
-json.val(JSON.stringify(e.latlng))
-}
-m.on('click', onMapClick);
+var marker;
+
+m.on('click', function (e) {
+    if (marker) {
+        m.removeLayer(marker);
+        m.removeControl(marker)
+    }
+    marker = L.marker(e.latlng, {icon: myIcon}).addTo(m);
+    json.val(JSON.stringify(e.latlng))
+});
+
 

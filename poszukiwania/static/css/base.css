@@ -4,6 +4,7 @@ body {
     color: rgb(0, 0, 0);
     /*font-family: Chilanka;*/
     font-family: Manjari;
+    overflow-x: hidden;
 }
 
 div.panel {
@@ -17,8 +18,8 @@ div.panel::before{
     position: absolute;
        background: linear-gradient(to bottom, aliceblue, silver);
      height: 3.5rem;
-    width: 4000px;
-    left: -2000px;
+    width: 100vw;
+    left: 0;
     z-index: -1;
 
 
@@ -100,6 +101,7 @@ search{
     width: 27%;
     overflow:  auto;
     border: 2px solid black;
+    z-index: 1000;
 
 }
 .h5_search{
@@ -204,31 +206,33 @@ p {
      margin-left: 12rem;
 }
 .ciemny, .jasny{
-    height: 25vh;
-    width: 36vh;
+    height: 22vh;
+    width: 34vh;
      border-radius: 1rem;
     float: left;
     margin: 0.5rem;
 }
 .image{
-    width: 18vh;
-    height: 18vh;
+    width: 17vh;
+    height: 17vh;
     border-radius: 0 0 1rem 1rem;
 }
 .jasny{
     background-color: #deeaee;
 }
 .ciemny{
-    background-color: lightgray;
+    background-color: lavender;
 }
 .objects{
-    width: auto;
+    width: 100%;
     height: auto;
+    overflow: auto;
 }
 .mapid {
     margin-top: 2rem;
     height: 27rem;
-    width: 95%;
+
+    width: 100%;
 }
 
 .selected{
@@ -325,7 +329,6 @@ image_detail:hover{
 .width{
     text-align: left;
     width: 100%;
-
 }
 #sidebar{
     border: 2px solid  lightgrey;

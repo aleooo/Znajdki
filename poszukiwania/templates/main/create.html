@@ -4,8 +4,8 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}Dodawanie rzeczy
-
+{% block title %}
+    {% trans 'Dodawanie rzeczy' %}
  {% endblock %}
 
 {% block content %}
@@ -49,8 +49,11 @@
                     <div class="col-6"  style="margin-top: 1.5rem;">
                         <div class="map" id="map" style="height: 28rem;">
                             {{ map.point }}
-                        </div>
 
+                        </div>
+                              {% if map.errors %}
+                                <p><h4 style="color: firebrick">{% trans 'Mark the point on the map' %}</h4></p>
+                            {% endif %}
                         <div class="form_create" style="height: 14rem;">
                             {{ form.comments }}
                         </div>
@@ -62,9 +65,11 @@
                                 {% endif %}
                                 <a class='btn btn-secondary' href="{% url 'poszukiwania:objects_list' %}">{% trans "back" %}</a>
                             </div>
+
                     </div>
 
                 </div>
+
 
             </form>
 

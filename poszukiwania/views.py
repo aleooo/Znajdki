@@ -1,20 +1,17 @@
-import json
-
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
+from importlib import import_module
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.utils import translation
 from django.utils.text import slugify
 
+
 from .forms import UserRegistrationForm, RzeczyForm, MapForm
 from .models import Category, Rzeczy
-
-
-def start(request):
-    return render(request, 'main/lista.html')
 
 
 def style(request, *args, **kwargs):
@@ -26,12 +23,16 @@ def style(request, *args, **kwargs):
 
 
 @login_required()
-def objects_list(request, category_slug=None, *args, **kwargs):
-    request.session.setdefault('style', 'thumbnail')
+def objects_list(request, category_slug=None, session=1):
 
-    categories = Category.objects.all()
+    if session:
+        request.session.setdefault('style', 'thumbnail')
+
+    print(request.body)
     kat = False
     monety = False
+
+    categories = Category.objects.all()
     objects = Rzeczy.objects.filter(user=request.user)
     recently = Rzeczy.objects.order_by('-publish')[:5]
 
@@ -96,10 +97,10 @@ def register(request):
 
 @login_required
 def create(request):
+    work = None
     type_side = 'create'
     create_form = RzeczyForm(request.POST or None, request.FILES or None)
     map_form = MapForm(request.POST or None)
-    print('main', create_form.is_valid(), 'map', map_form.is_valid())
     if create_form.is_valid() and map_form.is_valid():
         opis = create_form.cleaned_data['name']
         new_map = map_form.save(commit=False)
@@ -110,11 +111,11 @@ def create(request):
         new_item.slug = slugify(new_item.name)
         new_item.user = request.user
         new_item.save()
-    else:
-        print('blad')
+        work = 1
     return render(request, 'main/create.html', {'form': create_form,
                                                 'map': map_form,
-                                                'type': type_side
+                                                'type': type_side,
+                                                'work': work
                                                 })
 
 def search(request):

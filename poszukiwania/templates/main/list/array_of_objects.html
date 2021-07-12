@@ -1,8 +1,10 @@
 <div class="objects">
     {% if request.session.style == 'thumbnail' %}
         {% for object in objects %}
-            <a href="{{ object.get_absolute_url }}">
+
+
                 <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
+                <a href="{{ object.get_absolute_url }}">
                     <table>
                        <tr>
                            <td>
@@ -31,8 +33,10 @@
                             </td>
                         </tr>
                     </table>
+                 </a>
                 </div>
-            </a>
+
+
         {% endfor %}
 
     {% elif request.session.style == 'table' %}
