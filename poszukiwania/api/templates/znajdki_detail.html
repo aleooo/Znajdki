@@ -1,0 +1,11 @@
+{% load rest_framework %}
+
+<html lang="en">
+<body>
+    <form action="." method="post">
+        {% csrf_token %}
+        {% render_form serializer %}
+        <button type="submit">Put</button>
+    </form>
+</body>
+</html>

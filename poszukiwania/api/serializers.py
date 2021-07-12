@@ -1,7 +1,14 @@
 from rest_framework import serializers
-from ..models import Rzeczy, Category
+from ..models import Rzeczy, Category, Map
 from django.contrib.auth.models import User
 from datetime import datetime
+
+
+class MapSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Map
+        fields = ('point', 'description')
+
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -11,8 +18,6 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'username': {'validators': []}
         }
-
-
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -27,12 +32,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class FindsSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-
+    location = MapSerializer()
     user = UserSerializer()
-    image_obverse = serializers.ImageField(required=False)
-    image_reverse = serializers.ImageField(required=False)
-
-
 
     class Meta:
         model = Rzeczy
