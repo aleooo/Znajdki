@@ -2,12 +2,13 @@ const inputSearch = $('#input_search')
 const listSearch = $('.list_search_objects')
 const formSearch = $('#form_search')
 const csrfToken = $('[name = csrfmiddlewaretoken]')[0].value
+// let getSidebar = $('.sidebar');
 // var mymap = L.map('Mapa')
 
 function sendSearchData(znajdka){
     $.ajax({
         type: 'POST',
-        url: '/search/',
+        url: '/en/search/',
         data: {
             'csrfmiddlewaretoken': csrfToken,
             'znajdka': znajdka,
@@ -56,15 +57,53 @@ function sendSearchData(znajdka){
     sendSearchData(words)
 
 })
-$('#category_selected').click(function (){
-    category = window.location.href.split('/')[3]
-    if(category != 'catalog'){
-        // $('#'+category).attr('selected','selected')
-    }
-    console.log()
-})
+
 $(window).click(function (){
     listSearch.addClass('not-visible')
 })
+let getSidebar = document.querySelector('.sidebar');
+let spaceFunction = document.querySelector('.space_function')
+let getSidebar1 = $('.sidebar')
+let sidebarStatus = false
+var colFunction = $('#colFunction')
 
-// $('#select_style').
+var latestObject = $('#latest_objects')
+function sidebar(){
+     getSidebar.style.width = colFunction.width().toString() + 'px';
+     spaceFunction.style.height = latestObject.height().toString()-50 + 'px';
+    if (sidebarStatus === false){
+        // getSidebar.style.visibility = 'visible';
+        getSidebar.style.opacity = '1';
+        sidebarStatus = true
+        }
+    else{
+        getSidebar.style.width = '0';
+        // getSidebar.style.visibility = 'hidden';
+        getSidebar.style.opacity = '0';
+        sidebarStatus = false
+    }
+}
+function styleFunction (style){
+    $.ajax({
+        type: 'POST',
+        url: '/en/style/',
+        data: {
+            'csrfmiddlewaretoken': csrfToken,
+            'type': style
+        },
+        success: (list) => {
+            window.location.reload()
+        },
+        error: (err) => {
+            console.log(err)
+            }
+    })
+}
+// function maps_type(type){
+//     if(type === 'satelite'){
+//         L.TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map)
+//     }
+//     else{
+//         L.TileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}').addTo(map)
+//     }
+// }

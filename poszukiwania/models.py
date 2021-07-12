@@ -1,16 +1,11 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.gis.db.models import PointField
 
 
-class Mapa(models.Model):
-    geolocation = PointField(null=True, srid=4326)
-    description = models.TextField(blank=True, default='Znajdka')
-
-    @property
-    def lat_lng(self):
-        return list(getattr(self.geolocation, 'coords', [])[::-1])
+class Map(models.Model):
+    point = models.JSONField(null=True)
+    description = models.CharField(blank=True ,max_length=250, default='Znajdka')
 
     @property
     def description_f(self):
@@ -31,14 +26,14 @@ class Category(models.Model):
 
 class Rzeczy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default='test')
-    location = models.OneToOneField(Mapa, on_delete=models.CASCADE, primary_key=True)
+    location = models.OneToOneField(Map, on_delete=models.CASCADE, primary_key=True)
     category = models.ForeignKey(Category, related_name='rzeczy', on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=250)
     slug = models.SlugField(unique_for_date='publish', blank=True)
     year = models.PositiveIntegerField(blank=True)
     text = models.TextField(blank=True, null=True)
-    image_obverse = models.ImageField('image_obverse', upload_to='rzeczy/%Y/%m/%d', default='/static/empty.png')
-    image_reverse = models.ImageField('image_revers', upload_to='rzeczy/%Y/%m/%d', default='/static/empty.png')
+    image_obverse = models.ImageField('image_obverse', upload_to='rzeczy/%Y/%m/%d', default='empty.png')
+    image_reverse = models.ImageField('image_revers', upload_to='rzeczy/%Y/%m/%d', default='empty.png')
     comments = models.TextField(blank=True, null=True)
     catalog_number = models.PositiveSmallIntegerField(default=0)
     update = models.DateField(auto_now=True)

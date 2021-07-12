@@ -1,11 +1,38 @@
 {% load i18n %}
-<div class="col-3" style="margin-top: 1rem;">
+<div id="colFunction" class="col-3">
+    <div id='sidebar' class="sidebar">
+        <div class="toggleFunctions">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+             <select  class="btn  width " onchange="location = this.value">
+                <option class="btn">{% trans "Language" %}</option>
+                {% for language in languages %}
+                    <option  value="/{{ language.code }}/" {% if language.code == LANGUAGE_CODE %} class="selected"{% endif %}>
+                            {{ language.name_local }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="toggleFunctions">
+            <a class="btn toggleFunctions width" href="#">{% trans 'Help' %}</a>
+        </div>
+        <div class="toggleFunctions">
+            <a class="btn toggleFunctions width" href="{% url 'poszukiwania:password_change' %}">{% trans 'Change password' %}</a>
+        </div>
+        <hr>
+        <div class="space_function"></div>
+        <div>
+            <a class="btn toggleFunctions" id="logout"  href="{% url 'poszukiwania:logout' %}"><h5>{% trans "Logout" %}</h5></a>
+        </div>
+
+    </div>
     <div>
-        <table style="width: 100%">
+        <table style="width: 100%; margin-top: 0.5rem;">
             <tbody>
                 <tr>
                     <td>
-                        <a class="btn row_table function_button"  href="{% url 'poszukiwania:create' %} " >Add an object</a>
+                        <a class="btn row_table function_button"  href="{% url 'poszukiwania:create' %} " >{% trans 'Add an object' %}</a>
                     </td>
                 </tr>
                 <tr>
@@ -37,10 +64,10 @@
                 </tr>
                 <tr>
                     <td>
-                         <select class="btn row_table function_button" id="select_style">
-                            <option value="style"><strong>{% trans "Style" %}</strong></option>
-                            <option value="thumbnail">{% trans "Thumbnail" %}</option>
-                            <option value="table">{% trans "Table" %}</option>
+                         <select class="btn row_table function_button" id="select_style" >
+                            <option><strong>{% trans "Style" %}</strong></option>
+                            <option onclick="styleFunction('thumbnail')">{% trans "Thumbnail" %}</option>
+                            <option onclick="styleFunction('table')">{% trans "Table" %}</option>
                         </select>
                     </td>
                 </tr>

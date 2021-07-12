@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'znajdki.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'znajdki',
         'USER': 'aleo',
         'PASSWORD': 'aleo',
@@ -150,3 +150,5 @@ EMAIL_HOST_USER = 'katalog.poszukiwacza@gmail.com'
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+CATALOG_SESSION_ID = 'catalog'
