@@ -4,7 +4,7 @@ from utils.misc import get_git_changeset
 from decouple import config
 
 
-#BASE_DIR = Path(__file__).resolve().parent.parent
+# PROJECT_PATH = Path(__file__).resolve().parent.parent
 # PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__))))
 
@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'poszukiwania.apps.PoszukiwaniaConfig',
     "bootstrap5",
-    'djgeojson',
     'leaflet',
     'autoslug',
     'rest_framework',
@@ -121,15 +120,17 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_URL = '/static/'
-STATICFILES = os.path.join(PROJECT_PATH, 'static/')
-STAATIC_ROOT = '/static/'
+STATIC_URL = '/staticfiles/'
+# STATICFILES = os.path.join(PROJECT_PATH, 'poszukiwania/staticfiles/')
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'staticfiles')
 MEDIA_URL = '/image/'
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'image/')
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
 

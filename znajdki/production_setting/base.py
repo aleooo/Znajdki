@@ -1,21 +1,22 @@
 from pathlib import Path
 import os
 from utils.misc import get_git_changeset
+from decouple import config
 
 
 #BASE_DIR = Path(__file__).resolve().parent.parent
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
+# PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
 
-SECRET_KEY = '^7f$lqi((jk52j=#zkx$k7x^nlnvk5%tqjxd6s6q8$-0p0va^-'
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -24,22 +25,24 @@ INSTALLED_APPS = [
     'django_extensions',
     'poszukiwania.apps.PoszukiwaniaConfig',
     "bootstrap5",
-    'djgeojson',
     'leaflet',
     'autoslug',
-    'django.contrib.gis',
-    'rest_framework'
+    'rest_framework',
+    'django.contrib.admin',
+    'rosetta'
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'znajdki.urls'
@@ -66,16 +69,16 @@ WSGI_APPLICATION = 'znajdki.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'znajdki',
-        'USER': 'aleo',
-        'PASSWORD': 'aleo',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'znajdki',
+#         'USER': 'aleo',
+#         'PASSWORD': 'aleo',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -100,7 +103,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('en', 'english'),
+    ('pl', 'polski'),
+)
+LOCALE_PATHS = (
+    os.path.join(PROJECT_PATH, 'locale/'),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -113,31 +123,29 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_URL = '/static/'
-STATIC_URL = "/static/%s/" % get_git_changeset(BASE_DIR)
-STATICFILES = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = '/staticfiles/'
+# STATICFILES = os.path.join(PROJECT_PATH, 'poszukiwania/staticfiles/')
+STAATIC_ROOT = os.path.join(PROJECT_PATH, '/staticfiles')
 MEDIA_URL = '/image/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'image')
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'image/')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
 
-# LEAFLET_CONFIG = {
-#     'DEFAULT_CENTER': (52.013, 21.93),
-#     'DEFAULT_ZOOM': 19,
-#     'MIN_ZOOM': 3,
-#     'MAX_ZOOM': 18,
-#     'DEFAULT_PRECISION': 6,
-#    'TILES': 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
 # }
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
 
 LOGIN_REDIRECT_URL = 'poszukiwania:objects_list'
 LOGOUT_REDIRECT_URL = 'poszukiwania:login'
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGIN_URL = 'poszukiwania:login'
+LOGOUT_URL = 'poszukiwania:logout'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'katalog.poszukiwacza@gmail.com'
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+CATALOG_SESSION_ID = 'catalog'

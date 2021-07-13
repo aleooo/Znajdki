@@ -1,0 +1,370 @@
+body {
+    /*background-image: url('ziemai.jpg');*/
+    background-color: ghostwhite;
+    color: rgb(0, 0, 0);
+    /*font-family: Chilanka;*/
+    font-family: Manjari;
+    overflow-x: hidden;
+}
+
+div.panel {
+
+    height: 3.5rem;
+    width: 100%;
+    background: linear-gradient(to bottom, aliceblue, silver);
+}
+div.panel::before{
+    content:"";
+    position: absolute;
+       background: linear-gradient(to bottom, aliceblue, silver);
+     height: 3.5rem;
+    width: 100vw;
+    left: 0;
+    z-index: -1;
+
+
+}
+.panel_elements_search{
+    float: left;
+}
+html,body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.wrapper {
+  width: 10vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cracked {
+  font-family: Coolvetica, Arial;
+  font-size: 2rem;
+  color:#fff;
+  text-transform: uppercase;
+  position: relative;
+  animation: glow 2s linear infinite;
+  animation-direction: alternate;
+}
+.cracked span{
+  position: absolute;
+  top:0;
+  left:0;
+}
+.cracked span {
+  clip-path: polygon(-10% 0%, 10% 0%, 60% 100%, -10% 100%);
+  animation: crack1 0.2s linear forwards;}
+@keyframes crack1 {
+  0% {transform: translate(0%,0%); }
+  100% {transform: translate(-2%, 1%) rotateZ(1deg); }
+}
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 3rem red;
+    filter: brightness(150%) blur(0.12rem);
+  }
+  100% {
+    text-shadow: 0 0 3rem blue;
+    filter: brightness(150%) blur(0.07rem);
+  }
+}
+.text_center{
+    text-align: center;
+}
+.float_right{
+    float: right;
+}
+.float_left{
+    float: left;
+}
+a{
+    color: black;
+    text-decoration: None;
+}
+.nazwa {
+    /*width: 80%;*/
+    /*margin: 0 auto;*/
+}
+search{
+    text-align: center;
+}
+.list_search_objects{
+    background-color: white;
+    position: absolute;
+    left: 43.5%;
+
+    border-radius: 1rem;
+    height: 50vh;
+    width: 27%;
+    overflow:  auto;
+    border: 2px solid black;
+    z-index: 1000;
+
+}
+.h5_search{
+    position: static;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+.paginator{
+    position: relative;
+    top: 1rem;
+
+
+}
+#input_search{
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    box-shadow: gray;
+    text-align: center;
+}
+#form_search{
+   margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+a.kategory{
+    color: black;
+}
+div.lista {
+    color: black;
+    background-color: white;
+    width: 100%;
+}
+
+p {
+    color: black;
+    font-size: 1rem;
+}
+.login {
+    background: powderblue;
+    width: 30rem;
+    margin-top: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    border: aliceblue 1rem;
+    border-radius: 1rem;
+
+}
+.panel_link{
+    position: relative;
+    top: 1rem;
+}
+#center {
+    margin-bottom: auto;
+    margin-top: auto;
+}
+.not-visible{
+    display: none;
+}
+
+.item-image{
+    width: 7rem;
+    height: 7rem;
+    border-radius: 0.5rem;
+}
+#light, #dark{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: outset;
+    border-color: black;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+#dark{
+    background: linear-gradient(to top, white, paleturquoise);
+}
+#light{
+    background: linear-gradient(to bottom, white, paleturquoise);
+}
+.item{
+    height: 5rem;
+    text-decoration: None;
+}
+
+.td{
+    width: 25%;
+    text-align: center;
+}
+.column{
+    height: 29rem;
+    width: 20rem;
+}
+.nazwa_NIEWIADOMA{
+    height: 7rem;
+    width: 20rem;
+    margin-right: 22rem;
+}
+#nazwa{
+    position: relative;
+    width: 38rem;
+    /*margin-right: 100px;*/
+     margin-left: 12rem;
+}
+.ciemny, .jasny{
+    height: 22vh;
+    width: 34vh;
+     border-radius: 1rem;
+    float: left;
+    margin: 0.5rem;
+}
+.image{
+    width: 17vh;
+    height: 17vh;
+    border-radius: 0 0 1rem 1rem;
+}
+.jasny{
+    background-color: #deeaee;
+}
+.ciemny{
+    background-color: lavender;
+}
+.objects{
+    width: 100%;
+    height: auto;
+    overflow: auto;
+}
+.mapid {
+    margin-top: 2rem;
+    height: 27rem;
+
+    width: 100%;
+}
+
+.selected{
+    width: 13rem;
+    height: 3rem;
+    float: left;
+}
+.blank{
+    width: 2rem;
+    height: 4rem;
+    float: right;
+}
+.col{
+    float: left;
+    width: 34rem;
+    height: 43rem;
+}
+.line{
+    float: left;
+}
+.center_register{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.register_input, #id_username, #id_password, #id_email,  #id_new_password1,  #id_new_password2{
+    height: 2rem;
+    border-radius: 0.5rem;
+}
+.detail{
+    height: auto;
+    width: 67rem;
+    background-color: ghostwhite;
+    justify-content: center;
+    margin: auto;
+}
+
+.image_detail{
+    width: 20rem;
+    height: 20rem;
+    border-radius: 1rem;
+    transition: all 0.5s;
+}
+image_detail:hover{
+    width: 24rem;
+    height: 24rem;
+}
+
+.row_table{
+    background-color: lightgrey;
+    width: 100%;
+}
+#latest_objects{
+    margin-top: 6rem;
+    background-color: lightgray;
+    border-radius: 1rem;
+}
+.form_create{
+    margin-top: 2rem;
+}
+.function_button{
+    background-color: lightgrey;
+}
+.function_button:hover{
+    background-color: darkgray;
+}
+
+.btn-toggle-nav {
+    width: 2rem;
+    height: 2rem;
+
+    background-image: url('to.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    cursor: pointer;
+}
+.sidebar {
+    width: 0;
+    background-color: ghostwhite;
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out; /* Firefox 4 */
+    -webkit-transition: all 0.3s ease-in-out; /* Safari and Chrome */
+    -o-transition: all 0.3s ease-in-out; /* Opera */
+
+}
+.activeSidebar{
+
+}
+.width{
+    text-align: left;
+    width: 100%;
+}
+#sidebar{
+    border: 2px solid  lightgrey;
+}
+.toggleFunctions{
+    border-radius: 0 0 0 0;
+
+}
+.toggleFunctions:hover{
+    background-color: cadetblue;
+}
+
+.button_detail{
+    margin-top: 0.5rem;
+
+}
+#logout{
+    width: 100%;
+    background-color: #edf4fa;
+}
+#table_table tr{
+    border: 1px solid darkgrey;
+}
+.tr_table:nth-child(odd){
+    background-color: #dddddd;
+}
+#table_detail{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 250px;
+}
+.tdth {
+    border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+.json_form{
+    height: 0;
+}
