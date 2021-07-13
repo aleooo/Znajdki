@@ -45,6 +45,7 @@ class ModelsTestCase(TestCase):
         self.client.login(username='aleo', password='aletojuzbylo')
         response = self.client.get(reverse('poszukiwania:objects_list'))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Boratynka')
         # request = HttpRequest()
         # request.user = self.user
         # response = views.objects_list(request, session=0)
