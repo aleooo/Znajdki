@@ -92,7 +92,7 @@ function styleFunction (style){
             'type': style
         },
         success: (list) => {
-            window.location.reload()
+            // window.location.reload()
         },
         error: (err) => {
             console.log(err)

@@ -1,12 +1,8 @@
-from django.test import  TestCase
+from django.test import TestCase
 from django.contrib.auth.models import User
 
-from poszukiwania import views
 from poszukiwania.models import Map, Category, Rzeczy
 
-from django.test import TestCase, Client
-from django.urls import reverse, resolve
-from django.http import HttpRequest
 
 class ModelsTestCase(TestCase):
 
@@ -16,7 +12,7 @@ class ModelsTestCase(TestCase):
         map1 = Map.objects.create(point='{"lat": 52.01546930699952, "lng": 21.915056009813515}', description='point')
         map2 = Map.objects.create(point='{"lat": 52.01546930199952, "lng": 21.915056009813516}', description='point1')
         self.user = User.objects.create_user('aleo', 'medda@test.com', 'aletojuzbylo')
-        self.client_aleo = Client().login(username='aleo', password='aletojuzbylo')
+        self.client.login(username='aleo', password='aletojuzbylo')
         Rzeczy.objects.create(user=self.user,
                               location=map1,
                               category=category,
@@ -34,39 +30,26 @@ class ModelsTestCase(TestCase):
                               text='a rarely found button',)
 
     def test_model_orm(self):
-        map = Map.objects.count()
-        self.assertEqual(map, 2)
         category = Category.objects.first()
+        first_find = Rzeczy.objects.first()
+        count_map = Map.objects.count()
+
+        self.assertEqual(count_map, 2)
         self.assertEqual(category.title, 'coins')
-        object = Rzeczy.objects.first()
-        self.assertEqual(object.name, 'Boratynka')
+        self.assertEqual(first_find.name, 'Boratynka')
 
-    def test_view_rzeczy_list(self):
-        self.client.login(username='aleo', password='aletojuzbylo')
-        response = self.client.get(reverse('poszukiwania:objects_list'))
+    def test_Rzeczy_get_absolute_url(self):
+        first_find = Rzeczy.objects.first()
+
+        response = self.client.get(first_find.get_absolute_url())
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Boratynka')
-        # request = HttpRequest()
-        # request.user = self.user
-        # response = views.objects_list(request, session=0)
-        # self.assertIn('Boratynka', response.content.decode())
-    #
-    # def test_view_objects_list_with_category(self):
-    #     category = Category.objects.first()
-    #     request = HttpRequest()
-    #     request.user = self.client_aleo
-    #     response = views.objects_list(request, category.slug, session=0)
-    #     self.assertIn('Boratynka', response.content.decode())
-    #
-    # def test_view_objects_list_pagination(self):
-    #     request = HttpRequest()
-    #     request.user = self.client_aleo
-    #     response = views.objects_list(request, sort='name', session=0 )
-    #     self.assertIn('<strong>1</strong>', response.content.decode())
 
-    def test_view_object_detail(self):
-        request = HttpRequest()
-        request.user = self.user
-        first_item = Rzeczy.objects.first()
-        response = views.object_detail(request, id=first_item.pk)
-        self.assertIn('a frequently found coin', response.content.decode())
+    def test_Category_get_absolute_url(self):
+        first_category = Category.objects.first()
+        response = self.client.get(first_category.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+    def test_Map_description_f(self):
+        first_map = Map.objects.get(description='point')
+        self.assertIn(first_map.description_f(), 'point')
+

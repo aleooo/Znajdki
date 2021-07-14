@@ -64,10 +64,10 @@
                 </tr>
                 <tr>
                     <td>
-                         <select class="btn row_table function_button" id="select_style" >
+                         <select class="btn row_table function_button" id="select_style" onchange="location = this.value">
                             <option><strong>{% trans "Style" %}</strong></option>
-                            <option onclick="styleFunction('thumbnail')">{% trans "Thumbnail" %}</option>
-                            <option onclick="styleFunction('table')">{% trans "Table" %}</option>
+                            <option value="{% url 'poszukiwania:style' 'thumbnail' %}">{% trans "Thumbnail" %}</option>
+                            <option value="{% url 'poszukiwania:style' 'table' %}">{% trans "Table" %}</option>
                         </select>
                     </td>
                 </tr>

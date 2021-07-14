@@ -14,12 +14,11 @@ from .forms import UserRegistrationForm, RzeczyForm, MapForm
 from .models import Category, Rzeczy
 
 
-def style(request, *args, **kwargs):
-    if request.is_ajax():
-        type = request.POST.get('type')
-        print(type)
-        request.session['style'] = type
-        return JsonResponse({})
+def style(request, style):
+    list_styles = ['table', 'thumbnail']
+    if style in list_styles:
+        request.session['style'] = style
+        return redirect('poszukiwania:objects_list')
 
 
 @login_required()
@@ -28,7 +27,6 @@ def objects_list(request, category_slug=None, session=1):
     if session:
         request.session.setdefault('style', 'thumbnail')
 
-    print(request.body)
     kat = False
     monety = False
 

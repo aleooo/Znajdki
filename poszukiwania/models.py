@@ -5,11 +5,11 @@ from django.contrib.auth.models import User
 
 class Map(models.Model):
     point = models.JSONField(null=True)
-    description = models.CharField(blank=True ,max_length=250, default='Znajdka')
+    description = models.CharField(blank=True, max_length=250, default='Znajdka')
 
     class Meta:
         app_label = 'poszukiwania'
-    @property
+
     def description_f(self):
         return '{}'.format(
           self.description)
