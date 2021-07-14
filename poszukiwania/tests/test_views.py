@@ -31,33 +31,59 @@ class ViewsTestCase(TestCase):
                               year=1919,
                               text='a rarely found button', )
 
+<<<<<<< HEAD
     def test_view_objects_list_(self):
+=======
+    def test_objects_list_(self):
+>>>>>>> 6b60d92... repair again git
         response = self.client.get(reverse('poszukiwania:objects_list'))
         self.assertContains(response, '<div class="float_left text-justify"><h4>')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Boratynka')
 
+<<<<<<< HEAD
     def test_view_objects_list_pagination(self):
+=======
+    def test_objects_list_pagination(self):
+>>>>>>> 6b60d92... repair again git
         response = self.client.get(reverse('poszukiwania:objects_list'))
         self.assertContains(response, '<a class="page-link" href="#">1</a>')
 
 
 
+<<<<<<< HEAD
     def test_view_objects_list_with_category(self):
+=======
+    def test_objects_list_with_category(self):
+>>>>>>> 6b60d92... repair again git
         category = Category.objects.get(title='buttons')
         response = self.client.get(reverse('poszukiwania:objects_list_by_category', args=[category.slug]))
         self.assertEqual(response.status_code, 200)
         # self.assertNotContains(response, 'Boratynka')
         self.assertContains(response, 'wz19')
 
+<<<<<<< HEAD
     def test_view_objects_list_style_table(self):
+=======
+    def test_objects_list_style_table(self):
+>>>>>>> 6b60d92... repair again git
         response = self.client.post(reverse('poszukiwania:style', args=['table']))
         self.assertRedirects(response, '/en/')
         response = self.client.get(reverse('poszukiwania:objects_list'))
         self.assertContains(response, '<th class="tdth">Name</th>')
 
+<<<<<<< HEAD
     def test_view_object_detail(self):
+=======
+    def test_object_detail(self):
+>>>>>>> 6b60d92... repair again git
         first_item = Rzeczy.objects.first()
         response = self.client.get(first_item.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'a frequently found coin')
+<<<<<<< HEAD
+=======
+
+    def test_search(self):
+        response = self.client.post(reverse('poszukiwania:search', kwargs={'znajdki': 'b'}))
+>>>>>>> 6b60d92... repair again git
