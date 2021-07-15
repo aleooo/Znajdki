@@ -105,8 +105,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en'
 LANGUAGES = (
-    ('en', 'english'),
-    ('pl', 'polski'),
+    ('en', 'English'),
+    ('pl', 'Polski'),
 )
 LOCALE_PATHS = (
     os.path.join(PROJECT_PATH, 'locale/'),
