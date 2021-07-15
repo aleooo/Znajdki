@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-07 13:37+0200\n"
-"PO-Revision-Date: 2021-07-04 21:02+0000\n"
-"Last-Translator: b'  <awdawdad@gmail.com>'\n"
+"POT-Creation-Date: 2021-07-15 13:38+0200\n"
+"PO-Revision-Date: 2021-07-15 11:41+0000\n"
+"Last-Translator: b'  <>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,32 +19,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.6\n"
 
-#: poszukiwania/forms.py:16
+#: poszukiwania/forms.py:17
 msgid "name"
 msgstr ""
 
-#: poszukiwania/forms.py:18
+#: poszukiwania/forms.py:19
 msgid "description"
 msgstr ""
 
-#: poszukiwania/forms.py:19
+#: poszukiwania/forms.py:20
 msgid "year"
 msgstr ""
 
-#: poszukiwania/forms.py:22
+#: poszukiwania/forms.py:23
 msgid "comments"
 msgstr ""
 
-#: poszukiwania/forms.py:23
+#: poszukiwania/forms.py:24
 msgid "catalog_number"
 msgstr ""
 
-#: poszukiwania/forms.py:57
-msgid "Passwords do not match"
+#: poszukiwania/forms.py:36
+msgid "Enter a valid email address."
 msgstr ""
 
+#: poszukiwania/forms.py:50
+msgid "The two password fields didn’t match."
+msgstr ""
+
+#: poszukiwania/templates/main/create.html:8
+msgid "Dodawanie rzeczy"
+msgstr "Add objects"
+
 #: poszukiwania/templates/main/create.html:22
-#: poszukiwania/templates/main/detail.html:65
+#: poszukiwania/templates/main/detail.html:64
 msgid "Category"
 msgstr ""
 
@@ -56,47 +64,51 @@ msgstr ""
 msgid "image_reverse"
 msgstr ""
 
-#: poszukiwania/templates/main/create.html:59
+#: poszukiwania/templates/main/create.html:55
+msgid "Mark the point on the map"
+msgstr ""
+
+#: poszukiwania/templates/main/create.html:62
 msgid "create"
 msgstr ""
 
-#: poszukiwania/templates/main/create.html:61
-#: poszukiwania/templates/main/detail.html:39
+#: poszukiwania/templates/main/create.html:64
+#: poszukiwania/templates/main/detail.html:38
 msgid "update"
 msgstr ""
 
-#: poszukiwania/templates/main/create.html:63
-#: poszukiwania/templates/main/detail.html:38
+#: poszukiwania/templates/main/create.html:66
+#: poszukiwania/templates/main/detail.html:37
 msgid "back"
 msgstr ""
 
-#: poszukiwania/templates/main/detail.html:40
+#: poszukiwania/templates/main/detail.html:39
 msgid "delete"
 msgstr ""
 
-#: poszukiwania/templates/main/detail.html:57
+#: poszukiwania/templates/main/detail.html:56
 #: poszukiwania/templates/main/list/function.html:58
 msgid "Name"
 msgstr ""
 
-#: poszukiwania/templates/main/detail.html:61
+#: poszukiwania/templates/main/detail.html:60
 msgid "User"
 msgstr ""
 
-#: poszukiwania/templates/main/detail.html:69
+#: poszukiwania/templates/main/detail.html:68
 #: poszukiwania/templates/main/list/function.html:59
 msgid "Year"
 msgstr ""
 
-#: poszukiwania/templates/main/detail.html:73
+#: poszukiwania/templates/main/detail.html:72
 msgid "Catalog_number"
 msgstr ""
 
-#: poszukiwania/templates/main/detail.html:76
+#: poszukiwania/templates/main/detail.html:75
 msgid "Update"
 msgstr ""
 
-#: poszukiwania/templates/main/detail.html:80
+#: poszukiwania/templates/main/detail.html:79
 msgid "Publish"
 msgstr ""
 
@@ -157,13 +169,13 @@ msgid "Recently added"
 msgstr ""
 
 #: poszukiwania/templates/main/lista.html:30
-#: poszukiwania/templates/main/register.html:49
+#: poszukiwania/templates/main/register.html:53
 #: poszukiwania/templates/registration/login.html:39
 msgid "Login"
 msgstr ""
 
 #: poszukiwania/templates/main/lista.html:30
-#: poszukiwania/templates/main/register.html:46
+#: poszukiwania/templates/main/register.html:50
 msgid "Register"
 msgstr ""
 
@@ -171,7 +183,7 @@ msgstr ""
 msgid "Register Account"
 msgstr ""
 
-#: poszukiwania/templates/main/register.html:49
+#: poszukiwania/templates/main/register.html:53
 msgid "Already have an account?"
 msgstr ""
 
@@ -372,11 +384,11 @@ msgstr ""
 msgid "register/"
 msgstr ""
 
-#: poszukiwania/urls.py:25
+#: poszukiwania/urls.py:26
 msgid "delete/<int:id>/"
 msgstr ""
 
-#: poszukiwania/urls.py:26
+#: poszukiwania/urls.py:27
 msgid "update/<int:id>/"
 msgstr ""
 

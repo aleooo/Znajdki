@@ -259,7 +259,7 @@ p {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-.register_input, #id_username, #id_password, #id_email,  #id_new_password1,  #id_new_password2{
+.register_input, #id_username, #id_password, #id_email,  #id_password1m, #id_password2{
     height: 2rem;
     border-radius: 0.5rem;
 }

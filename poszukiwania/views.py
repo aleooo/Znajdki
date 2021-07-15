@@ -10,7 +10,7 @@ from django.utils import translation
 from django.utils.text import slugify
 
 
-from .forms import UserRegistrationForm, RzeczyForm, MapForm
+from .forms import SignUpForm, RzeczyForm, MapForm
 from .models import Category, Rzeczy
 
 
@@ -81,15 +81,12 @@ def object_detail(request, *args, **kwargs):
 
 def register(request):
     if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
+        user_form = SignUpForm(request.POST)
         if user_form.is_valid():
-            new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
-            new_user.save()
+            user_form.save()
             return redirect('poszukiwania:login')
     else:
-        user_form = UserRegistrationForm()
-
+        user_form = SignUpForm()
     return render(request, 'main/register.html', {'user_form': user_form, })
 
 

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-07 13:37+0200\n"
-"PO-Revision-Date: 2021-07-07 11:40+0000\n"
-"Last-Translator: b'  <awdawdad@gmail.com>'\n"
+"POT-Creation-Date: 2021-07-15 13:38+0200\n"
+"PO-Revision-Date: 2021-07-15 11:40+0000\n"
+"Last-Translator: b'  <>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,32 +19,40 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.9.6\n"
 
-#: poszukiwania/forms.py:16
+#: poszukiwania/forms.py:17
 msgid "name"
 msgstr "nazwa"
 
-#: poszukiwania/forms.py:18
+#: poszukiwania/forms.py:19
 msgid "description"
 msgstr "opis"
 
-#: poszukiwania/forms.py:19
+#: poszukiwania/forms.py:20
 msgid "year"
 msgstr "rok"
 
-#: poszukiwania/forms.py:22
+#: poszukiwania/forms.py:23
 msgid "comments"
 msgstr "komentarz"
 
-#: poszukiwania/forms.py:23
+#: poszukiwania/forms.py:24
 msgid "catalog_number"
 msgstr "numer_katalogowy"
 
-#: poszukiwania/forms.py:57
-msgid "Passwords do not match"
-msgstr "Hasła nie są identyczne"
+#: poszukiwania/forms.py:36
+msgid "Enter a valid email address."
+msgstr "Wpisz poprawny adres email."
+
+#: poszukiwania/forms.py:50
+msgid "The two password fields didn’t match."
+msgstr "Hasła NIE są identyczne."
+
+#: poszukiwania/templates/main/create.html:8
+msgid "Dodawanie rzeczy"
+msgstr ""
 
 #: poszukiwania/templates/main/create.html:22
-#: poszukiwania/templates/main/detail.html:65
+#: poszukiwania/templates/main/detail.html:64
 msgid "Category"
 msgstr "Kategoria"
 
@@ -56,47 +64,51 @@ msgstr "Zdjęcie awersu"
 msgid "image_reverse"
 msgstr "Zdjęcie rewersu"
 
-#: poszukiwania/templates/main/create.html:59
+#: poszukiwania/templates/main/create.html:55
+msgid "Mark the point on the map"
+msgstr "Wyznacz punkt na mapie."
+
+#: poszukiwania/templates/main/create.html:62
 msgid "create"
 msgstr "Stwórz"
 
-#: poszukiwania/templates/main/create.html:61
-#: poszukiwania/templates/main/detail.html:39
+#: poszukiwania/templates/main/create.html:64
+#: poszukiwania/templates/main/detail.html:38
 msgid "update"
 msgstr "edytuj"
 
-#: poszukiwania/templates/main/create.html:63
-#: poszukiwania/templates/main/detail.html:38
+#: poszukiwania/templates/main/create.html:66
+#: poszukiwania/templates/main/detail.html:37
 msgid "back"
 msgstr "wróć"
 
-#: poszukiwania/templates/main/detail.html:40
+#: poszukiwania/templates/main/detail.html:39
 msgid "delete"
 msgstr "usuń"
 
-#: poszukiwania/templates/main/detail.html:57
+#: poszukiwania/templates/main/detail.html:56
 #: poszukiwania/templates/main/list/function.html:58
 msgid "Name"
 msgstr "Nazwa"
 
-#: poszukiwania/templates/main/detail.html:61
+#: poszukiwania/templates/main/detail.html:60
 msgid "User"
 msgstr "Użytkownik"
 
-#: poszukiwania/templates/main/detail.html:69
+#: poszukiwania/templates/main/detail.html:68
 #: poszukiwania/templates/main/list/function.html:59
 msgid "Year"
 msgstr "Rok"
 
-#: poszukiwania/templates/main/detail.html:73
+#: poszukiwania/templates/main/detail.html:72
 msgid "Catalog_number"
 msgstr "Numer Katalogowy"
 
-#: poszukiwania/templates/main/detail.html:76
+#: poszukiwania/templates/main/detail.html:75
 msgid "Update"
 msgstr "Edytuj"
 
-#: poszukiwania/templates/main/detail.html:80
+#: poszukiwania/templates/main/detail.html:79
 msgid "Publish"
 msgstr "Opublikowanie"
 
@@ -159,13 +171,13 @@ msgid "Recently added"
 msgstr "Ostatnio dodane"
 
 #: poszukiwania/templates/main/lista.html:30
-#: poszukiwania/templates/main/register.html:49
+#: poszukiwania/templates/main/register.html:53
 #: poszukiwania/templates/registration/login.html:39
 msgid "Login"
 msgstr "Zaloguj się"
 
 #: poszukiwania/templates/main/lista.html:30
-#: poszukiwania/templates/main/register.html:46
+#: poszukiwania/templates/main/register.html:50
 msgid "Register"
 msgstr "Zarejestruj się"
 
@@ -173,7 +185,7 @@ msgstr "Zarejestruj się"
 msgid "Register Account"
 msgstr "Rejestracja konta"
 
-#: poszukiwania/templates/main/register.html:49
+#: poszukiwania/templates/main/register.html:53
 msgid "Already have an account?"
 msgstr "Masz już konto?"
 
@@ -389,11 +401,11 @@ msgstr "reset/gotowe/"
 msgid "register/"
 msgstr "rejestracja/"
 
-#: poszukiwania/urls.py:25
+#: poszukiwania/urls.py:26
 msgid "delete/<int:id>/"
 msgstr "usuniecie/<int:id>/"
 
-#: poszukiwania/urls.py:26
+#: poszukiwania/urls.py:27
 msgid "update/<int:id>/"
 msgstr "edycja/<int:id>/"
 
@@ -408,6 +420,9 @@ msgstr "api/"
 #: znajdki/urls.py:12
 msgid "rosetta/"
 msgstr "rosetta/"
+
+#~ msgid "Passwords do not match"
+#~ msgstr "Hasła nie są identyczne"
 
 #~ msgid "search/"
 #~ msgstr "wyszukiwarka/"

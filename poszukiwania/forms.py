@@ -1,15 +1,17 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core import validators
 from django.utils.translation import gettext_lazy as _
 
 from .models import Rzeczy, Map
 
 
 class RzeczyForm(forms.ModelForm):
-
     class Meta:
         model = Rzeczy
-        fields = ('category', 'name', 'slug', 'year', 'text', 'image_obverse', 'image_reverse', 'comments', 'catalog_number')
+        fields = ('category', 'name', 'slug', 'year', 'text', 'image_obverse', 'image_reverse', 'comments',
+                  'catalog_number')
         widgets = {
             'category': forms.Select(attrs={'class': "form-control"}),
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('name')}),
@@ -29,18 +31,22 @@ class MapForm(forms.ModelForm):
         fields = ('point',)
         widgets = {'point': forms.TextInput(attrs={'class': 'json_form'})}
 
-class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'register_input'}))
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'register_input'}))
+
+class EmailForm(validators.EmailValidator):
+    message = _('Enter a valid email address.')
+
+
+class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'confirm_password')
+        fields = ('username', 'email', 'password1', 'password2')
         widgets = {'username': forms.TextInput(attrs={'class': 'register_input'}),
-                   'email': forms.TextInput(attrs={'class': 'register_input'})}
+                   'email': forms.TextInput(attrs={'class': 'register_input'}),
+                   'password1': forms.TextInput(attrs={'class': 'register_input'}),
+                   'password2': forms.TextInput(attrs={'class': 'register_input'})}
 
-    def clean_password2(self):
-        cd = self.cleaned_data
-        if cd['password'] != cd['confirm_password']:
-            raise forms.ValidationError(_('Passwords do not match'))
-        return cd['confirm_password']
+    error_messages = {
+        'password_mismatch': _('The two password fields didn’t match.'),
+    }
+
