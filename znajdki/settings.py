@@ -128,7 +128,7 @@ STATICFILES_FINDERS = (
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/staticfiles/'
 # STATICFILES = os.path.join(PROJECT_PATH, 'poszukiwania/staticfiles/')
-STATIC_ROOT = os.path.join(PROJECT_PATH, 'staticfiles')
+STATIC_ROOT = os.path.join(PROJECT_PATH, '../static')
 MEDIA_URL = '/image/'
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
 
