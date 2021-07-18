@@ -7,7 +7,11 @@
 
 {% block content %}
 <div class="login">
-    <h1 style="text-align: center;">{% trans "LOGIN" %}</h1>
+    <div style="height: 1rem;"></div>
+    <div>
+        <h3 style="text-align: center;">{% trans "LOGIN" %}</h3>
+    </div>
+
     {% if form.errors %}
         <p>
             {% blocktrans %}
@@ -36,7 +40,7 @@
             </div>
             <div class="center_register">
                 <input type="hidden" name="next" value="{{ next }}" />
-                <button type="submit" class="btn btn-info"  style="width: 100px">{% trans "Login" %}</button>
+                <button type="submit" class="btn btn-light"  style="width: 100px">{% trans "Login" %}</button>
             </div>
             <div class="text_center">
                 <p>{% trans "Don't have an account?" %} <a style="font-size: 20px; color: green;text-decoration:none;" href="{% url 'poszukiwania:register' %}">{% trans "Sign in" %}</a></p>

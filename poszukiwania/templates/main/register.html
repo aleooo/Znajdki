@@ -6,7 +6,8 @@
 
 {% block content %}
 <div class="login">
-    <h1 style="text-align: center">{% trans "Register Account" %}</h1>
+    <div style="height: 1rem;"></div>
+    <h3 style="text-align: center">{% trans "Register Account" %}</h3>
     {% if user_form.errors %}
         {{ user_form.errors }}
     {% endif %}
