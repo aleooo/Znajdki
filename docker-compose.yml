@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=znajdki
+      - POSTGRES_USER=aleo
+      - POSTGRES_PASSWORD=aleo
+    ports:
+    - "5432:5432"
+volumes:
+  postgres_data:
