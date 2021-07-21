@@ -1,6 +1,5 @@
 from pathlib import Path
 import os
-
 from decouple import config
 
 
@@ -25,7 +24,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'poszukiwania.apps.PoszukiwaniaConfig',
     "bootstrap5",
-    'leaflet',
     'autoslug',
     'rest_framework',
     'django.contrib.admin',
