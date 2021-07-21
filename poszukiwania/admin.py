@@ -1,8 +1,5 @@
 from django.contrib import admin
 from .models import Category, Rzeczy, Map
-from leaflet.admin import LeafletGeoAdmin
-from django.contrib.gis import admin as geo
-
 
 @admin.register(Map)
 class MapAdmin(admin.ModelAdmin):

@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-from utils.misc import get_git_changeset
+
 from decouple import config
 
 
@@ -132,13 +132,6 @@ STATIC_ROOT = os.path.join(PROJECT_PATH, '../static')
 MEDIA_URL = '/image/'
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'image')
 
-GOOGLE_MAPS_API_KEY = 'AIzaSyAxQ0RZR4xPvmfR-1D8I-cU3PyeKRwvfLI'
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-#     ]
-# }
 
 LOGIN_REDIRECT_URL = 'poszukiwania:objects_list'
 LOGOUT_REDIRECT_URL = 'poszukiwania:login'
