@@ -1,9 +1,7 @@
-from django.http import HttpRequest
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from poszukiwania import views
 from poszukiwania.models import Map, Category, Rzeczy
 
 
@@ -45,7 +43,6 @@ class ViewsTestCase(TestCase):
         category = Category.objects.get(title='buttons')
         response = self.client.get(reverse('poszukiwania:objects_list_by_category', args=[category.slug]))
         self.assertEqual(response.status_code, 200)
-        # self.assertNotContains(response, 'Boratynka')
         self.assertContains(response, 'wz19')
 
     def test_objects_list_style_table(self):
@@ -59,7 +56,3 @@ class ViewsTestCase(TestCase):
         response = self.client.get(first_item.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'a frequently found coin')
-
-    def test_search(self):
-        response = self.client.post(reverse('poszukiwania:search', kwargs={'znajdki': 'b'}))
-

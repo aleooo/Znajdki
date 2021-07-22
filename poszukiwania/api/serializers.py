@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from ..models import Rzeczy, Category, Map
 from django.contrib.auth.models import User
-from datetime import datetime
 
 
 class MapSerializer(serializers.ModelSerializer):
@@ -37,9 +36,9 @@ class FindsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rzeczy
-        fields = ('pk', 'location', 'category', 'user', 'name', 'slug', 'year', 'text', 'image_obverse', 'image_reverse', 'comments', 'catalog_number', 'update', 'publish')
+        fields = ('pk', 'location', 'category', 'user', 'name', 'slug', 'year', 'text', 'image_obverse',
+                  'image_reverse', 'comments', 'catalog_number', 'update', 'publish')
         read_only_fields = ('user',)
-
 
     # def update(self, instance, validated_data):
     #     category = validated_data.pop('category')
@@ -68,9 +67,3 @@ class FindsSerializer(serializers.ModelSerializer):
     #         us.save()
     #
     #     return instance
-
-
-
-
-
-

@@ -11,8 +11,7 @@ class Map(models.Model):
         app_label = 'poszukiwania'
 
     def description_f(self):
-        return '{}'.format(
-          self.description)
+        return '{}'.format(self.description)
 
 
 class Category(models.Model):
@@ -49,8 +48,7 @@ class Rzeczy(models.Model):
 
     def get_absolute_url(self):
         return reverse('poszukiwania:object_detail', args=[self.publish.year,
-                                                          self.publish.month,
-                                                          self.publish.day,
-                                                          self.slug,
-                                                          self.pk])
-
+                                                           self.publish.month,
+                                                           self.publish.day,
+                                                           self.slug,
+                                                           self.pk])

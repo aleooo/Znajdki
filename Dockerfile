@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED=1
 
 
-COPY developerrequirements.txt .
-RUN pip install -r developerrequirements.txt
+COPY dev_requirements.txt .
+RUN pip install -r dev_requirements.txt
 
 COPY . .

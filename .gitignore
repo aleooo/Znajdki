@@ -82,6 +82,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.env.prod.db
 
 # mkdocs documentation
 /site

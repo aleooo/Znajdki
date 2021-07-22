@@ -1,0 +1,53 @@
+FROM python:3.8
+
+WORKDIR .
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc
+
+RUN pip install --upgrade pip
+COPY . .
+
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.txt
+
+
+FROM python:3.8
+
+# create directory for the app user
+RUN mkdir -p /home/app
+
+# create the app user
+RUN groupadd --system app && useradd --system app -g app
+
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+# install dependencies
+RUN pip install --upgrade pip
+#RUN apt-get update && apt-get install libpq
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+# copy entrypoint-prod.sh
+COPY ./entrypoint.prod.sh $APP_HOME
+
+# copy project
+COPY . $APP_HOME
+
+# chown all the files to the app user
+RUN chown -R app:app $APP_HOME
+
+# change to the app user
+USER app
+
+# run entrypoint.prod.sh
+ENTRYPOINT ["/web/entrypoint.prod.sh"]

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Category, Rzeczy, Map
 
+
 @admin.register(Map)
 class MapAdmin(admin.ModelAdmin):
     list_display = ('point', 'description',)
@@ -10,6 +11,7 @@ class MapAdmin(admin.ModelAdmin):
 class KategoriaAdmin(admin.ModelAdmin):
     list_display = ('title',)
     prepopulated_fields = {'slug': ('title',)}
+
 
 @admin.register(Rzeczy)
 class RzeczyAdmin(admin.ModelAdmin):

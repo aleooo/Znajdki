@@ -6,7 +6,6 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.utils.text import slugify
 
-
 from .forms import SignUpForm, RzeczyForm, MapForm
 from .models import Category, Rzeczy
 
@@ -47,7 +46,6 @@ def objects_list(request, category_slug=None, session=1):
 
     page = request.GET.get('page')
     paginator = Paginator(objects, 20)
-
 
     try:
         objects_pagination = paginator.page(page)
@@ -110,6 +108,7 @@ def create(request):
                                                 'work': work
                                                 })
 
+
 def search(request):
     if request.is_ajax():
         znajdka = request.POST.get('znajdka')
@@ -160,4 +159,3 @@ def update(request, *args, **kwargs):
 def delete_objects(request, **kwargs):
     Rzeczy.objects.get(pk=kwargs['id']).delete()
     return redirect('poszukiwania:objects_list')
-

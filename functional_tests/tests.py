@@ -113,16 +113,4 @@ class NewVisitorTest(StaticLiveServerTestCase):
     #
     #     self.browser.find_element_by_id('input_search').send_keys('B')
     #     self.browser.implicitly_wait(3)
-    #     self.assertIn('Obverse', self.browser.find_element_by_class_name('light').get_attribute('outerHTML'))
-
-
-
-
-
-
-
-
-
-
-
-
+    #     self.assertIn('Obverse', self.browser.find_element_by_class_name('light').get_attribute('outerHTML'

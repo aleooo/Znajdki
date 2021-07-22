@@ -7,9 +7,9 @@ services:
     volumes:
       - .:/code
     env_file:
-      - ./.env
+      - .env.dev
     ports:
-      - "8001:80"
+      - "8000:8000"
     depends_on:
       - db
   db:
@@ -18,5 +18,8 @@ services:
       - POSTGRES_DB=znajdki
       - POSTGRES_USER=aleo
       - POSTGRES_PASSWORD=aleo
-    ports:
-    - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+volumes:
+  postgres:
+

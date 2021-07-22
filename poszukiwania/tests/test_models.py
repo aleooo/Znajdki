@@ -52,4 +52,3 @@ class ModelsTestCase(TestCase):
     def test_Map_description_f(self):
         first_map = Map.objects.get(description='point')
         self.assertIn(first_map.description_f(), 'point')
-

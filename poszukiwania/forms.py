@@ -49,4 +49,3 @@ class SignUpForm(UserCreationForm):
     error_messages = {
         'password_mismatch': _('The two password fields didn’t match.'),
     }
-
