@@ -1,22 +1,21 @@
-FROM python:3.8
+FROM python:3.8-alpine as builder
 
-WORKDIR .
+WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED=1
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
 
 RUN pip install --upgrade pip
 COPY . .
-
 COPY ./requirements.txt .
-RUN pip install -r requirements.txt
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.txt
+
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
 
 
-FROM python:3.8
+FROM python:3.8-alpine
 
 # create directory for the app user
 RUN mkdir -p /home/app
@@ -31,10 +30,9 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 # install dependencies
-RUN pip install --upgrade pip
-#RUN apt-get update && apt-get install libpq
+RUN apk update && apk add libpq
 COPY --from=builder /usr/src/app/wheels /wheels
-COPY --from=builder requirements.txt .
+COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
 # copy entrypoint-prod.sh
@@ -50,4 +48,4 @@ RUN chown -R app:app $APP_HOME
 USER app
 
 # run entrypoint.prod.sh
-ENTRYPOINT ["/web/entrypoint.prod.sh"]
+ENTRYPOINT ["/home/app/web/entrypoint.prod.sh"]
