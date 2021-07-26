@@ -176,10 +176,10 @@ p {
     border-radius: 0 0.5rem 0.5rem 0;
 }
 #dark{
-    background: linear-gradient(to top, white, paleturquoise);
+    background: linear-gradient(to top, white, #9ebdbd);
 }
 #light{
-    background: linear-gradient(to bottom, white, paleturquoise);
+    background: linear-gradient(to bottom, white, #9ebdbd);
 }
 .item{
     height: 5rem;
@@ -206,16 +206,18 @@ p {
      margin-left: 12rem;
 }
 .ciemny, .jasny{
-    height: 22vh;
-    width: 34vh;
+    height: 12rem;
+    width: 18rem;
      border-radius: 1rem;
-    float: left;
-    margin: 0.5rem;
+     position: relative;
+    margin-bottom: 2rem;
+
 }
 .image{
-    width: 17vh;
-    height: 17vh;
+    width: 9rem;
+    height: 9rem;
     border-radius: 0 0 1rem 1rem;
+
 }
 .jasny{
     background-color: #deeaee;
@@ -224,9 +226,12 @@ p {
     background-color: lavender;
 }
 .objects{
+    position: relative;
     width: 100%;
     height: auto;
-    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 .mapid {
     margin-top: 2rem;
@@ -277,11 +282,6 @@ p {
     border-radius: 1rem;
     transition: all 0.5s;
 }
-image_detail:hover{
-    width: 24rem;
-    height: 24rem;
-}
-
 .row_table{
     background-color: lightgrey;
     width: 100%;
