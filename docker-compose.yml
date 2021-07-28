@@ -1,25 +1,45 @@
-version: "3.9"
+version: '3.7'
 
 services:
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-    env_file:
-      - .env.dev
+  nginx:
+    build: ./nginx
     ports:
-      - "8000:8000"
+      - "1337:80"
+    restart: always
+    networks:
+      - nginx_network
+    depends_on:
+      - web
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: gunicorn znajdki.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - "8000"
+    env_file:
+      - ./.env.prod
+    networks:
+      - nginx_network
+      - postgres_network
     depends_on:
       - db
   db:
     image: postgres
-    environment:
-      - POSTGRES_DB=znajdki
-      - POSTGRES_USER=aleo
-      - POSTGRES_PASSWORD=aleo
     volumes:
       - postgres:/var/lib/postgresql/data
+    env_file:
+      - ./.env.prod.db
+    networks:
+      - postgres_network
+
+networks:
+   nginx_network:
+     driver: bridge
+   postgres_network:
+     driver: bridge
+
 volumes:
   postgres:
+
 

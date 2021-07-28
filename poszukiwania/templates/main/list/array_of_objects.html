@@ -1,44 +1,38 @@
 <div class="objects">
     {% if request.session.style == 'thumbnail' %}
         {% for object in objects %}
-
-
-                <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
-                <a href="{{ object.get_absolute_url }}">
-                    <table>
-                       <tr>
-                           <td>
-                               <div style="display: flex">
-                                   <img class="image" src="{{ object.image_obverse.url }}">
-                                   <img class="image" src="{{ object.image_reverse.url }}">
-                               </div>
-                           </td>
-                       </tr>
-                        <tr>
-                            <td>
-                                <div class="float_left text-justify"><h4>{{ object.name }}</h4></div>
-                                <div class="float_right">
-                                    <div>
-                                        <h6 style="color: darkslategrey">
-                                            {% if object.year != None %}
-                                                {{ object.year }}
-                                            {% endif %}
-                                        </h6>
-                                    </div>
-                                    {% if object.catalog_number != 0 %}
-                                        <div><h6 style="color: darkred">{{ object.catalog_number}}</h6></div>
-                                    {% endif %}
+            <div  {% if forloop.counter|divisibleby:2 %} class="ciemny"{% else %} class="jasny"{% endif %}>
+            <a href="{{ object.get_absolute_url }}">
+                <table>
+                   <tr>
+                       <td>
+                           <div style="display: flex">
+                               <img class="image" src="{{ object.image_obverse.url }}">
+                               <img class="image" src="{{ object.image_reverse.url }}">
+                           </div>
+                       </td>
+                   </tr>
+                    <tr>
+                        <td>
+                            <div class="float_left text-justify"><h4>{{ object.name }}</h4></div>
+                            <div class="float_right">
+                                <div>
+                                    <h6 style="color: darkslategrey">
+                                        {% if object.year != None %}
+                                            {{ object.year }}
+                                        {% endif %}
+                                    </h6>
                                 </div>
-
-                            </td>
-                        </tr>
-                    </table>
-                 </a>
-                </div>
-
-
-        {% endfor %}
-
+                                {% if object.catalog_number != 0 %}
+                                    <div><h6 style="color: darkred">{{ object.catalog_number}}</h6></div>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+             </a>
+        </div>
+    {% endfor %}
     {% elif request.session.style == 'table' %}
         <table class="width" id="table_table" >
             <tbody>
@@ -69,13 +63,9 @@
                                 {% endif %}
                             </td>
                             <td class="tdth">{{ object.publish }}</td>
-
                         </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% endif %}
 </div>
-
-
-
