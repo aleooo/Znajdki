@@ -1,21 +1,21 @@
-FROM python:3.8.3-alpine as builder
+FROM python:3.8.10:slim as builder
 
 WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
+#libjpeg
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev jpeg-dev zlib-dev
+    && apk add postgresql-dev gcc python3-dev musl-dev jpeg-dev zlib-dev libjpeg-turbo
 
-RUN pip install --upgrade pip
+RUN python3 -m pip install --upgrade pip
 COPY . .
 COPY ./requirements.txt .
 
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+RUN python3 -m pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
 
 
-FROM python:3.8.3-alpine
+FROM python:3.8.10-slim
 # create directory for the app user
 RUN mkdir -p /home/app
 
@@ -33,7 +33,7 @@ WORKDIR $APP_HOME
 RUN apk update && apk add libpq
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
-RUN pip install --no-cache /wheels/*
+RUN python3 -m pip install --no-cache /wheels/*
 
 # copy entrypoint-prod.sh
 COPY ./entrypoint.prod.sh $APP_HOME
