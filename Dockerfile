@@ -1,12 +1,12 @@
-FROM python:3.8.10:slim as builder
+FROM python:3.8.10-slim as builder
 
 WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 #libjpeg
-RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev jpeg-dev zlib-dev libjpeg-turbo
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends gcc
 
 RUN python3 -m pip install --upgrade pip
 COPY . .
@@ -20,23 +20,21 @@ FROM python:3.8.10-slim
 RUN mkdir -p /home/app
 
 # create the app user
-RUN addgroup -S app && adduser -S app -G app
+RUN addgroup --system app && adduser --system --group app
 
 
 # create the appropriate directories
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
 RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/static
 WORKDIR $APP_HOME
 
 # install dependencies
-RUN apk update && apk add libpq
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
+RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install --no-cache /wheels/*
-
-# copy entrypoint-prod.sh
-COPY ./entrypoint.prod.sh $APP_HOME
 
 # copy project
 COPY . $APP_HOME
@@ -46,6 +44,3 @@ RUN chown -R app:app $APP_HOME
 
 # change to the app user
 USER app
-
-# run entrypoint.prod.sh
-ENTRYPOINT ["/home/app/web/entrypoint.prod.sh"]
