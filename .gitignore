@@ -5,6 +5,10 @@ image/rzeczy
 __pycache__
 db.sqlite3
 media
+migrations
+
+#migration
+
 
 # Backup files #
 *.bak
