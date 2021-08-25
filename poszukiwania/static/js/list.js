@@ -5,6 +5,7 @@ const csrfToken = $('[name = csrfmiddlewaretoken]')[0].value
 // let getSidebar = $('.sidebar');
 // var mymap = L.map('Mapa')
 
+
 function sendSearchData(znajdka){
     $.ajax({
         type: 'POST',

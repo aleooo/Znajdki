@@ -3,6 +3,7 @@ import os
 from decouple import config
 
 
+
 # PROJECT_PATH = Path(__file__).resolve().parent.parent
 # PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__))))
@@ -54,6 +55,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
