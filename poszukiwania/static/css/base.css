@@ -147,10 +147,7 @@ p {
     border-radius: 1rem;
 
 }
-.panel_link{
-    position: relative;
-    top: 1rem;
-}
+
 #center {
     margin-bottom: auto;
     margin-top: auto;
@@ -302,7 +299,13 @@ p {
 .function_button:hover{
     background-color: darkgray;
 }
-
+.panel_link{
+    position: relative;
+    top: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: left;
+}
 .btn-toggle-nav {
     width: 2rem;
     height: 2rem;
@@ -324,6 +327,11 @@ p {
     -webkit-transition: all 0.3s ease-in-out; /* Safari and Chrome */
     -o-transition: all 0.3s ease-in-out; /* Opera */
 
+}
+.addSign{
+    margin-left: 2rem;
+    width: 2rem;
+    height: 2rem;
 }
 .activeSidebar{
 

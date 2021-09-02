@@ -93,9 +93,10 @@ tr:nth-child(even) {
 
         <div id='mapid'  class="mapid" style="margin: auto; margin-top: 50px; width: 600px">
         <script type="text/javascript">
+        console.log()
             var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
             var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'});
-               var m = L.map('mapid',   {center: [52.012, 21.922],
+               var m = L.map('mapid',   {center: [{{ point.point.lat|safe }}, {{ point.point.lng|safe }}],
                                         zoom: 15,
                                         layers: [satellite]});
             var baseMaps = {
